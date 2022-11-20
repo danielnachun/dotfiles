@@ -1,0 +1,162 @@
+#!/bin/bash
+
+system_type=$(uname -s)
+
+{{ if eq .chezmoi.os "linux" -}}
+    PATH=$HOME/.local/bin:$PATH
+    curl micro.mamba.pm/install.sh | bash
+    source $HOME/.bashrc
+    micromamba config prepend channels defaults
+    micromamba config prepend channels bioconda
+    micromamba config prepend channels conda-forge
+    micromamba config prepend channels dnachun
+    micromamba activate base
+    micromamba config set auto_activate_base true
+    micromamba install --yes \
+        archiver \
+        aria2 \
+        atool \
+        autoconf \
+        autogen \
+        automake \
+        bash \
+        bat \
+        bc \
+        binutils \
+        bison \
+        breezy \
+        bzip2 \
+        ccat \
+        clang \
+        clangxx \
+        cmake \
+        conda-tree \
+        coreutils \
+        cpio \
+        curl \
+        cvs \
+        datamash \
+        diffutils \
+        entr \
+        exa \
+        fd-find \
+        file \
+        flex \
+        fzf \
+        fzy \
+        gawk \
+        gcc \
+        gdb \
+        gfortran \
+        git \
+        global \
+        gnupg \
+        grep \
+        grex \
+        groff \
+        gxx \
+        hstr \
+        htop \
+        hyperfine \
+        inetutils \
+        less \
+        lftp \
+        lld \
+        lldb \
+        lsof \
+        lzip \
+        lzo \
+        lzop \
+        m4 \
+        make \
+        mamba \
+        man-db \
+        members \
+        mercurial \
+        meson \
+        miller \
+        moreutils \
+        ncdu \
+        ncftp \
+        neofetch \
+        neovim \
+        nushell \
+        nvim \
+        oil \
+        openssh \
+        p7zip \
+        patch \
+        patchelf \
+        pax \
+        pbzip2 \
+        peco \
+        percol \
+        perl-ack \
+        perl-cope \
+        pick \
+        pixz \
+        plzip \
+        procps-ng \
+        ranger-fm \
+        rclone \
+        ripgrep \
+        ripgrep-all \
+        rsync \
+        sed \
+        shellcheck \
+        skim \
+        smem \
+        ssed \
+        subversion \
+        sysstat \
+        sysroot_linux-64=2.17 \
+        tar \
+        texinfo \
+        time \
+        tmux \
+        trash-cli \
+        tree \
+        unar \
+        unzip \
+        util-linux \
+        valgrind \
+        wget \
+        which \
+        xauth \
+        xclip \
+        xonsh \
+        xz \
+        yadm \
+        zip \
+        zsh
+    # Do these after so they override conflicting files
+    micromamba install --yes parallel rename
+    micromamba shell init --shell zsh
+    mamba init bash
+    mamba init zsh
+    conda config --set auto_stack 1
+{{ end }}
+
+# Install 
+if [ ! -d $HOME/.local/share/zinit ]; then
+    bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+    zsh -c "source $HOME/.zshrc; zinit update"
+fi
+
+if [ ! -d $HOME/.config/base16-shell ]; then
+    git clone https://github.com/chriskempson/base16-shell.git $HOME/.config/base16-shell
+fi
+
+if [ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+fi
+
+if [ ! -d $HOME/.tmux/plugins/tpm ]; then
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+fi
+
+if [ ! -d $HOME/.config/ranger/plugins/ranger_devicons ]; then
+    git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins/ranger_devicons
+fi
