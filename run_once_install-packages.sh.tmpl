@@ -7,7 +7,7 @@ system_type=$(uname -s)
         PATH=$HOME/.local/bin:$PATH
         curl micro.mamba.pm/install.sh | bash
     fi
-    source $HOME/.bashrc
+    eval $(micromamba shell hook --shell=bash)
     micromamba config prepend channels defaults
     micromamba config prepend channels bioconda
     micromamba config prepend channels conda-forge
@@ -154,25 +154,25 @@ system_type=$(uname -s)
 {{ end }}
 
 # Install 
-#if [ ! -d $HOME/.local/share/zinit ]; then
-    #bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-    #zsh -c "source $HOME/.zshrc; zinit update"
-#fi
+if [ ! -d $HOME/.local/share/zinit ]; then
+    bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+    zsh -c "source $HOME/.zshrc; zinit update"
+fi
 
-#if [ ! -d $HOME/.config/base16-shell ]; then
-    #git clone https://github.com/chriskempson/base16-shell.git $HOME/.config/base16-shell
-#fi
+if [ ! -d $HOME/.config/base16-shell ]; then
+    git clone https://github.com/chriskempson/base16-shell.git $HOME/.config/base16-shell
+fi
 
-#if [ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
-    #sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-        #https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    #nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
-#fi
+if [ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+fi
 
-#if [ ! -d $HOME/.tmux/plugins/tpm ]; then
-    #git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-#fi
+if [ ! -d $HOME/.tmux/plugins/tpm ]; then
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+fi
 
-#if [ ! -d $HOME/.config/ranger/plugins/ranger_devicons ]; then
-    #git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins/ranger_devicons
-#fi
+if [ ! -d $HOME/.config/ranger/plugins/ranger_devicons ]; then
+    git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins/ranger_devicons
+fi
