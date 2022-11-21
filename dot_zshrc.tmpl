@@ -34,7 +34,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 {{ if eq .chezmoi.os "darwin" }}
-export HOMEBREW_GITHUB_API_TOKEN={{ keyring "github" .github.user | quote }}
+export HOMEBREW_GITHUB_API_TOKEN="$(chezmoi secret keyring get --service=github --user=danielnachun)"
 
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
@@ -49,7 +49,6 @@ export PATH="/usr/local/opt/grep/libexec/gnubin/:$PATH"
 export PATH="/usr/local/opt/libtool/libexec/gnubin/:$PATH"
 export PATH="/usr/local/opt/make/libexec/gnubin/:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
-export PATH="$(cope_path):$PATH"
 {{ end }}
 
 # Load dircolors before plugins
@@ -269,6 +268,7 @@ autoload -Uz compinit && compinit
 autoload -Uz compdef
 autoload -Uz promptinit && promptinit
 
+{{ if eq .chezmoi.os "linux" }}
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE="/home/dnachun/.local/bin/micromamba";
@@ -285,8 +285,6 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
-
-export PATH="$(cope_path):$PATH" # restore when cope conda package is made
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -306,3 +304,6 @@ if [ -f "/home/dnachun/micromamba/etc/profile.d/mamba.sh" ]; then
     . "/home/dnachun/micromamba/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
+{{ end }}
+
+export PATH="$(cope_path):$PATH" # restore when cope conda package is made
