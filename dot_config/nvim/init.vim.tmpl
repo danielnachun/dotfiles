@@ -291,9 +291,9 @@ function! BuildComposer(info)
     endif
   endif
 endfunction
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 {{ end }}
 "Plug 'suan/vim-instant-markdown' "Markdown contiuous compile
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
 "Movement
 Plug 'easymotion/vim-easymotion' "use letters to jump to words
