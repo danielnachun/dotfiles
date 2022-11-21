@@ -94,7 +94,7 @@ system_type=$(uname -s)
         peco \
         percol \
         perl-ack \
-        perl-cope \
+        perl-app-cope \
         pick \
         pixz \
         plzip \
@@ -149,7 +149,7 @@ system_type=$(uname -s)
     micromamba shell init --shell zsh
     mamba init zsh
     conda config --set auto_stack 1
-    conda config --set auto_activate_base
+    conda config --set auto_activate_base false
     # TODO iterm stuff
 {{ end }}
 
