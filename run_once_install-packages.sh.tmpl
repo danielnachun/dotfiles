@@ -13,10 +13,7 @@ system_type=$(uname -s)
     micromamba config prepend channels bioconda
     micromamba config prepend channels conda-forge
     micromamba config prepend channels dnachun
-    echo "channels added"
-    echo "environment activated"
     micromamba config set auto_activate_base true
-    echo "config finished"
     micromamba install --yes \
         archiver \
         aria2 \
@@ -136,7 +133,6 @@ system_type=$(uname -s)
         zsh
     # Do these after so they override conflicting files
     micromamba install --yes parallel rename
-    echo "install finished"
     micromamba shell init --shell zsh
     mamba init bash
     mamba init zsh
@@ -150,15 +146,17 @@ system_type=$(uname -s)
     fi
 
     #brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
-    micromamba shell init --shell zsh
-    mamba init zsh
-    conda config --set auto_stack 1
-    conda config --set auto_activate_base false
+    #micromamba shell init --shell zsh
+    #mamba init zsh
+    #conda config --set auto_stack 1
+    #conda config --set auto_activate_base false
     # TODO iterm stuff
 {{ end }}
 
 # Install 
 if [ ! -d $HOME/.local/share/zinit ]; then
+    export NO_INPUT
+    export NO_ANNEXES
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
     zsh -c "source $HOME/.zshrc; zinit update"
 fi
