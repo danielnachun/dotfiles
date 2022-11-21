@@ -3,8 +3,10 @@
 system_type=$(uname -s)
 
 {{ if eq .chezmoi.os "linux" -}}
-    PATH=$HOME/.local/bin:$PATH
-    curl micro.mamba.pm/install.sh | bash
+    if [ ! -f $HOME/.local/bin/micromamba ]; then
+        PATH=$HOME/.local/bin:$PATH
+        curl micro.mamba.pm/install.sh | bash
+    fi
     source $HOME/.bashrc
     micromamba config prepend channels defaults
     micromamba config prepend channels bioconda
