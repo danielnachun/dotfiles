@@ -1,31 +1,29 @@
 #zmodload zsh/zprof # for debugging shell startup speed
-#
-# Use perl local lib for cope (for now)
 {{ if eq .chezmoi.os "darwin" }}
+# Use perl local lib for cope (for now)
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 {{ end }}
 
 # Manually configured section
 # Aliases
 alias vim="nvim"
-
-# Aliases to run some conda packages w/o activating environment
 {{ if eq .chezmoi.os "linux" }}
+# Aliases to run some conda packages w/o activating environment
 if [[ -f "$HOME/.conda_aliases" ]]; then
     source $HOME/.conda_aliases
 fi
-{{ end }}
 
-# Make aliases for SSH hosts when logging in from macOS
+{{ end }}
 {{ if eq .chezmoi.os "darwin" }}
+# Make aliases for SSH hosts when logging in from macOS
 alias scg1='ssh -Y dnachun@login01.scg.stanford.edu -t zsh'
 alias scg2='ssh -Y dnachun@login02.scg.stanford.edu -t zsh'
 alias scg3='ssh -Y dnachun@login03.scg.stanford.edu -t zsh'
 alias scg4='ssh -Y dnachun@login04.scg.stanford.edu -t zsh'
 
 alias sherlock='ssh -Y dnachun@sherlock.stanford.edu -t zsh'
-{{ end }}
 
+{{ end }}
 # Environment variables
 export EDITOR="nvim"
 export SPROMPT='zsh: correct %F{1}%R%f to %F{2}%r%f [nyae]? '
@@ -37,10 +35,10 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 {{ if eq .chezmoi.os "darwin" }}
 export HOMEBREW_GITHUB_API_TOKEN={{ keyring "github" .github.user | quote }}
-{{ end }}
 
-# Use GNU utilities in macOS instead of BSD ones
+{{ end }}
 {{ if eq .chezmoi.os "darwin" }}
+# Use GNU utilities in macOS instead of BSD ones
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/findutils/libexec/gnubin/:$PATH"
 export PATH="/usr/local/opt/gawk/libexec/gnubin/:$PATH"
@@ -70,7 +68,6 @@ eval $(dircolors)
 
 # Broot
 #source /home/dnachun/.config/broot/launcher/bash/br
-
 {{ if eq .chezmoi.os "darwin" }}
 # iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
