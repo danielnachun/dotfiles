@@ -137,6 +137,20 @@ system_type=$(uname -s)
     conda config --set auto_stack 1
 {{ end }}
 
+
+{{ if eq .chezmoi.os "darwin" -}}
+    if [ ! command -v brew &> /dev/null ]; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
+    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
+    micromamba shell init --shell zsh
+    mamba init zsh
+    conda config --set auto_stack 1
+    conda config --set auto_activate_base
+    # TODO iterm stuff
+{{ end }}
+
 # Install 
 if [ ! -d $HOME/.local/share/zinit ]; then
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
