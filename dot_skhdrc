@@ -8,7 +8,7 @@ alt - 7 : yabai -m space --focus 7; yabai -m window --focus mouse
 alt - 8 : yabai -m space --focus 8; yabai -m window --focus mouse
 alt - 9 : yabai -m space --focus 9; yabai -m window --focus mouse
 alt - 0 : yabai -m space --focus 10; yabai -m window --focus mouse
-alt - 0x32 : yabai -m space --focus $(cat /Users/dnachun/tmp/prev_desktop)
+alt - 0x32 : yabai -m space --focus recent
 
 alt - space : yabai -m window --toggle zoom-fullscreen
 alt - t : yabai -m window --toggle float
