@@ -281,7 +281,19 @@ Plug 'kana/vim-advice' "alter commands?
 Plug 'lervag/vimtex' "LaTeX continuous compile
 
 "Markdown
-Plug 'suan/vim-instant-markdown' "Markdown contiuous compile
+{{ if eq .chezmoi.os "darwin" }}
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release --locked
+    else
+      !cargo build --release --locked --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
+{{ end }}
+"Plug 'suan/vim-instant-markdown' "Markdown contiuous compile
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
 "Movement
 Plug 'easymotion/vim-easymotion' "use letters to jump to words
