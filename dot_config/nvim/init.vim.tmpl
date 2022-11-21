@@ -51,6 +51,7 @@ autocmd BufEnter,WinEnter * silent! :lcd%:p:h
 autocmd TermOpen * :resize 18
 autocmd TermOpen * :set nonumber
 autocmd OptionSet guicursor noautocmd set guicursor=
+autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
 
 "Navigate buffers
 noremap <C-J> <C-W>j
