@@ -1,6 +1,7 @@
 README.md
 
 {{ if ne .chezmoi.os "darwin" }}
+Brewfile
 .yabairc    
 .skhdrc
 {{ end }}
