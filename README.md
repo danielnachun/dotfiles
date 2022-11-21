@@ -4,7 +4,11 @@ This repository contains my set of personal dotfiles managed by [chezmoi](https:
 - On Linux, `glibc` >= 2.17 and kernel >= 3.2 (required by Rust and some other `conda` packages)
 - On macOS, any version officially supported by Apple (for Homebrew)
 
-To install use `$ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME`, which will automatically download a pre-built `chezmoi` binary for your platform and clone the dotfiles in this repo into the correct locations.
+To install use:
+```
+$ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply danielnachun
+```
+which will automatically download a pre-built `chezmoi` binary for your platform and clone the dotfiles in this repo into the correct locations.
 
 Beyond simply copying the dotfiles, I also use the [scripting functionality](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/) of `chezmoi` to bootstrap installing all necessary CLI tools for a complete environment.  The goal is to fully automate configuring Linux and macOS with a focus on using macOS on a personal computer with sudo access as a "gateway" to a Linux HPC system which does not have sudo access.
 
