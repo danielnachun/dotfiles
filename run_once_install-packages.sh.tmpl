@@ -8,12 +8,12 @@ system_type=$(uname -s)
         curl micro.mamba.pm/install.sh | bash
     fi
     source $HOME/.bashrc
+    micromamba activate
     micromamba config prepend channels defaults
     micromamba config prepend channels bioconda
     micromamba config prepend channels conda-forge
     micromamba config prepend channels dnachun
     echo "channels added"
-    micromamba activate base
     echo "environment activated"
     micromamba config set auto_activate_base true
     echo "config finished"
