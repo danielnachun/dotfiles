@@ -87,9 +87,6 @@ call plug#begin('$HOME/.nvim/plugged')
 
 "Miscellaneous
 Plug 'alker0/chezmoi.vim'
-filetype plugin indent on
-syntax on
-
 Plug 'vim-airline/vim-airline' "status bar
 Plug 'vim-airline/vim-airline-themes' "status bar
 Plug 'edkolev/tmuxline.vim' "tmux theme
@@ -161,7 +158,6 @@ Plug 'Shougo/neco-vim' "vimscript completion
 
 "YouCompleteMe
 "Plug 'ycm-core/YouCompleteMe'
-"let ycm_semantic_triggers = { 'r' : ['re!..', '::', '$', '@', '(', ','] }
 
 "ncm2
 Plug 'ncm2/ncm2' "completion engine
@@ -186,8 +182,6 @@ Plug 'ncm2/ncm2-racer'
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-go'
 Plug 'liubianshi/ncm-R' "r completion
-
-autocmd BufEnter * call ncm2#enable_for_buffer()
 
 "LanguageServer
 "Plug 'autozimu/LanguageClient-neovim', {
@@ -463,6 +457,10 @@ let g:airline_theme='base16'
     "\ }
     "\ }))
 
+"Load after plugins
+filetype plugin indent on
+syntax on
+
 "Cmdline
 let cmdline_app = {}
 let cmdline_app["python"] = "jupyter-console"
@@ -606,6 +604,7 @@ inoremap <c-c> <ESC>
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+autocmd BufEnter * call ncm2#enable_for_buffer()
 autocmd BufNewFile,BufRead * inoremap <silent> <buffer> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 "au User Ncm2Plugin call ncm2#register_source({
@@ -738,6 +737,9 @@ let g:vimtex_compiler_latexmk = {
     \ 'backend' : 'nvim',
     \}
 let g:tex_flavor = 'latex'
+
+"YouCompleteMe
+"let ycm_semantic_triggers = { 'r' : ['re!..', '::', '$', '@', '(', ','] }
 
 if filereadable(expand("$HOME/.vimrc_background"))
   let base16colorspace=256
