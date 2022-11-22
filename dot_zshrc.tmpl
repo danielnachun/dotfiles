@@ -83,6 +83,9 @@ ssh-add -A &> /dev/null
 #alias pml="pm list"
 # end PM
 
+# Zoxide
+eval "$(zoxide init zsh)"
+
 # Automatic or semi-automatic configuration
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -182,6 +185,7 @@ zinit light "zsh-users/zsh-history-substring-search"
 zinit snippet OMZP::history
 zinit light "zdharma-continuum/history-search-multi-word"
 zinit light "tarruda/zsh-autosuggestions"
+zinit light "ellie/atuin"
 
 # Python
 #zinit snippet OMZP::pep8
