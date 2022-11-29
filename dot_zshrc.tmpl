@@ -66,7 +66,9 @@ eval $(dircolors)
         #eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # Broot
-#source /home/dnachun/.config/broot/launcher/bash/br
+if [ -f $HOME/.config/broot/launcher/bash/br ]; then
+    source $HOME/.config/broot/launcher/bash/br
+fi
 {{ if eq .chezmoi.os "darwin" }}
 # iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -84,7 +86,9 @@ ssh-add -A &> /dev/null
 # end PM
 
 # Zoxide
-eval "$(zoxide init zsh)"
+if [ command -v zoxide &> /dev/null ]; then
+    eval "$(zoxide init zsh)"
+fi
 
 # Automatic or semi-automatic configuration
 # The following lines were added by compinstall
@@ -310,4 +314,6 @@ fi
 # <<< conda initialize <<<
 {{ end }}
 
-export PATH="$(cope_path):$PATH" # restore when cope conda package is made
+if [ command -v cope_path &> /dev/null ]; then
+    export PATH="$(cope_path):$PATH"
+fi
