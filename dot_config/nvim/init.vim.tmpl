@@ -1,5 +1,4 @@
 "Basic settings
-
 set guicursor=
 set tabstop=4
 set shiftwidth=4
@@ -32,6 +31,7 @@ set termguicolors
 set shortmess+=c
 "set omnifunc=syntaxcomplete#Complete
 set cursorline
+set mousemoveevent
 "set autochdir
 "set winminheight=20
 
@@ -85,10 +85,30 @@ let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
 let g:plug_timeout = 240
 call plug#begin('$HOME/.nvim/plugged')
 
-"Miscellaneous
 Plug 'alker0/chezmoi.vim'
-Plug 'vim-airline/vim-airline' "status bar
-Plug 'vim-airline/vim-airline-themes' "status bar
+"Load after plugins
+filetype plugin indent on
+syntax on
+
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'rcarriga/nvim-notify'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'folke/noice.nvim'
+"Plug 'vigoux/notifier.nvim'
+
+"Miscellaneous
+"Plug 'vim-airline/vim-airline' "status bar
+"Plug 'vim-airline/vim-airline-themes' "status bar
+"Plug 'romgrk/barbar.nvim' "status bar
+Plug 'nvim-tree/nvim-web-devicons' " Recommended (for coloured icons)
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'tiagovla/scope.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'RRethy/nvim-base16'
+Plug 'wfxr/minimap.vim'
+
 Plug 'edkolev/tmuxline.vim' "tmux theme
 Plug 'chrisbra/csv.vim' "display CSV
 Plug 'sjl/gundo.vim' "undo history
@@ -98,11 +118,13 @@ Plug 'christoomey/vim-tmux-navigator' "tmux shortcuts
 Plug 'tpope/vim-unimpaired' "miscellaneous paired mappings
 Plug 'tpope/vim-abolish' "act on word variants
 Plug 'christoomey/vim-system-copy' "use system clipboard
-Plug 'zhaocai/goldenview.vim' "split buffers
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+"Plug 'zhaocai/goldenview.vim' "split buffers
+"Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'folke/which-key.nvim'
 "Plug 'nhooyr/neoman.vim' "use neovim to read man pages
-nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
+"nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
+"nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
+"
 
 "Plug 'vim-scripts/a.vim'
 "Plug 'vim-jp/vital.vim'
@@ -119,7 +141,8 @@ nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
 "Plug 'joshdick/onedark.vim'
 "Plug 'fneu/breezy'
 "Plug 'dracula/vim'
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
+"Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 "Plug 'morhetz/gruvbox'
 "Plug 'nanotech/jellybeans.vim'
 "Plug 'dikiaap/minimalist'
@@ -234,9 +257,14 @@ Plug 'liubianshi/ncm-R' "r completion
     "\ }
 
 "File Management
-Plug 'scrooloose/nerdtree' "Open other files
-Plug 'jistr/vim-nerdtree-tabs' "Keep nerdtree open in all tabs
-Plug 'mhinz/vim-startify' "vim start screen!
+"Plug 'scrooloose/nerdtree' "Open other files
+"Plug 'jistr/vim-nerdtree-tabs' "Keep nerdtree open in all tabs
+Plug 'nvim-tree/nvim-tree.lua'
+"Plug 'nvim-neo-tree/neo-tree.nvim'
+"Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'kevinhwang91/rnvimr'
+"Plug 'mhinz/vim-startify' "vim start screen!
+Plug 'goolord/alpha-nvim'
 Plug 'justinmk/vim-dirvish' "remote file editing
 Plug 'amiorin/vim-project' "huh?
 Plug 'tpope/vim-eunuch' "POSIX file commands
@@ -320,8 +348,8 @@ Plug 'junegunn/fzf.vim' "search commands
 Plug 'rking/ag.vim' "keep around
 Plug 'Shougo/denite.nvim' "more interfaces when fzf not available
 Plug 'Shougo/unite.vim' "replace with dark version - replace with FZF
-Plug 'tacahiroy/ctrlp-funky' "navigate to functions - replace with FZF
-Plug 'kien/ctrlp.vim' "Launch recently used files - FZF
+"Plug 'tacahiroy/ctrlp-funky' "navigate to functions - replace with FZF
+"Plug 'kien/ctrlp.vim' "Launch recently used files - FZF
 Plug 'mileszs/ack.vim'
 "Plug 'wincent/Command-T'
 
@@ -340,7 +368,7 @@ Plug 'scrooloose/syntastic' "check syntax
 "Plug 'reinh/vim-makegreen'
 
 "Tabs/buffers - slim down!
-Plug 'szw/vim-ctrlspace' "navigate tabs - replace with FZF?
+"Plug 'szw/vim-ctrlspace' "navigate tabs - replace with FZF?
 "Plug 'jlanzarotta/bufexplorer'
 "Plug 'fholgado/minibufexpl.vim'
 
@@ -366,6 +394,7 @@ Plug 'tpope/vim-fugitive' "git plugin
 Plug 'ryanoasis/vim-devicons' "unicode icons everywhere
 call plug#end()
 
+
 "tpope/dispatch - async - needed?
 "skywind3000/asyncrun.vim - async
 
@@ -374,7 +403,7 @@ map <leader>a <Esc>:FzfAg!
 
 "Airline
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 "let g:airline#extensions#coc#enabled = 1
 "let g:airline_solarized_bg='dark'
 let g:airline_theme='base16'
@@ -457,9 +486,6 @@ let g:airline_theme='base16'
     "\ }
     "\ }))
 
-"Load after plugins
-filetype plugin indent on
-syntax on
 
 "Cmdline
 let cmdline_app = {}
@@ -572,7 +598,7 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 map <leader>vv :Gcommit -a -m "HEAD"<CR> :Gpush -q<CR>
 
 "FZF
-noremap <C-P> :FzfHistory<CR>
+"noremap <C-P> :FzfHistory<CR>
 nnoremap <leader>lu :FzfBLines<CR>
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = {'down' : '~25%'}
@@ -581,10 +607,18 @@ let g:fzf_layout = {'down' : '~25%'}
 let g:goldenview__enable_default_mapping = 0
 
 "Gundo
-map <leader>g :GundoToggle<CR>
+map <leader>g GundoToggle<CR>
 
 "Jedi-vim
 let g:jedi#completions_enabled = 0
+
+"Minimap
+autocmd ColorScheme *
+        \ highlight minimapCursor            ctermbg=59  ctermfg=228 guibg=#5F5F5F guifg=#FFFF87 |
+        \ highlight minimapRange             ctermbg=242 ctermfg=228 guibg=#4F4F4F guifg=#FFFF87
+"let g:minimap_auto_start = 1
+let g:minimap_highlight_search = 1
+let g:minimap_auto_start_win_enter = 1
 
 "Multiple Cursor
 "let g:multi_cursor_quit_key='<Shift><Esc>'
@@ -624,7 +658,9 @@ let g:ncm2#match_highlight = 'bold'
 let g:neoterm_repl_python = "ipython"
 
 "Nerd Tree
-map <leader>n :NERDTreeToggle<CR>
+"map <leader>n :NERDTreeToggle<CR>
+map <leader>n :NvimTreeToggle<CR>
+"map <leader>n :Neotree toggle<CR>
 
 "Nvim-R
 let r_syntax_folding = 1 "Enable folding
@@ -701,6 +737,9 @@ let g:tagbar_type_r = {
 "Tasklist
 map <leader>td <Plug>TaskList
 
+"Telescope 
+noremap <C-P> :Telescope oldfiles<CR>
+
 "Tmux-navigator
 let g:tmux_navigator_no_mappings = 1
 
@@ -741,12 +780,14 @@ let g:tex_flavor = 'latex'
 "YouCompleteMe
 "let ycm_semantic_triggers = { 'r' : ['re!..', '::', '$', '@', '(', ','] }
 
-if filereadable(expand("$HOME/.vimrc_background"))
-  let base16colorspace=256
-  source $HOME/.vimrc_background
-endif
+"if filereadable(expand("$HOME/.vimrc_background"))
+  "let base16colorspace=256
+  "source $HOME/.vimrc_background
+"endif
 
 "set background=light
+"colorscheme catppuccin-latte
+lua require('base16-colorscheme').with_config { telescope = false }
 colorscheme base16-one-light 
 "Override rOperator link for base16
 hi def link rOperator    Statement 
@@ -755,11 +796,69 @@ hi def link rOperator    Statement
 "colorscheme solarized8_high
 
 "Color overrides
+autocmd ColorScheme * highlight LineNr guibg=#f0f0f1
 "hi Visual ctermfg=0 ctermbg=222
 "hi Folded ctermbg=NONE
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
-"highlight LineNr ctermbg=NONE
 "hi Visual ctermbg=11
 "hi Spellbad ctermbg=1 ctermfg=15
 "hi Search ctermfg=0 ctermbg=59
+
+lua << EOF
+    require("nvim-web-devicons").setup({
+        color_icons = false
+    })
+    require("scope").setup()
+    require("noice").setup()
+    require("notify").setup()
+    require("telescope").setup()
+    require("which-key").setup()
+    require("nvim-tree").setup()
+    require("bufferline").setup({
+        options = {
+            separator_style = "slant",
+            offsets = {
+                {
+                    filetype = "NvimTree",
+                    text = "File Explorer",
+                    highlight = "Directory",
+                    separator = true -- use a "true" to enable the default, or set your own character
+                },
+                {
+                    filetype = "neo-tree",
+                    text = "File Explorer",
+                    highlight = "Directory",
+                    separator = true -- use a "true" to enable the default, or set your own character
+                }   
+            }
+        }
+    })
+    require("lualine").setup()
+    require("alpha").setup(require("alpha.themes.startify").config)
+EOF
+    "require("lualine").setup({
+      "sections = {
+        "lualine_x = {
+          "{
+            "require("noice").api.status.message.get_hl,
+            "cond = require("noice").api.status.message.has,
+          "},
+          "{
+            "require("noice").api.status.command.get,
+            "cond = require("noice").api.status.command.has,
+            "color = { fg = "#ff9e64" },
+          "},
+          "{
+            "require("noice").api.status.mode.get,
+            "cond = require("noice").api.status.mode.has,
+            "color = { fg = "#ff9e64" },
+          "},
+          "{
+            "require("noice").api.status.search.get,
+            "cond = require("noice").api.status.search.has,
+            "color = { fg = "#ff9e64" },
+          "},
+        "},
+      "},
+    "})
