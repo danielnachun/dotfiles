@@ -85,11 +85,6 @@ ssh-add -A &> /dev/null
 #alias pml="pm list"
 # end PM
 
-# Zoxide
-if [ command -v zoxide &> /dev/null ]; then
-    eval "$(zoxide init zsh)"
-fi
-
 # Automatic or semi-automatic configuration
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -166,7 +161,7 @@ zinit snippet OMZP::dircycle
 zinit snippet OMZP::dirhistory
 zinit snippet OMZP::jump
 zinit snippet OMZP::wd
-zinit light "rupa/z"
+#zinit light "rupa/z"
 zinit light "zdharma-continuum/zsh-navigation-tools"
 zinit light "Tarrasch/zsh-bd"
 #zplug "plugins/fasd", from:oh-my-zsh 
@@ -276,6 +271,9 @@ autoload -Uz compinit && compinit
 autoload -Uz compdef
 autoload -Uz promptinit && promptinit
 
+# Zoxide
+eval "$(zoxide init zsh)"
+
 {{ if eq .chezmoi.os "linux" }}
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
@@ -314,6 +312,4 @@ fi
 # <<< conda initialize <<<
 {{ end }}
 
-if [ command -v cope_path &> /dev/null ]; then
-    export PATH="$(cope_path):$PATH"
-fi
+export PATH="$(cope_path):$PATH"
