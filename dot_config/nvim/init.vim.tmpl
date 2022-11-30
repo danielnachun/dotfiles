@@ -112,7 +112,7 @@ Plug 'wfxr/minimap.vim'
 Plug 'edkolev/tmuxline.vim' "tmux theme
 Plug 'chrisbra/csv.vim' "display CSV
 Plug 'sjl/gundo.vim' "undo history
-Plug 'ervandew/supertab' "multiple functions for tab key
+"Plug 'ervandew/supertab' "multiple functions for tab key
 Plug 'tpope/vim-repeat' "repeat complex actions (make sure it works)
 Plug 'christoomey/vim-tmux-navigator' "tmux shortcuts
 Plug 'tpope/vim-unimpaired' "miscellaneous paired mappings
@@ -634,9 +634,9 @@ au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
 au User Ncm2PopupClose set completeopt=menuone
 "au TextChangedI * call ncm2#auto_trigger()
 inoremap <c-c> <ESC>
-"inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 autocmd BufNewFile,BufRead * inoremap <silent> <buffer> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
