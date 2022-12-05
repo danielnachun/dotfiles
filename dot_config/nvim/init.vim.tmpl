@@ -107,7 +107,7 @@ Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'tiagovla/scope.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'
-Plug 'wfxr/minimap.vim'
+"Plug 'wfxr/minimap.vim'
 
 Plug 'edkolev/tmuxline.vim' "tmux theme
 Plug 'chrisbra/csv.vim' "display CSV
@@ -124,7 +124,14 @@ Plug 'folke/which-key.nvim'
 "Plug 'nhooyr/neoman.vim' "use neovim to read man pages
 "nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
 "nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
-"
+
+Plug 'folke/trouble.nvim'
+Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug 'ray-x/navigator.lua'
+"Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+Plug 'folke/lsp-colors.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 "Plug 'vim-scripts/a.vim'
 "Plug 'vim-jp/vital.vim'
@@ -353,7 +360,7 @@ Plug 'alfredodeza/pytest.vim' "test python code
 
 "REPL
 Plug 'jalvesaq/Nvim-R', {'branch': 'master'} "R plugin
-Plug 'jalvesaq/vimcmdline' "Generic REPL
+"Plug 'jalvesaq/vimcmdline' "Generic REPL
 Plug 'Shougo/deol.nvim' "Shell plugin
 Plug 'kassio/neoterm' "Term plugin
 "Plug 'jpalardy/vim-slime' "probably redundant with above
@@ -823,11 +830,48 @@ autocmd ColorScheme * highlight LineNr guibg=#f0f0f1
 "hi Search ctermfg=0 ctermbg=59
 
 lua << EOF
+    -- Set up lspconfig.
+    --local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+    require'lspconfig'.r_language_server.setup{}
+
+    require'navigator'.setup({
+        lsp = {
+            format_on_save = false,
+        },
+    })
+
+    local null_ls = require("null-ls")
+
+    null_ls.setup({
+        sources = {
+            null_ls.builtins.formatting.styler,
+            null_ls.builtins.formatting.format_r
+        },
+    })
+
     require("nvim-web-devicons").setup({
         color_icons = false
     })
     require("scope").setup()
-    require("noice").setup()
+    require("noice").setup({
+      lsp = {
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+        hover = {
+            enabled = false,
+        } 
+        },
+      presets = {
+            command_palette = true, -- position the cmdline and popupmenu together
+            long_message_to_split = true, -- long messages will be sent to a split
+            inc_rename = false, -- enables an input dialog for inc-rename.nvim
+      }
+    })
     require("notify").setup()
     require("telescope").setup()
     require("which-key").setup()
@@ -959,12 +1003,8 @@ lua << EOF
       { name = 'cmdline' }
     })
     })
-
-    -- Set up lspconfig.
-    --local capabilities = require('cmp_nvim_lsp').default_capabilities()
-    -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-    -- require'lspconfig'.r_language_server.setup{}
 EOF
+
     "require("lualine").setup({
       "sections = {
         "lualine_x = {
