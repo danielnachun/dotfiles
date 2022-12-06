@@ -1,0 +1,6 @@
+linters: linters_with_tags(
+    tags = NULL,
+    line_length_linter = NULL,
+    undesirable_function_linter = NULL,
+    extraction_operator_linter = NULL
+    )
