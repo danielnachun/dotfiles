@@ -225,9 +225,9 @@ Plug 'jalvesaq/cmp-nvim-r'
 Plug 'onsails/lspkind.nvim'
 Plug 'andersevenrud/cmp-tmux'
 
-" For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'rafamadriz/friendly-snippets'
 
 "LanguageServer
 "Plug 'autozimu/LanguageClient-neovim', {
@@ -361,8 +361,9 @@ Plug 'alfredodeza/pytest.vim' "test python code
 "REPL
 Plug 'jalvesaq/Nvim-R', {'branch': 'master'} "R plugin
 "Plug 'jalvesaq/vimcmdline' "Generic REPL
-Plug 'Shougo/deol.nvim' "Shell plugin
-Plug 'kassio/neoterm' "Term plugin
+Plug 'hkupty/iron.nvim'
+"Plug 'Shougo/deol.nvim' "Shell plugin
+"Plug 'kassio/neoterm' "Term plugin
 "Plug 'jpalardy/vim-slime' "probably redundant with above
 
 "Search - all hail FZF
@@ -377,8 +378,8 @@ Plug 'mileszs/ack.vim'
 "Plug 'wincent/Command-T'
 
 "Snippets
-Plug 'SirVer/ultisnips' "snippets engine - check others
-Plug 'honza/vim-snippets' "snippets definition
+"Plug 'SirVer/ultisnips' "snippets engine - check others
+"Plug 'honza/vim-snippets' "snippets definition
 
 "Surround
 Plug 'tpope/vim-endwise' "add end of conditional statements, loops, etc.
@@ -512,14 +513,14 @@ let g:airline_theme='base16'
 
 
 "Cmdline
-let cmdline_app = {}
-let cmdline_app["python"] = "jupyter-console"
-"let cmdline_app["python"] = "ipython"
-let cmdline_app["ruby"] = "pry"
-let cmdline_app["sh"] = "zsh"
-let cmdline_follow_colorscheme = 1
-let cmdline_outhl = 1
-let cmdline_in_buffer = 1
+"let cmdline_app = {}
+"let cmdline_app["python"] = "jupyter-console"
+""let cmdline_app["python"] = "ipython"
+"let cmdline_app["ruby"] = "pry"
+"let cmdline_app["sh"] = "zsh"
+"let cmdline_follow_colorscheme = 1
+"let cmdline_outhl = 1
+"let cmdline_in_buffer = 1
 
 "Coc
 "set nobackup
@@ -720,6 +721,7 @@ else
 endif
 
 " Press the space bar to send lines (in Normal mode) and selections to R:
+filetype detect
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 nmap <silent> <LocalLeader>rk :call RAction("levels")<CR>
@@ -733,7 +735,7 @@ nmap <silent> <LocalLeader>s :call RAction("str")<CR>
 "let g:rooter_change_directory_for_non_project_files = 'current'
 
 "Supertab
-let g:SuperTabDefaultCompletionType = '<C-n>'
+"let g:SuperTabDefaultCompletionType = '<C-n>'
 
 "Syntastic
 "let g:syntastic_always_populate_loc_list = 1
@@ -771,7 +773,7 @@ let g:tmux_navigator_no_mappings = 1
 "if exists('$TMUX')
     "autocmd VimEnter * call tmuxline#set_statusline('airline')
 "endif
-let g:airline#extensions#tmuxline#enabled = 0
+"let g:airline#extensions#tmuxline#enabled = 0
 
 "UltiSnips
 "better key bindings for UltiSnipsExpandTrigger
@@ -783,10 +785,10 @@ let g:airline#extensions#tmuxline#enabled = 0
 " The parameters are the same as `:help feedkeys()`
 "inoremap <silent> <buffer> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
-let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+"let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 "let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 "Vimtex
 "let g:vimtex_latexmk_options="-xelatex" "Use XeLaTeX to compile for better font support
@@ -838,6 +840,7 @@ lua << EOF
     require'navigator'.setup({
         lsp = {
             format_on_save = false,
+            diagnostic_scrollbar_sign = false
         },
     })
 
@@ -874,7 +877,12 @@ lua << EOF
     })
     require("notify").setup()
     require("telescope").setup()
-    require("which-key").setup()
+    require("which-key").setup({
+        triggers_blacklist = {
+            n = {"<space>"},
+            v = {"<space>"}
+        }
+    })
     require("nvim-tree").setup()
     require("bufferline").setup({
         options = {
@@ -1003,6 +1011,32 @@ lua << EOF
       { name = 'cmdline' }
     })
     })
+
+    local iron = require("iron.core")
+    local view = require("iron.view")
+
+    iron.setup {
+        config = {
+            scratch_repl = false,
+            repl_definition = {
+                sh = {
+                    command = {"zsh"}
+                },
+                python = {
+                    command = {"jupyter-console"}
+                }
+            },
+            --repl_open_cmd = require('iron.view').bottom(40),
+            repl_open_cmd = view.split.belowright(50)
+        },
+        keymaps = {
+            visual_send = "<space>",
+            send_line = "<space>",
+            exit = "<leader>q"
+        }
+    }
+
+    vim.keymap.set('n', '<leader>s', '<cmd>IronRepl<cr>')
 EOF
 
     "require("lualine").setup({
@@ -1030,3 +1064,7 @@ EOF
         "},
       "},
     "})
+highlight LineNr guibg=#f0f0f1
+autocmd BufNewFile,BufRead *.R vmap <Space> <Plug>RDSendSelection 
+autocmd BufNewFile,BufRead *.R nmap <Space> <Plug>RDSendLine
+autocmd BufNewFile,BufRead * lua vim.diagnostic.disable()
