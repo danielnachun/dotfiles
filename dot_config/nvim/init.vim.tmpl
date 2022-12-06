@@ -721,15 +721,17 @@ else
 endif
 
 " Press the space bar to send lines (in Normal mode) and selections to R:
-filetype detect
-vmap <Space> <Plug>RDSendSelection
-nmap <Space> <Plug>RDSendLine
-nmap <silent> <LocalLeader>rk :call RAction("levels")<CR>
-nmap <silent> <LocalLeader>t :call RAction("tail")<CR>
-nmap <silent> <LocalLeader>h :call RAction("head")<CR>
-nmap <silent> <LocalLeader>p :call RAction("print")<CR>
-nmap <silent> <LocalLeader>d :call RAction("dim")<CR>
-nmap <silent> <LocalLeader>s :call RAction("str")<CR>
+filetype on
+"vmap <Space> <Plug>RDSendSelection
+"nmap <Space> <Plug>RDSendLine
+autocmd FileType r vmap <Space> <Plug>RDSendSelection
+autocmd FileType r nmap <Space> <Plug>RDSendLine
+autocmd FileType r nmap <silent> <LocalLeader>rk :call RAction("levels")<CR>
+autocmd FileType r nmap <silent> <LocalLeader>t :call RAction("tail")<CR>
+autocmd FileType r nmap <silent> <LocalLeader>h :call RAction("head")<CR>
+autocmd FileType r nmap <silent> <LocalLeader>p :call RAction("print")<CR>
+autocmd FileType r nmap <silent> <LocalLeader>d :call RAction("dim")<CR>
+autocmd FileType r nmap <silent> <LocalLeader>s :call RAction("str")<CR>
 
 "Rooter
 "let g:rooter_change_directory_for_non_project_files = 'current'
@@ -1065,6 +1067,4 @@ EOF
       "},
     "})
 highlight LineNr guibg=#f0f0f1
-autocmd BufNewFile,BufRead *.R vmap <Space> <Plug>RDSendSelection 
-autocmd BufNewFile,BufRead *.R nmap <Space> <Plug>RDSendLine
 autocmd BufNewFile,BufRead * lua vim.diagnostic.disable()
