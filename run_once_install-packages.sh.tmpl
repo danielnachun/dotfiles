@@ -30,7 +30,6 @@ system_type=$(uname -s)
         bat \
         bc \
         bibclean \
-        # bibparse \
         bingrep \
         binutils \
         bison \
@@ -45,7 +44,6 @@ system_type=$(uname -s)
         chars \
         checkmake \
         chezmoi \
-        # citation-langserver \
         clangdev \
         cmake \
         code-minimap \
@@ -71,7 +69,6 @@ system_type=$(uname -s)
         dsq \
         dtrx \
         dua-cli \
-        # duc \
         duckdb \
         duf \
         dura \
@@ -102,7 +99,6 @@ system_type=$(uname -s)
         gcc \
         gccdiag \
         gdb \
-        # gersemi \
         gfortran \
         gh \
         ghorg \
@@ -111,12 +107,9 @@ system_type=$(uname -s)
         git-cliff \
         git-delta \
         git-extras \
-        # git-imerge \
-        # gitlint \
         gitql \
         gitui \
         global \
-        # glow \
         gnupg \
         go \
         goawk \
@@ -155,7 +148,6 @@ system_type=$(uname -s)
         kalker \
         kickstart \
         kondo \
-        # languagetool-code-comments \
         lazygit \
         less \
         lf \
@@ -232,7 +224,6 @@ system_type=$(uname -s)
         procps-ng \
         prr \
         pueue \
-        # pycp \
         py-spy \
         qsv \
         ranger-fm \
@@ -297,8 +288,6 @@ system_type=$(uname -s)
         uncrustify \
         unzip \
         util-linux \
-        # uutils-coreutils \
-        # uutils-findutils \
         vale \
         valgrind \
         vim-language-server \
@@ -326,6 +315,21 @@ system_type=$(uname -s)
         zip \
         zoxide \
         zsh
+
+    #To add
+    # bibparse \
+    # citation-langserver \
+    # duc \
+    # gersemi \
+    # git-imerge \
+    # gitlint \
+    # glow \
+    # languagetool-code-comments \
+    # ltrs \
+    # pycp \
+    # uutils-coreutils \
+    # uutils-findutils \
+    
     # Do these after so they override conflicting files
     micromamba install --yes parallel rename
     micromamba shell init --shell zsh
