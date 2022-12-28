@@ -18,6 +18,16 @@ function set_var(args)
     vim.api.nvim_set_var(args.variable, args.value)
 end
 
+set_var({
+    variable = "mapleader",
+    value = ","
+})
+
+set_var({
+    variable = "maplocalleader",
+    value = ","
+})
+
 set_keymap({
     mode = "",
     shortcut = "<C-J>",
@@ -74,17 +84,7 @@ set_terminal_keymap({
 
 set_normal_keymap({
     shortcut = '<leader>s', 
-    command = '<cmd>IronRepl<cr>'
-})
-
-set_var({
-    variable = "mapleader",
-    value = ","
-})
-
-set_var({
-    variable = "maplocalleader",
-    value = ","
+    command = ':IronRepl<cr>'
 })
 
 -- Fugitive
