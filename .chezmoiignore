@@ -1,6 +1,5 @@
 README.md
 Brewfile
-.config/nvim/lua/plugins.lua
 
 {{ if ne .chezmoi.os "darwin" }}
 .yabairc    
