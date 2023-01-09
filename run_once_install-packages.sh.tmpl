@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -o xtrace -o nounset -o pipefail -o errexit -e
+set -e
+set -o xtrace -o nounset -o pipefail -o errexit
 
 system_type=$(uname -s)
 
