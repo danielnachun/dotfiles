@@ -10,6 +10,7 @@ system_type=$(uname -s)
         PATH=$HOME/.local/bin:$PATH
         curl micro.mamba.pm/install.sh | bash
     fi
+    micromamba shell init --shell=bash $HOME/micromamba
     source $HOME/.bashrc
     micromamba activate
     micromamba config prepend channels defaults
