@@ -6,7 +6,7 @@ This repository contains my set of personal dotfiles managed by [chezmoi](https:
 
 To install use:
 ```
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -b $HOME/.local/bin danielnachun 
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply danielnachun 
 ```
 which will automatically download a pre-built `chezmoi` binary for your platform and clone the dotfiles in this repo into the correct locations.
 
