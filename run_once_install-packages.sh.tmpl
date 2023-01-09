@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o xtrace -o nounset -o pipefail -o errexit -e
+
 system_type=$(uname -s)
 
 {{ if eq .chezmoi.os "linux" -}}
@@ -233,6 +235,7 @@ system_type=$(uname -s)
         pueue \
         pycp \
         py-spy \
+        python=3.11 \
         qsv \
         ranger-fm \
         rargs \
