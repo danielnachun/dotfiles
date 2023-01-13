@@ -367,17 +367,11 @@ if [ ! -d $HOME/.local/share/zinit ]; then
     export NO_INPUT=1
     export NO_ANNEXES=1
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-    zsh -c "source $HOME/.zshrc; zinit update"
+    zsh -c "source $HOME/.zshrc"
 fi
 
 if [ ! -d $HOME/.config/base16-shell ]; then
     git clone https://github.com/chriskempson/base16-shell.git $HOME/.config/base16-shell
-fi
-
-if [ ! -f $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
-    sh -c 'git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-        $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim'
-    nvim '+PackerUpdate' '+qall'
 fi
 
 if [ ! -d $HOME/.tmux/plugins/tpm ]; then
