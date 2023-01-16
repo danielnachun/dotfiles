@@ -2,5 +2,8 @@ linters: linters_with_tags(
     tags = NULL,
     line_length_linter = NULL,
     undesirable_function_linter = NULL,
-    extraction_operator_linter = NULL
+    extraction_operator_linter = NULL,
+    absolute_path_linter = NULL,
+    nonportable_path_linter = NULL,
+    object_length_linter = NULL
     )
