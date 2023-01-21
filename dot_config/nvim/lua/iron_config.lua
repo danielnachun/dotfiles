@@ -6,7 +6,8 @@ iron.setup {
         scratch_repl = false,
         repl_definition = {
             sh = {
-                command = {"zsh"}
+                command = {"zsh"},
+                format = bracketed_paste
             },
             python = {
                 command = {"jupyter-console"}

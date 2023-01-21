@@ -11,7 +11,7 @@ system_type=$(uname -s)
         curl micro.mamba.pm/install.sh | bash
     fi
     micromamba shell init --shell=bash $HOME/micromamba
-    source $HOME/.bashrc
+    . $HOME/micromamba/etc/profile.d/micromamba.sh
     micromamba activate
     micromamba config prepend channels defaults
     micromamba config prepend channels bioconda
@@ -343,6 +343,9 @@ system_type=$(uname -s)
     # Do these after so they override conflicting files
     micromamba install --yes parallel rename
     micromamba shell init --shell zsh
+    conda init bash
+    conda init zsh
+    . $HOME/micromamba/etc/profile.d/conda.sh
     mamba init bash
     mamba init zsh
     conda config --set auto_stack 1
