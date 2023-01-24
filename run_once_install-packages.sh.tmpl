@@ -11,6 +11,8 @@ system_type=$(uname -s)
         curl micro.mamba.pm/install.sh | bash
     fi
     micromamba shell init --shell=bash $HOME/micromamba
+    export MAMBA_EXE="$HOME/.local/bin/micromamba"
+    export MAMBA_ROOT_PREFIX="$HOME/micromamba"
     . $HOME/micromamba/etc/profile.d/micromamba.sh
     micromamba activate
     micromamba config prepend channels defaults
