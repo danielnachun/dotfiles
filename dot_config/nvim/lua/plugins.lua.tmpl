@@ -172,5 +172,8 @@ return require('packer').startup(
 
         -- VCS
         use 'tpope/vim-fugitive' -- git plugin
+        if packer_bootstrap then
+            require('packer').sync()
+        end
     end
 )
