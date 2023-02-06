@@ -9,9 +9,7 @@ iron.setup {
                 command = {"zsh"},
                 format = bracketed_paste
             },
-            python = {
-                command = {"jupyter-console"}
-            }
+            python = require("iron.fts.python").ptipython
         },
         --repl_open_cmd = require('iron.view').bottom(40),
         repl_open_cmd = view.split.belowright(50)
