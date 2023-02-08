@@ -106,3 +106,10 @@ set_normal_keymap({
     shortcut = "<C-P>",
     command = ":Telescope oldfiles<CR>"
 })
+
+-- Trouble
+set_keymap({
+    mode = "",
+    shortcut = "<leader>tt",
+    command = ":TroubleToggle<CR>"
+})
