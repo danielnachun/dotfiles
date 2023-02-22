@@ -296,6 +296,7 @@ brew "koekeishiya/formulae/skhd"
 brew "koekeishiya/formulae/yabai", args: ["HEAD"]
 cask "connectmenow"
 cask "font-meslo-nerd-font-mono"
+cask "font-noto-sans"
 cask "iterm2"
 cask "osxfuse"
 cask "r"
