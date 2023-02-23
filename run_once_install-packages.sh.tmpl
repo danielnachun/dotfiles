@@ -367,6 +367,7 @@ system_type=$(uname -s)
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
+    source $HOME/.bashrc
     brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
     #micromamba shell init --shell zsh
     #mamba init zsh
