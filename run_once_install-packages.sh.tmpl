@@ -388,6 +388,7 @@ fi
 
 if [ ! -d $HOME/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+    $HOME/.tmux/plugins/tpm/bin/install_plugins
 fi
 
 if [ ! -d $HOME/.config/ranger/plugins/ranger_devicons ]; then
