@@ -295,7 +295,5 @@ brew "koekeishiya/formulae/yabai", args: ["HEAD"]
 cask "connectmenow"
 cask "font-meslo-lg-nerd-font"
 cask "font-noto-sans"
-cask "iterm2"
 cask "r"
 cask "the-unarchiver"
-cask "xquartz"

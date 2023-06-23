@@ -1,8 +1,8 @@
 #zmodload zsh/zprof # for debugging shell startup speed
-{{ if eq .chezmoi.os "darwin" }}
 # Use perl local lib for cope (for now)
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-{{ end }}
+if [[ -f $HOME/.init_perl_local_lib.sh]]; then
+    source $HOME/.init_perl_local_lib.sh 
+fi
 
 # Manually configured section
 # Aliases
@@ -39,16 +39,16 @@ export HOMEBREW_GITHUB_API_TOKEN="$(chezmoi secret keyring get --service=github 
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
 # Use GNU utilities in macOS instead of BSD ones
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/opt/findutils/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/gawk/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/gnu-tar/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/gnu-which/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/grep/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/libtool/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/make/libexec/gnubin/:$PATH"
-export PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/sbin:$PATH"
+export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/gawk/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/gnu-which/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/grep/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/libtool/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/make/libexec/gnubin/:$PATH"
+export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin/:$PATH"
 {{ end }}
 
 # Load dircolors before plugins
@@ -312,4 +312,6 @@ fi
 # <<< conda initialize <<<
 {{ end }}
 
-export PATH="$(cope_path):$PATH"
+if [[ -f $HOME/.activate_cope.sh ]]; then
+    source $HOME/.activate_cope.sh
+fi

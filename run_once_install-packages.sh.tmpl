@@ -379,6 +379,10 @@ if [ ! -d $HOME/.local/share/zinit ]; then
     export NO_INPUT=1
     export NO_ANNEXES=1
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+    {{ if eq .chezmoi.os "linux" -}}
+        chmod -R 755 $HOME/micromamba/share/zsh
+        chmod -R 755 $HOME/.local/share/zinit
+    {{ end }}
     zsh -c "source $HOME/.zshrc"
 fi
 
