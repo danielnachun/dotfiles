@@ -21,6 +21,7 @@ system_type=$(uname -s)
     micromamba config prepend channels dnachun
     micromamba config set auto_activate_base true
     micromamba install --yes \
+        ack \
         angle-grinder \
         aria2 \
         as-tree \
@@ -231,7 +232,6 @@ system_type=$(uname -s)
         peco \
         percol \
         periscope \
-        perl-ack \
         perl-app-cope \
         pget \
         pick \
