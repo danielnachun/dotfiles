@@ -23,6 +23,7 @@ alias scg4='ssh -Y dnachun@login04.scg.stanford.edu -t zsh'
 
 alias sherlock='ssh -Y dnachun@sherlock.stanford.edu -t zsh'
 
+ulimit -n 10240
 {{ end }}
 # Environment variables
 export EDITOR="nvim"
@@ -180,7 +181,9 @@ zinit snippet OMZP::cabal #lazy
 
 # History
 #zplug "marlonrichert/zsh-autocomplete", use:zsh-autocomplete.zsh
+{{ if eq .chezmoi.os "linux" }}
 zinit light "zsh-users/zsh-history-substring-search"
+{{ end }}
 zinit snippet OMZP::history
 zinit light "zdharma-continuum/history-search-multi-word"
 zinit light "tarruda/zsh-autosuggestions"
