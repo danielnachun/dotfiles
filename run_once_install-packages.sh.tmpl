@@ -8,7 +8,8 @@ system_type=$(uname -s)
 {{ if eq .chezmoi.os "linux" -}}
     if [ ! -f $HOME/.local/bin/micromamba ]; then
         PATH=$HOME/.local/bin:$PATH
-        curl micro.mamba.pm/install.sh | bash
+        mkdir -p $HOME/.local/bin
+        "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
     fi
     micromamba shell init --shell=bash $HOME/micromamba
     export MAMBA_EXE="$HOME/.local/bin/micromamba"
