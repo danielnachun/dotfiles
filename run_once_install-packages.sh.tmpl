@@ -15,7 +15,7 @@ system_type=$(uname -s)
     export MAMBA_ROOT_PREFIX="$HOME/micromamba"
     . $HOME/micromamba/etc/profile.d/micromamba.sh
     micromamba activate
-    micromamba config prepend channels defaults
+    micromamba config prepend channels nodefaults
     micromamba config prepend channels bioconda
     micromamba config prepend channels conda-forge
     micromamba config prepend channels dnachun
@@ -62,6 +62,7 @@ system_type=$(uname -s)
         cmake \
         cmake-language-server \
         code-minimap \
+        colortail \
         commitlint \
         compose-language-service \
         conda-tree \
@@ -117,6 +118,7 @@ system_type=$(uname -s)
         fclones \
         fcp \
         fd-find \
+        felix \
         fetch \
         file \
         fixjson \
@@ -172,6 +174,7 @@ system_type=$(uname -s)
         groff \
         gron \
         groovy \
+        groovy-language-server \
         gxx \
         gum \
         heatseeker \
@@ -191,6 +194,7 @@ system_type=$(uname -s)
         jj \
         jless \
         joshuto \
+        jq-lsp \
         jql \
         jsonlint \
         jsonpp \
@@ -271,6 +275,7 @@ system_type=$(uname -s)
         periscope \
         perl-app-cope \
         perl-app-perlimports \
+        perlnavigator-server \
         perl-perl-languageserver \
         perl-pls \
         pget \
@@ -288,6 +293,7 @@ system_type=$(uname -s)
         prosemd-lsp \
         prr \
         pueue \
+        pup \
         pycp \
         py-spy \
         python=3.11 \
@@ -350,6 +356,7 @@ system_type=$(uname -s)
         tar \
         tealdeer \
         tectonic \
+        teip \
         tere \
         terraform-ls \
         texinfo \
@@ -382,6 +389,7 @@ system_type=$(uname -s)
         xauth \
         xclip \
         xh \
+        xmlformatter \
         xonsh \
         xplr \
         xq \
@@ -392,6 +400,7 @@ system_type=$(uname -s)
         yj \
         go-yq \
         zellij \
+        zenith \
         zet \
         zip \
         zoxide \
@@ -405,7 +414,6 @@ system_type=$(uname -s)
     # ltrs \
     # uutils-coreutils \
     # uutils-findutils \
-    # zenith \
     # skywalking-eyes \
     
     # Do these after so they override conflicting files
