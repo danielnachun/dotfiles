@@ -181,9 +181,8 @@ zinit snippet OMZP::cabal #lazy
 
 # History
 #zplug "marlonrichert/zsh-autocomplete", use:zsh-autocomplete.zsh
-{{ if eq .chezmoi.os "linux" }}
+zinit light "jimmijj/zsh-syntax-highlighting"
 zinit light "zsh-users/zsh-history-substring-search"
-{{ end }}
 zinit snippet OMZP::history
 zinit light "zdharma-continuum/history-search-multi-word"
 zinit light "tarruda/zsh-autosuggestions"
@@ -203,7 +202,6 @@ zinit ice depth"1"
 zinit light "romkatv/powerlevel10k"
 #zinit light "djui/alias-tips"
 zinit light "hchbaw/zce.zsh"
-zinit light "jimmijj/zsh-syntax-highlighting"
 zinit light "jreese/zsh-titles"
 zinit light "mafredri/zsh-async" #lazy
 zinit snippet OMZP::catimg #lazy
