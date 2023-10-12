@@ -34,10 +34,7 @@ export R_MAX_NUM_DLLS=500
 export XDG_CACHE_HOME="$HOME/.cache"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-{{ if eq .chezmoi.os "darwin" }}
-export HOMEBREW_GITHUB_API_TOKEN="$(chezmoi secret keyring get --service=github --user=danielnachun)"
 
-{{ end }}
 {{ if eq .chezmoi.os "darwin" }}
 # Use GNU utilities in macOS instead of BSD ones
 export PATH="$(brew --prefix)/sbin:$PATH"
