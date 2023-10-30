@@ -16,7 +16,14 @@ return require('lazy').setup({
     'folke/lazy.nvim',
 
     -- Chezmoi must be run first
-    {'alker0/chezmoi.vim', priority = 1000, lazy = false},
+    {'alker0/chezmoi.vim', 
+        lazy = false, 
+        init = function()
+            -- This option is required.
+            vim.g['chezmoi#use_tmp_buffer'] = true
+            -- add other options here if needed.
+        end,
+    },
 
     -- UI
     'MunifTanjim/nui.nvim',
