@@ -27,7 +27,7 @@ return require('packer').startup(
         -- use 'vigoux/notifier.nvim'
 
         -- Search
-        use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake -- build build -- config Release && cmake -- install build -- prefix build'}
+        use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'}
         use {'nvim-telescope/telescope.nvim'}
 
         -- Status information
