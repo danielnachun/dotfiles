@@ -40,11 +40,10 @@ system_type=$(uname -s)
         bat \
         bc \
         bibclean \
-        bibparse \
         bingrep \
         binutils \
         bison \
-        bit \
+        bit-git \
         bottom \
         breezy \
         broot \
@@ -57,7 +56,9 @@ system_type=$(uname -s)
         checkstyle \
         chezmoi \
         choose-rust \
-        clangdev \
+        clang \
+        clangxx \
+        clang-tools \
         clojure \
         clojure-lsp \
         cmake \
@@ -149,7 +150,6 @@ system_type=$(uname -s)
         git-cliff \
         git-delta \
         git-imerge \
-        gitlint \
         gitql \
         gitui \
         global \
@@ -212,14 +212,14 @@ system_type=$(uname -s)
         llama \
         lld \
         lldb \
-        llvmdev \
+        llvm-tools \
         lsof \
+        lua \
         lua-language-server \
         luaformatter \
         luau-lsp \
         lychee \
         lzip \
-        lzo \
         lzop \
         m4 \
         macchina \
@@ -236,7 +236,6 @@ system_type=$(uname -s)
         members \
         mercurial \
         meson \
-        metals \
         micro \
         miller \
         moar \
@@ -248,8 +247,8 @@ system_type=$(uname -s)
         ncftp \
         neocmakelsp \
         neofetch \
-        neovim \
         neovim-remote \
+        nodejs \
         nomino \
         npm-groovy-lint \
         nsh \
@@ -273,13 +272,12 @@ system_type=$(uname -s)
         peco \
         percol \
         periscope \
+        perl \
         perl-app-cope \
         perl-app-perlimports \
-        perlnavigator-server \
         perl-perl-languageserver \
         perl-pls \
         pget \
-        pick \
         pipe-rename \
         pixz \
         plzip \
@@ -314,6 +312,7 @@ system_type=$(uname -s)
         rospo \
         rsc-2fa \
         rsync \
+        ruby \
         rubocop \
         rufo \
         ruff \
@@ -415,6 +414,10 @@ system_type=$(uname -s)
     # uutils-coreutils \
     # uutils-findutils \
     # skywalking-eyes \
+    # metals \
+    # perlnavigator-server \
+    # gitlint \
+    # pick \
     
     # Do these after so they override conflicting files
     micromamba install --yes parallel rename
