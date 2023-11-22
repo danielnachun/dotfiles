@@ -34,7 +34,6 @@ export R_MAX_NUM_DLLS=500
 export XDG_CACHE_HOME="$HOME/.cache"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export ZSH_DISABLE_COMPFIX=true
 
 {{ if eq .chezmoi.os "darwin" }}
 # Use GNU utilities in macOS instead of BSD ones
@@ -266,7 +265,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
 # Autoload compinit at the end
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -u
 autoload -Uz compdef
 autoload -Uz promptinit && promptinit
 
