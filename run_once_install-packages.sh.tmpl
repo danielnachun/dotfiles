@@ -27,11 +27,13 @@ system_type=$(uname -s)
         angle-grinder \
         aria2 \
         as-tree \
+        astyle \
         atool \
         atuin \
         autoconf \
         autogen \
         automake \
+        autotools-language-server \
         autopep8 \
         awk-language-server \
         azure-pipelines-language-server \
@@ -63,6 +65,7 @@ system_type=$(uname -s)
         clang \
         clangxx \
         clang-tools \
+        cljstyle \
         clojure \
         clojure-lsp \
         cmake \
@@ -117,6 +120,8 @@ system_type=$(uname -s)
         efm-langserver \
         elvish \
         entr \
+        eradicate \
+        erg \
         exa \
         eva \
         eza \
@@ -166,6 +171,7 @@ system_type=$(uname -s)
         gnupg \
         go-archiver \
         goawk \
+        godoctor \
         godu \
         gofumpt \
         goimports-reviser \
@@ -173,10 +179,12 @@ system_type=$(uname -s)
         go-jsonnet \
         gojq \
         golangci-lint \
+        golangci-lint-langserver \
         golines \
+        gomodifytags \
         google-java-format \
         gopls \
-        go-shfmt \
+        gospel \
         gotop \
         grep \
         grex \
@@ -195,6 +203,7 @@ system_type=$(uname -s)
         hyperfine \
         ijq \
         ilspy \
+        impl \
         inetutils \
         jaq \
         jd \
@@ -203,6 +212,7 @@ system_type=$(uname -s)
         jid \
         jj \
         jless \
+        joker \
         joshuto \
         jq-lsp \
         jql \
@@ -242,6 +252,7 @@ system_type=$(uname -s)
         massren \
         mcfly \
         mdcat \
+        mdformat \
         melody \
         members \
         mercurial \
@@ -287,6 +298,7 @@ system_type=$(uname -s)
         perl \
         perl-app-cope \
         perl-app-perlimports \
+        perl-devel-trepan \
         perl-perl-languageserver \
         perl-pls \
         pget \
@@ -302,6 +314,7 @@ system_type=$(uname -s)
         proselint \
         prosemd-lsp \
         prr \
+        pry \
         pspg \
         pueue \
         pup \
@@ -315,10 +328,12 @@ system_type=$(uname -s)
         pyright \
         python=3.11 \
         qsv \
+        radon \
         ranger-fm \
         rargs \
         rbspy \
         rclone \
+        reek \
         remark-cli \
         remark-language-server \
         reposurgeon \
@@ -332,7 +347,9 @@ system_type=$(uname -s)
         rsc-2fa \
         rsync \
         ruby \
+        ruby-lsp \
         rubocop \
+        rubyfmt \
         rufo \
         ruff \
         ruff-lsp \
@@ -348,6 +365,7 @@ system_type=$(uname -s)
         sed \
         selene \
         serve-d \
+        sh \
         sheldon \
         shellcheck \
         shellharden \
@@ -381,6 +399,7 @@ system_type=$(uname -s)
         texlab \
         textlint \
         the-way \
+        tidy-html5 \
         tig \
         time \
         tmux \
@@ -388,8 +407,10 @@ system_type=$(uname -s)
         trash-cli \
         tre-command \
         tree \
+        ttags \
         tuc \
         tv \
+        typos-cli \
         up \
         unar \
         uncrustify \
@@ -416,7 +437,9 @@ system_type=$(uname -s)
         xz \
         yadm \
         yapf \
+        yamlfix \
         yamlfmt \
+        yamllint \
         yaml-language-server \
         yj \
         go-yq \
@@ -425,17 +448,17 @@ system_type=$(uname -s)
         zet \
         zip \
         zoxide \
+        zprint \
         zsh
 
     #To add
-    # citation-langserver \
     # duc \
-    # felix \
     # languagetool-code-comments \
     # ltrs \
     # uutils-coreutils \
     # uutils-findutils \
     # skywalking-eyes \
+    # bibparse
     # metals \
     # perlnavigator-server \
     # gitlint \
@@ -452,11 +475,6 @@ system_type=$(uname -s)
 
 
 {{ if eq .chezmoi.os "darwin" -}}
-    if [ ! command -v brew &> /dev/null ]; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-
-    #source $HOME/.bashrc
     brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
     #micromamba shell init --shell zsh
     #mamba init zsh
@@ -469,10 +487,6 @@ if [ ! -d $HOME/.local/share/zinit ]; then
     export NO_INPUT=1
     export NO_ANNEXES=1
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-    {{ if eq .chezmoi.os "linux" -}}
-        chmod -R 755 $HOME/micromamba/share/zsh
-        chmod -R 755 $HOME/.local/share/zinit
-    {{ end }}
     zsh -c "source $HOME/.zshrc"
 fi
 
