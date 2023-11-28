@@ -13,7 +13,7 @@ if (interactive()) {
             radian.prompt = " ",
             radian.color_scheme = "colorful")
 
-    library(pacman)
+    #library(pacman)
     # library(Cairo)
 
     # CairoFonts( regular = 'NotoSans:style=Regular', bold =
