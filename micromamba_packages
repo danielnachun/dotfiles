@@ -1,0 +1,4 @@
+clangdev
+llvmdev
+python=3.11
+sysroot_linux-64=2.17

@@ -1,0 +1,7 @@
+clang
+clangxx
+clang-tools
+llvm-tools
+gcc
+gxx
+python
