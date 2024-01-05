@@ -20,7 +20,7 @@ set -o xtrace -o pipefail -o errexit
         micromamba config set auto_activate_base true
         . $HOME/micromamba/etc/profile.d/micromamba.sh
         micromamba activate
-        micromamba install --yes python=3.11 $(tr '\n' ' ' < package_list)
+        micromamba install --yes $(tr '\n' ' ' < micromamba_packages) $(tr '\n' ' ' < package_list)
         # Do these after so they override conflicting files
         micromamba install --yes parallel rename
         conda init bash
@@ -31,6 +31,7 @@ set -o xtrace -o pipefail -o errexit
         curl -fsSL https://pixi.sh/install.sh | bash
         export PATH=$HOME/.pixi/bin:${PATH}
         xargs --replace % pixi global install -c dnachun -c conda-forge -c bioconda % < package_list
+        xargs --replace % pixi global install -c dnachun -c conda-forge -c bioconda % < pixi_packages
 
         pixi global install parallel
         pixi global install rename
