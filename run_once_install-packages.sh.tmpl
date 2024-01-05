@@ -32,7 +32,6 @@ set -o xtrace -o pipefail -o errexit
         export PATH=$HOME/.pixi/bin:${PATH}
         xargs --replace % pixi global install -c dnachun -c conda-forge -c bioconda % < package_list
 
-        pixi global install python
         pixi global install parallel
         pixi global install rename
     fi
