@@ -1,179 +1,184 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+return require('lazy').setup({
+    -- Packer can manage itself
+    'folke/lazy.nvim',
 
-return require('packer').startup(
-    function(use)
-        -- Packer can manage itself
-        use 'wbthomason/packer.nvim'
+    -- Chezmoi must be run first
+    {'alker0/chezmoi.vim', 
+        lazy = false, 
+        init = function()
+            -- This option is required.
+            vim.g['chezmoi#use_tmp_buffer'] = true
+            -- add other options here if needed.
+        end,
+    },
 
-        -- Chezmoi must be run first
-        use 'alker0/chezmoi.vim'
+    -- UI
+    'MunifTanjim/nui.nvim',
+    'nvim-lua/plenary.nvim',
+    'rcarriga/nvim-notify',
+    'folke/noice.nvim',
+    -- 'vigoux/notifier.nvim',
 
-        -- UI
-        use 'MunifTanjim/nui.nvim'
-        use 'nvim-lua/plenary.nvim'
-        use 'rcarriga/nvim-notify'
-        use 'folke/noice.nvim'
-        -- use 'vigoux/notifier.nvim'
+    -- Search
+    {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'},
+    'nvim-telescope/telescope.nvim',
 
-        -- Search
-        use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'}
-        use {'nvim-telescope/telescope.nvim'}
+    -- Search
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'}
+    use {'nvim-telescope/telescope.nvim'}
+    -- Status information
+    -- 'romgrk/barbar.nvim' -- status bar
+    {'akinsho/bufferline.nvim', version = '*', dependencies = {'RRethy/nvim-base16', 'nvim-tree/nvim-web-devicons'}},
+    'tiagovla/scope.nvim',
+    'nvim-lualine/lualine.nvim',
+    -- 'wfxr/minimap.vim'
 
-        -- Status information
-        -- use 'romgrk/barbar.nvim' -- status bar
-        use {'akinsho/bufferline.nvim', tag = 'v3.*', requires = {'RRethy/nvim-base16'}}
-        use 'tiagovla/scope.nvim'
-        use 'nvim-lualine/lualine.nvim'
-        -- use 'wfxr/minimap.vim'
+    'mbbill/undotree', -- undo history
+    'christoomey/vim-tmux-navigator', -- tmux shortcuts
+    'folke/which-key.nvim',
+    -- 'nhooyr/neoman.vim', -- neovim to read man pages
 
-        use 'mbbill/undotree' -- undo history
-        use 'christoomey/vim-tmux-navigator' -- tmux shortcuts
-        use 'folke/which-key.nvim'
-        -- use 'nhooyr/neoman.vim' -- use neovim to read man pages
+    -- LSP
+    'folke/trouble.nvim',
+    {'ray-x/guihua.lua', build = 'cd lua/fzy && make'},
+    'ray-x/navigator.lua',
+    -- 'glepnir/lspsaga.nvim', { 'branch': 'main' },
+    'folke/lsp-colors.nvim',
+    'nvim-treesitter/nvim-treesitter',
+    'jose-elias-alvarez/null-ls.nvim',
 
-        -- LSP
-        use 'folke/trouble.nvim'
-        use {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}
-        use 'ray-x/navigator.lua'
-        -- use 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-        use 'folke/lsp-colors.nvim'
-        use {'nvim-treesitter/nvim-treesitter'}
-        use 'jose-elias-alvarez/null-ls.nvim'
+    -- Colorschemes
+    'RRethy/nvim-base16',
 
-        -- Colorschemes
-        use 'RRethy/nvim-base16'
+    -- Completion
+    -- nvim-cmp
+    'neovim/nvim-lspconfig',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/nvim-cmp',
+    'petertriho/cmp-git',
+    'jalvesaq/cmp-nvim-r',
+    'onsails/lspkind.nvim',
+    -- 'andersevenrud/cmp-tmux'
 
-        -- Completion
-        -- nvim-cmp
-        use 'neovim/nvim-lspconfig'
-        use 'hrsh7th/cmp-nvim-lsp'
-        use 'hrsh7th/cmp-buffer'
-        use 'hrsh7th/cmp-path'
-        use 'hrsh7th/cmp-cmdline'
-        use 'hrsh7th/nvim-cmp'
-        use 'petertriho/cmp-git'
-        use 'jalvesaq/cmp-nvim-r'
-        use 'onsails/lspkind.nvim'
-        -- use 'andersevenrud/cmp-tmux'
+    -- File Management
+    'nvim-tree/nvim-tree.lua',
+    -- 'nvim-neo-tree/neo-tree.nvim',
+    -- {'ms-jpq/chadtree', branch = 'chad', 'do': 'python3 -m chadtree deps'},
+    'kevinhwang91/rnvimr',
+    'goolord/alpha-nvim',
 
-        -- File Management
-        use 'nvim-tree/nvim-tree.lua'
-        -- use 'nvim-neo-tree/neo-tree.nvim'
-        -- use {'ms-jpq/chadtree', branch = 'chad', 'do': 'python3 -m chadtree deps'}
-        use 'kevinhwang91/rnvimr'
-        use 'goolord/alpha-nvim'
+    -- Icons
+    'nvim-tree/nvim-web-devicons', --  Recommended (for coloured icons)
 
-        -- Icons
-        use 'nvim-tree/nvim-web-devicons' --  Recommended (for coloured icons)
+    -- Indent - set up correctly
+    'Vonr/align.nvim',
+    -- 'nathanaelkane/vim-indent-guides'
+    'Yggdroot/indentLine',
+    'lukas-reineke/indent-blankline.nvim',
 
-        -- Indent - set up correctly
-        use 'Vonr/align.nvim'
-        -- use 'nathanaelkane/vim-indent-guides'
-        use 'Yggdroot/indentLine'
-        use 'lukas-reineke/indent-blankline.nvim'
+    -- Miscellaneous
+    'windwp/nvim-autopairs',
+    'Iron-E/nvim-libmodal',
+    'Iron-E/nvim-bufmode',
+    'Iron-E/nvim-tabmode',
+    'chrisbra/NrrwRgn',
+    -- 'folke/zen-mode.nvim'
 
-        -- Miscellaneous
-        use 'windwp/nvim-autopairs'
-        use 'Iron-E/nvim-libmodal'
-        use 'Iron-E/nvim-bufmode'
-        use 'Iron-E/nvim-tabmode'
-        use 'chrisbra/NrrwRgn'
-        -- use 'folke/zen-mode.nvim'
+    -- Movement
+    'phaazon/hop.nvim', -- letters to jump to words
 
-        -- Movement
-        use 'phaazon/hop.nvim' -- use letters to jump to words
+    -- REPL
+    {'jalvesaq/Nvim-R', branch = 'master'}, -- R plugin
+    'Vigemus/iron.nvim',
 
-        -- REPL
-        use {'jalvesaq/Nvim-R', branch = 'master'} -- R plugin
-        use 'Vigemus/iron.nvim'
+    -- Snippets
+    'hrsh7th/cmp-vsnip',
+    'hrsh7th/vim-vsnip',
+    'rafamadriz/friendly-snippets',
 
-        -- Snippets
-        use 'hrsh7th/cmp-vsnip'
-        use 'hrsh7th/vim-vsnip'
-        use 'rafamadriz/friendly-snippets'
+    -- Surround
+    'kylechui/nvim-surround', -- to add quotes etc. around word
 
-        -- Surround
-        use 'kylechui/nvim-surround' -- to add quotes etc. around word
+    -- Tags - redundant?
+    'simrat39/symbols-outline.nvim',
 
-        -- Tags - redundant?
-        use 'simrat39/symbols-outline.nvim'
+    -- Vimscript plugins
+    -- Try to find Lua ports of these
+    'chrisbra/csv.vim', -- display CSV
 
-        -- Vimscript plugins
-        -- Try to find Lua ports of these
-        use 'chrisbra/csv.vim' -- display CSV
+    'tpope/vim-repeat', -- repeat complex actions (make sure it works)
+    'christoomey/vim-system-copy', -- system clipboard
 
-        use 'tpope/vim-repeat' -- repeat complex actions (make sure it works)
-        use 'christoomey/vim-system-copy' -- use system clipboard
+    -- Comments
+    'preservim/nerdcommenter', -- shortcuts to comment out
+    'tpope/vim-commentary',
 
-        -- Comments
-        use 'preservim/nerdcommenter' -- shortcuts to comment out
-        use 'tpope/vim-commentary'
+    -- File Management
+    'tpope/vim-eunuch', -- POSIX file commands
 
-        -- File Management
-        use 'tpope/vim-eunuch' -- POSIX file commands
+    -- Icons
+    'ryanoasis/vim-devicons', -- unicode icons everywhere
 
-        -- Icons
-        use 'ryanoasis/vim-devicons' -- unicode icons everywhere
+    -- Indent
+    'michaeljsmith/vim-indent-object',
+    'godlygeek/tabular', -- align to specific characters
 
-        -- Indent
-        use 'michaeljsmith/vim-indent-object'
-        use 'godlygeek/tabular' -- align to specific characters
+    -- Kana plugins
+    --'kana/vim-smartchr', -- replace characters
+    --'kana/vim-niceblock', -- better visual block mode
+    --'kana/vim-fakeclip', -- better clipboard
+    --'kana/vim-altercmd', -- alter existing command
+    --'kana/vim-advice', -- alter commands?
 
-        -- Kana plugins
-        use 'kana/vim-smartchr' -- replace characters
-        use 'kana/vim-niceblock' -- better visual block mode
-        use 'kana/vim-fakeclip' -- better clipboard
-        use 'kana/vim-altercmd' -- alter existing command
-        use 'kana/vim-advice' -- alter commands?
+    -- LaTeX
+    'lervag/vimtex', -- LaTeX continuous compile
 
-        -- LaTeX
-        use 'lervag/vimtex' -- LaTeX continuous compile
+    -- Markdown
+    {{ if eq .chezmoi.os "darwin"  }}
+    {'euclio/vim-markdown-composer', build = 'cargo build --release --locked'},
+    {{ end }}
 
-        -- Markdown
-        {{ if eq .chezmoi.os "darwin"  }}
-        use {'euclio/vim-markdown-composer', run = 'cargo build --release --locked'}
-        {{ end }}
+    -- Movement
+    'mg979/vim-visual-multi', -- sublime text multiple cursor
+    --'kana/vim-smartword', -- better word movement
+    --'kana/vim-better-tag-jump', -- tag jump
+    --'kana/vim-exjumplist', -- jumplist motions
 
-        -- Movement
-        use 'mg979/vim-visual-multi' -- sublime text multiple cursor
-        use 'kana/vim-smartword' -- better word movement
-        use 'kana/vim-better-tag-jump' -- tag jump
-        use 'kana/vim-exjumplist' -- jumplist motions
+    -- Operators
+    --'kana/vim-operator-user', -- define own operator
+    --'kana/vim-operator-replace', -- replace existing operator
+    --'kana/vim-operator-siege',
 
-        -- Operators
-        use 'kana/vim-operator-user' -- define own operator
-        use 'kana/vim-operator-replace' -- replace existing operator
-        use 'kana/vim-operator-siege'
+    -- Text objects - can tree-sitter replace these?
+    --'kana/vim-textobj-user', -- whole buffer text object
+    --'kana/vim-textobj-entire', -- whole buffer text object
+    --'kana/vim-textobj-function', -- function text object
+    --'kana/vim-textobj-line', -- line text object
+    --'kana/vim-textobj-help', -- help text object
+    --'kana/vim-textobj-syntax', -- syntax text object
+    --'kana/vim-textobj-lastpat', -- lastpattern text object
+    --'kana/vim-textobj-indent', -- indent text object
+    --'kana/vim-textobj-fold', -- fold text object
+    'tpope/vim-unimpaired', -- miscellaneous paired mappings
+    'tpope/vim-abolish', -- act on word variants
+    'wellle/targets.vim', -- more text targets (i.e. parentheses)
 
-        -- Text objects - can tree-sitter replace these?
-        use 'kana/vim-textobj-user' -- whole buffer text object
-        use 'kana/vim-textobj-entire' -- whole buffer text object
-        use 'kana/vim-textobj-function' -- function text object
-        use 'kana/vim-textobj-line' -- line text object
-        use 'kana/vim-textobj-help' -- help text object
-        use 'kana/vim-textobj-syntax' -- syntax text object
-        use 'kana/vim-textobj-lastpat' -- lastpattern text object
-        use 'kana/vim-textobj-indent' -- indent text object
-        use 'kana/vim-textobj-fold' -- fold text object
-        use 'tpope/vim-unimpaired' -- miscellaneous paired mappings
-        use 'tpope/vim-abolish' -- act on word variants
-        use 'wellle/targets.vim' -- more text targets (i.e. parentheses)
-
-        -- VCS
-        use 'tpope/vim-fugitive' -- git plugin
-        if packer_bootstrap then
-            require('packer').sync()
-        end
-    end
-)
+    -- VCS
+    'tpope/vim-fugitive' -- git plugin
+})
