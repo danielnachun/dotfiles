@@ -2,6 +2,6 @@ clang
 clangxx
 clang-tools
 llvm-tools
-gcc
-gxx
+micromamba
 python
+r-base
