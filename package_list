@@ -26,7 +26,6 @@ beautysh
 bibclean
 bibparse
 bingrep
-binutils
 bison
 bit-git
 black
@@ -88,7 +87,6 @@ diffutils
 digestif
 diskonaut
 diskus
-dmd
 docformatter
 dockerfile-language-server-nodejs
 dot-language-server
@@ -138,13 +136,12 @@ fprettify
 fq
 fsautocomplete
 fselect
-fwatch
+fswatch
 fx
 fzf
 fzy
 gawk
 gaze
-gcc
 gccdiag
 gdb
 gdown

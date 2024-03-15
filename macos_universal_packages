@@ -16,7 +16,7 @@ mas
 ocaml
 pinentry
 pinentry-mac
-podman-mac-helper
+podman-remote
 rust
 skhd
 t-rec

@@ -5,3 +5,4 @@ gxx
 patchelf
 procps-ng
 sysstat
+valgrind
