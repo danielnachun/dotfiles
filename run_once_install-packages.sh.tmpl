@@ -3,6 +3,7 @@
 set -o xtrace -o pipefail -o errexit
 
 {{ if eq .chezmoi.os "linux" -}}
+if [[ -z ${USE_PIXI} ]]; then
     if [ ! -f $HOME/.local/bin/micromamba ]; then
         PATH=$HOME/.local/bin:$PATH
         mkdir -p $HOME/.local/bin
@@ -14,45 +15,77 @@ set -o xtrace -o pipefail -o errexit
     micromamba config prepend channels bioconda
     micromamba config prepend channels conda-forge
     micromamba config prepend channels dnachun
-    if [[ -z ${USE_PIXI} ]]; then
-        export MAMBA_EXE="$HOME/.local/bin/micromamba"
-        export MAMBA_ROOT_PREFIX="$HOME/micromamba"
-        micromamba config set auto_activate_base true
-        . $HOME/micromamba/etc/profile.d/micromamba.sh
-        micromamba activate
-        micromamba install --yes $(tr '\n' ' ' < micromamba_packages) $(tr '\n' ' ' < package_list)
-        # Do these after so they override conflicting files
-        micromamba install --yes parallel rename
-        conda init bash
-        conda init zsh
-        . $HOME/micromamba/etc/profile.d/conda.sh
-        conda config --set auto_stack 1
-    else
-        curl -fsSL https://pixi.sh/install.sh | bash
-        export PATH=$HOME/.pixi/bin:${PATH}
-        xargs --replace % pixi global install -c dnachun -c conda-forge -c bioconda % < package_list
-        xargs --replace % pixi global install -c dnachun -c conda-forge -c bioconda % < pixi_packages
 
-        pixi global install parallel
-        pixi global install rename
-    fi
+    export MAMBA_EXE="$HOME/.local/bin/micromamba"
+    export MAMBA_ROOT_PREFIX="$HOME/micromamba"
+    micromamba config set auto_activate_base true
+    . $HOME/micromamba/etc/profile.d/micromamba.sh
+    micromamba activate
+    micromamba install --yes $(tr '\n' ' ' < micromamba_packages) $(tr '\n' ' ' < package_list)
+    # Do these after so they override conflicting files
+    micromamba install --yes parallel rename
+    conda init bash
+    conda init zsh
+    . $HOME/micromamba/etc/profile.d/conda.sh
+    conda config --set auto_stack 1
+else
+    curl -fsSL https://pixi.sh/install.sh | bash
+    export PATH=$HOME/.pixi/bin:${PATH}
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < package_list
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < pixi_packages
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < intel_packages
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < linux_packages
 
-    #To add
-    # duc \
-    # languagetool-code-comments \
-    # ltrs \
-    # uutils-coreutils \
-    # uutils-findutils \
-    # skywalking-eyes \
+    micromamba shell init --shell=bash $HOME/micromamba
+    micromamba shell init --shell zsh
+    micromamba config prepend channels nodefaults
+    micromamba config prepend channels bioconda
+    micromamba config prepend channels conda-forge
+    micromamba config prepend channels dnachun
+fi
+
+#To add
+# citation-langserver \
+# languagetool-code-comments \
+# ltrs \
+# uutils-coreutils \
+# uutils-findutils \
+# skywalking-eyes \
 {{ end }}
 
 
 {{ if eq .chezmoi.os "darwin" -}}
+if [ ! command -v brew &> /dev/null ]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+source $HOME/.bashrc
+if [[ -z ${USE_PIXI} ]]; then
     brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
-    micromamba shell init --shell zsh
-    #mamba init zsh
-    #conda config --set auto_stack 1
-    #conda config --set auto_activate_base false
+    if [ ! -f $HOME/.local/bin/micromamba ]; then
+        PATH=$HOME/.local/bin:$PATH
+        mkdir -p $HOME/.local/bin
+        "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
+    fi
+else
+    curl -fsSL https://pixi.sh/install.sh | bash
+    export PATH=$HOME/.pixi/bin:${PATH}
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < package_list
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < pixi_packages
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < macos_packages
+    {{ if eq .chezmoi.arch "amd64" -}}
+    xargs --replace % pixi global install -c dnachun -c conda-forge % < intel_packages
+    {{ end }}
+
+    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
+fi
+
+micromamba shell init --shell=zsh $HOME/micromamba
+micromamba config prepend channels nodefaults
+micromamba config prepend channels bioconda
+micromamba config prepend channels conda-forge
+micromamba config prepend channels dnachun
+
 {{ end }}
 
 # Install 

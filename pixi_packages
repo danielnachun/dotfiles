@@ -5,3 +5,5 @@ llvm-tools
 micromamba
 python
 r-base
+parallel
+rename
