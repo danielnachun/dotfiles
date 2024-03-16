@@ -24,7 +24,6 @@ bat
 bc
 beautysh
 bibclean
-bibparse
 bingrep
 bison
 bit-git
@@ -143,7 +142,6 @@ fzy
 gawk
 gaze
 gccdiag
-gdb
 gdown
 gdu
 gersemi
@@ -436,7 +434,6 @@ up
 usort
 util-linux
 vale
-valgrind
 vim-language-server
 vim-vint
 viu
