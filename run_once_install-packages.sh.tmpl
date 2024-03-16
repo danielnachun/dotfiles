@@ -31,10 +31,10 @@ if [[ -z ${USE_PIXI} ]]; then
 else
     curl -fsSL https://pixi.sh/install.sh | bash
     export PATH=$HOME/.pixi/bin:${PATH}
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < package_list
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < pixi_packages
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < intel_packages
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < linux_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/package_list
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/pixi_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/intel_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/linux_packages
 
     micromamba shell init --shell=bash $HOME/micromamba
     micromamba shell init --shell zsh
@@ -70,11 +70,11 @@ if [[ -z ${USE_PIXI} ]]; then
 else
     curl -fsSL https://pixi.sh/install.sh | bash
     export PATH=$HOME/.pixi/bin:${PATH}
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < package_list
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < pixi_packages
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < macos_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/package_list
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/pixi_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/macos_packages
     {{ if eq .chezmoi.arch "amd64" -}}
-    xargs --replace % pixi global install -c dnachun -c conda-forge % < intel_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/intel_packages
     {{ end }}
 
     brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
