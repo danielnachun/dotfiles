@@ -108,7 +108,7 @@ jobs:
           export PATH="${HOME}/bin:${PATH}"
           chezmoi apply
 
-  osx-64_homebrew:
+  osx-arm64_homebrew:
     runs-on: macos-14
     strategy:
       fail-fast: false
@@ -132,7 +132,7 @@ jobs:
           export PATH="${HOME}/bin:${PATH}"
           chezmoi apply
 
-  osx-64_pixi:
+  osx-arm64_pixi:
     runs-on: macos-14
     strategy:
       fail-fast: false
