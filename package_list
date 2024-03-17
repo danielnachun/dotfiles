@@ -177,6 +177,7 @@ golangci-lint-langserver
 golines
 gomodifytags
 google-java-format
+goosebib
 gopls
 gotop
 gpg-tui
