@@ -70,7 +70,7 @@ if [[ -z ${USE_PIXI} ]]; then
     fi
 else
     curl -fsSL https://pixi.sh/install.sh | bash
-    export PATH=$HOME/.pixi/bin:${PATH}
+    PATH=$HOME/.pixi/bin:${PATH}
     xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/package_list
     xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/pixi_packages
     xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/macos_packages
