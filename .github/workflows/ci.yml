@@ -1,0 +1,170 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  linux-64_micromamba:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+
+      - name: Set up working directories
+        run: |
+          mkdir -p ${HOME}/.local/share/chezmoi
+          cp -r * ${HOME}/.local/share/chezmoi
+
+      - name: Set up chezmoi
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
+
+      - name: Test chezmoi
+        run: |
+          export PATH="${HOME}/bin:${PATH}"
+          chezmoi apply
+
+  linux-64_pixi:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+
+      - name: Set up working directories
+        run: |
+          mkdir -p ${HOME}/.local/share/chezmoi
+          cp -r * ${HOME}/.local/share/chezmoi
+
+      - name: Set up chezmoi
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
+
+      - name: Test chezmoi
+        run: |
+          export USE_PIXI=1
+          export PATH="${HOME}/bin:${PATH}"
+          chezmoi apply
+
+  osx-64_homebrew:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up working directories
+        run: |
+          mkdir -p ${HOME}/.local/share/chezmoi
+          cp -r * ${HOME}/.local/share/chezmoi
+
+      - name: Set up chezmoi
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
+
+      - name: Test chezmoi
+        run: |
+          export PATH="${HOME}/bin:${PATH}"
+          chezmoi apply
+
+  osx-64_pixi:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up working directories
+        run: |
+          mkdir -p ${HOME}/.local/share/chezmoi
+          cp -r * ${HOME}/.local/share/chezmoi
+
+      - name: Set up chezmoi
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
+
+      - name: Test chezmoi
+        run: |
+          export USE_PIXI=1
+          export PATH="${HOME}/bin:${PATH}"
+          chezmoi apply
+
+  osx-arm64_homebrew:
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up working directories
+        run: |
+          mkdir -p ${HOME}/.local/share/chezmoi
+          cp -r * ${HOME}/.local/share/chezmoi
+
+      - name: Set up chezmoi
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
+
+      - name: Test chezmoi
+        run: |
+          export PATH="${HOME}/bin:${PATH}"
+          chezmoi apply
+
+  osx-arm64_pixi:
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up working directories
+        run: |
+          mkdir -p ${HOME}/.local/share/chezmoi
+          cp -r * ${HOME}/.local/share/chezmoi
+
+      - name: Set up chezmoi
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
+
+      - name: Test chezmoi
+        run: |
+          export USE_PIXI=1
+          export PATH="${HOME}/bin:${PATH}"
+          chezmoi apply

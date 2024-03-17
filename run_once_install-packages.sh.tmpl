@@ -1,485 +1,91 @@
 #!/usr/bin/env bash
 
-set -e
 set -o xtrace -o pipefail -o errexit
 
-system_type=$(uname -s)
-
 {{ if eq .chezmoi.os "linux" -}}
+if [[ -z ${USE_PIXI} ]]; then
     if [ ! -f $HOME/.local/bin/micromamba ]; then
         PATH=$HOME/.local/bin:$PATH
         mkdir -p $HOME/.local/bin
         "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
     fi
     micromamba shell init --shell=bash $HOME/micromamba
-    export MAMBA_EXE="$HOME/.local/bin/micromamba"
-    export MAMBA_ROOT_PREFIX="$HOME/micromamba"
-    . $HOME/micromamba/etc/profile.d/micromamba.sh
-    micromamba activate
+    micromamba shell init --shell zsh
     micromamba config prepend channels nodefaults
     micromamba config prepend channels bioconda
     micromamba config prepend channels conda-forge
     micromamba config prepend channels dnachun
-    micromamba config set auto_activate_base true
-    micromamba install --yes \
-        ack \
-        ammonite-repl \
-        angle-grinder \
-        aria2 \
-        as-tree \
-        astyle \
-        atool \
-        atuin \
-        autoconf \
-        automake \
-        autotools-language-server \
-        autopep8 \
-        awk-language-server \
-        azure-pipelines-language-server \
-        bandit \
-        bartib \
-        bash \
-        bash-language-server \
-        bat \
-        bc \
-        beautysh \
-        bibclean \
-        bingrep \
-        binutils \
-        bison \
-        bit-git \
-        black \
-        bottom \
-        breezy \
-        broot \
-        btop \
-        bzip2 \
-        cbfmt \
-        ccat \
-        chars \
-        checkmake \
-        checkstyle \
-        chezmoi \
-        choose-rust \
-        clang \
-        clangxx \
-        clang-tools \
-        cljstyle \
-        clojure \
-        clojure-lsp \
-        cmake \
-        cmake-language-server \
-        code-minimap \
-        colortail \
-        commitlint \
-        compose-language-service \
-        conda-tree \
-        coreutils \
-        cpio \
-        cppcheck \
-        croc \
-        csharpier \
-        cspell \
-        csview \
-        csvprintf \
-        csvq \
-        curl \
-        curlie \
-        cvs \
-        dasel \
-        datamash \
-        ddh \
-        delve \
-        dfmt \
-        diff-so-fancy \
-        diffr \
-        difftastic \
-        diffutils \
-        diskonaut \
-        diskus \
-        dmd \
-        diagnostic-languageserver \
-        docformatter \
-        dockerfile-language-server-nodejs \
-        dot-language-server \
-        dotnet-diagnostics \
-        dotnet-format \
-        dotnet-repl \
-        dotnet-script \
-        dprint \
-        dsq \
-        dtools \
-        dtrx \
-        dua-cli \
-        dub \
-        duckdb \
-        duf \
-        dura \
-        dust \
-        efm-langserver \
-        elvish \
-        entr \
-        eradicate \
-        erg \
-        exa \
-        eva \
-        eza \
-        f2 \
-        fantomas \
-        fastmod \
-        fblog \
-        fclones \
-        fcp \
-        fd-find \
-        felix \
-        fetch \
-        file \
-        fixjson \
-        flake8 \
-        flex \
-        flint \
-        fork-cleaner \
-        fortls \
-        fprettify \
-        fq \
-        fsautocomplete \
-        fselect \
-        fx \
-        fzf \
-        fzy \
-        gawk \
-        gaze \
-        gcc \
-        gccdiag \
-        gcsfuse \
-        gdb \
-        gdu \
-        gersemi \
-        gfortran \
-        gh \
-        ghorg \
-        git \
-        git-absorb \
-        git-cliff \
-        git-delta \
-        git-imerge \
-        gitql \
-        gitui \
-        global \
-        glow-md \
-        gnupg \
-        go-archiver \
-        goawk \
-        godoctor \
-        godu \
-        gofumpt \
-        goimports-reviser \
-        go-ghq \
-        go-jsonnet \
-        gojq \
-        golangci-lint \
-        golangci-lint-langserver \
-        golines \
-        gomodifytags \
-        google-java-format \
-        gopls \
-        gospel \
-        gotop \
-        grep \
-        grex \
-        groff \
-        gron \
-        groovy \
-        groovy-language-server \
-        gxx \
-        gum \
-        heatseeker \
-        helix \
-        hstr \
-        htmlq \
-        htop \
-        hwatch \
-        hyperfine \
-        ijq \
-        ilspy \
-        impl \
-        inetutils \
-        jaq \
-        jd \
-        jdtls \
-        jedi-language-server \
-        jid \
-        jj \
-        jless \
-        joker \
-        joshuto \
-        jq-lsp \
-        jql \
-        jsonlint \
-        jsonpp \
-        kalker \
-        kickstart \
-        kondo \
-        lazygit \
-        ldc \
-        lefthook \
-        lemminx \
-        less \
-        lf \
-        lftp \
-        licensor \
-        llama \
-        lld \
-        lldb \
-        llvm-tools \
-        lsof \
-        lua \
-        lua-language-server \
-        luaformatter \
-        luau-lsp \
-        lychee \
-        lzip \
-        lzop \
-        m4 \
-        macchina \
-        make \
-        mamba \
-        man-db \
-        markdownlint-cli2 \
-        markdown-toc \
-        marksman \
-        massren \
-        mcfly \
-        mdcat \
-        mdformat \
-        melody \
-        members \
-        mercurial \
-        meson \
-        micro \
-        miller \
-        moar \
-        moreutils \
-        mprocs \
-        murex \
-        mypy \
-        navi \
-        ncdu \
-        ncftp \
-        neocmakelsp \
-        neofetch \
-        neovim-remote \
-        nodejs \
-        nomino \
-        npm-groovy-lint \
-        nsh \
-        nushell \
-        nvim \
-        ocdc \
-        octosql \
-        oh-my-posh \
-        oil \
-        omnisharp-roslyn \
-        openjdk \
-        orgalorg \
-        ouch \
-        openssh \
-        p7zip \
-        page \
-        patch \
-        patchelf \
-        pax \
-        pbzip2 \
-        pdfcpu \
-        peco \
-        percol \
-        periscope \
-        perl \
-        perl-app-cope \
-        perl-app-perlimports \
-        perl-devel-trepan \
-        perl-perl-languageserver \
-        perl-pls \
-        pget \
-        pipe-rename \
-        pixz \
-        plzip \
-        pmd \
-        pomsky \
-        powershell \
-        prettierd \
-        prql-compiler \
-        procs \
-        procps-ng \
-        proselint \
-        prosemd-lsp \
-        prr \
-        pry \
-        pspg \
-        pueue \
-        pup \
-        pycodestyle \
-        pydocstyle \
-        pycp \
-        py-spy \
-        pyflyby \
-        pyink \
-        pylyzer \
-        pyright \
-        python=3.11 \
-        qsv \
-        radon \
-        ranger-fm \
-        rargs \
-        rbspy \
-        rclone \
-        reek \
-        remark-cli \
-        remark-language-server \
-        reposurgeon \
-        restic \
-        revive \
-        ripgrep \
-        ripgrep-all \
-        rm-improved \
-        rnr \
-        rospo \
-        rsc-2fa \
-        rsync \
-        ruby \
-        ruby-lsp \
-        rubocop \
-        rubyfmt \
-        rufo \
-        ruff \
-        ruff-lsp \
-        rush \
-        rusync \
-        sad \
-        safe-rm \
-        scala \
-        scala-cli \
-        scalafmt \
-        scalariform \
-        sd \
-        sed \
-        selene \
-        serve-d \
-        sh \
-        sheldon \
-        shellcheck \
-        shellharden \
-        skim \
-        smem \
-        solargraph \
-        spectral-cli \
-        spr \
-        sql-language-server \
-        ssed \
-        standardrb \
-        starship \
-        staticcheck \
-        steep \
-        stgit \
-        sttr \
-        stylua \
-        subversion \
-        syntax_tree \
-        sysstat \
-        sysroot_linux-64=2.17 \
-        tagref \
-        taplo \
-        tar \
-        tealdeer \
-        tectonic \
-        teip \
-        tere \
-        terraform-ls \
-        texinfo \
-        texlab \
-        textlint \
-        the-way \
-        tidy-html5 \
-        tig \
-        time \
-        tmux \
-        topgrade \
-        trash-cli \
-        tre-command \
-        tree \
-        ttags \
-        tuc \
-        tv \
-        typos-cli \
-        up \
-        unar \
-        uncrustify \
-        usort \
-        unzip \
-        util-linux \
-        vale \
-        valgrind \
-        vim-language-server \
-        viu \
-        vscode-json-languageserver \
-        vulture \
-        watchexec \
-        wget \
-        which \
-        write-good \
-        xauth \
-        xclip \
-        xh \
-        xmlformatter \
-        xonsh \
-        xplr \
-        xq \
-        xz \
-        yadm \
-        yapf \
-        yamlfix \
-        yamlfmt \
-        yamllint \
-        yaml-language-server \
-        yj \
-        go-yq \
-        zellij \
-        zenith \
-        zet \
-        zip \
-        zoxide \
-        zprint \
-        zsh
 
-    #To add
-    # duc \
-    # languagetool-code-comments \
-    # ltrs \
-    # uutils-coreutils \
-    # uutils-findutils \
-    # skywalking-eyes \
-    # bibparse
-    # metals \
-    # perlnavigator-server \
-    # gitlint \
-    # pick \
-    
+    export MAMBA_EXE="$HOME/.local/bin/micromamba"
+    export MAMBA_ROOT_PREFIX="$HOME/micromamba"
+    micromamba config set auto_activate_base true
+    . $HOME/micromamba/etc/profile.d/micromamba.sh
+    micromamba activate
+    micromamba install --yes $(tr '\n' ' ' < $HOME/.local/share/chezmoi/micromamba_packages) $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
     # Do these after so they override conflicting files
     micromamba install --yes parallel rename
-    micromamba shell init --shell zsh
     conda init bash
     conda init zsh
     . $HOME/micromamba/etc/profile.d/conda.sh
     conda config --set auto_stack 1
+else
+    curl -fsSL https://pixi.sh/install.sh | bash
+    export PATH=$HOME/.pixi/bin:${PATH}
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/package_list
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/pixi_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/intel_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/linux_packages
+
+    micromamba shell init --shell=bash $HOME/micromamba
+    micromamba shell init --shell zsh
+    micromamba config prepend channels nodefaults
+    micromamba config prepend channels bioconda
+    micromamba config prepend channels conda-forge
+    micromamba config prepend channels dnachun
+fi
+
+# To add
+# citation-langserver 
+# languagetool-code-comments 
+# ltrs 
+# pick
+# uutils-coreutils 
+# uutils-findutils 
+# skywalking-eyes 
 {{ end }}
 
 
 {{ if eq .chezmoi.os "darwin" -}}
+if [ ! command -v brew &> /dev/null ]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+source $HOME/.bashrc
+if [[ -z ${USE_PIXI} ]]; then
     brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
-    #micromamba shell init --shell zsh
-    #mamba init zsh
-    #conda config --set auto_stack 1
-    #conda config --set auto_activate_base false
+    if [ ! -f $HOME/.local/bin/micromamba ]; then
+        PATH=$HOME/.local/bin:$PATH
+        mkdir -p $HOME/.local/bin
+        "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
+    fi
+else
+    curl -fsSL https://pixi.sh/install.sh | bash
+    PATH=${PATH}:$HOME/.pixi/bin
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/package_list
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/pixi_packages
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/macos_packages
+    {{ if eq .chezmoi.arch "amd64" -}}
+    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/intel_packages
+    {{ end }}
+
+    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
+fi
+
+micromamba shell init --shell=zsh $HOME/micromamba
+micromamba config prepend channels nodefaults
+micromamba config prepend channels bioconda
+micromamba config prepend channels conda-forge
+micromamba config prepend channels dnachun
 {{ end }}
 
 # Install 
