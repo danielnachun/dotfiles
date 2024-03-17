@@ -24,7 +24,9 @@ jobs:
           cp -r * ${HOME}/.local/share/chezmoi
 
       - name: Set up chezmoi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
 
       - name: Test chezmoi
         run: |
@@ -51,7 +53,9 @@ jobs:
           cp -r * ${HOME}/.local/share/chezmoi
 
       - name: Set up chezmoi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
 
       - name: Test chezmoi
         run: |
@@ -76,7 +80,9 @@ jobs:
           cp -r * ${HOME}/.local/share/chezmoi
 
       - name: Set up chezmoi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
 
       - name: Test chezmoi
         run: |
@@ -100,7 +106,9 @@ jobs:
           cp -r * ${HOME}/.local/share/chezmoi
 
       - name: Set up chezmoi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
 
       - name: Test chezmoi
         run: |
@@ -125,7 +133,9 @@ jobs:
           cp -r * ${HOME}/.local/share/chezmoi
 
       - name: Set up chezmoi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
 
       - name: Test chezmoi
         run: |
@@ -149,7 +159,9 @@ jobs:
           cp -r * ${HOME}/.local/share/chezmoi
 
       - name: Set up chezmoi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: |
+          cd ${HOME}
+          sh -c "$(curl -fsLS get.chezmoi.io)"
 
       - name: Test chezmoi
         run: |
