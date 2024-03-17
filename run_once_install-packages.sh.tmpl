@@ -21,7 +21,7 @@ if [[ -z ${USE_PIXI} ]]; then
     micromamba config set auto_activate_base true
     . $HOME/micromamba/etc/profile.d/micromamba.sh
     micromamba activate
-    micromamba install --yes $(tr '\n' ' ' < micromamba_packages) $(tr '\n' ' ' < package_list)
+    micromamba install --yes $(tr '\n' ' ' < $HOME/.local/share/chezmoi/micromamba_packages) $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
     # Do these after so they override conflicting files
     micromamba install --yes parallel rename
     conda init bash
