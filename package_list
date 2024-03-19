@@ -115,6 +115,7 @@ erubis
 eva
 eza
 f2
+fake
 fantomas
 fastmod
 fblog
@@ -377,7 +378,6 @@ selene
 semgrep
 send2trash
 serve-d
-sh
 shake
 sheldon
 shellcheck
