@@ -240,7 +240,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
 # Autoload compinit at the end
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -u
 autoload -Uz compdef
 autoload -Uz promptinit && promptinit
 
