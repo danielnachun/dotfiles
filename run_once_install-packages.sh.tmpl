@@ -69,7 +69,6 @@ else
     {{ if eq .chezmoi.arch "amd64" -}}
     pixi_install $HOME/.local/share/chezmoi/intel_packages
     {{ end }}
-    pixi global upgrade-all
 
     micromamba shell init --shell=bash $HOME/micromamba
     micromamba shell init --shell zsh
