@@ -59,7 +59,6 @@ colortail
 comby
 commitlint
 compose-language-service
-conda-tree
 coreutils
 cpio
 cppcheck
@@ -308,7 +307,7 @@ perl
 perl-app-cope
 perl-app-perlimports
 perl-pls
-perl-tidy
+perl-perl-tidy
 pget
 pigz
 pipe-rename

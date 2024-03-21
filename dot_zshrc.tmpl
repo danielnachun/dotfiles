@@ -1,19 +1,7 @@
 #zmodload zsh/zprof # for debugging shell startup speed
-# Use perl local lib for cope (for now)
-if [[ -f $HOME/.init_perl_local_lib.sh ]]; then
-    source $HOME/.init_perl_local_lib.sh 
-fi
-
 # Manually configured section
 # Aliases
 alias vim="nvim"
-{{ if eq .chezmoi.os "linux" }}
-# Aliases to run some conda packages w/o activating environment
-if [[ -f "$HOME/.conda_aliases" ]]; then
-    source $HOME/.conda_aliases
-fi
-
-{{ end }}
 {{ if eq .chezmoi.os "darwin" }}
 # Make aliases for SSH hosts when logging in from macOS
 alias scg1='ssh -Y dnachun@login01.scg.stanford.edu -t zsh'
@@ -34,20 +22,7 @@ export R_MAX_NUM_DLLS=500
 export XDG_CACHE_HOME="$HOME/.cache"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-
-{{ if eq .chezmoi.os "darwin" }}
-# Use GNU utilities in macOS instead of BSD ones
-export PATH="$(brew --prefix)/sbin:$PATH"
-export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/gawk/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/gnu-which/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/grep/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/libtool/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/make/libexec/gnubin/:$PATH"
-export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin/:$PATH"
-{{ end }}
+export PATH=/Users/dnachun/.pixi/bin:$PATH
 
 # Load dircolors before plugins
 eval $(dircolors)
@@ -155,7 +130,7 @@ zinit snippet OMZP::perl
 # Directories
 zinit ice pick"init.sh"
 zinit light "b4b4r07/enhancd"
-zinit snippet OMZP::dircycle
+#zinit snippet OMZP::dircycle
 zinit snippet OMZP::dirhistory
 zinit snippet OMZP::jump
 zinit snippet OMZP::wd
@@ -265,51 +240,14 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
 # Autoload compinit at the end
-autoload -Uz compinit && compinit -u
+autoload -Uz compinit && compinit
 autoload -Uz compdef
 autoload -Uz promptinit && promptinit
 
 # Zoxide
 eval "$(zoxide init zsh)"
 
-{{ if eq .chezmoi.os "linux" }}
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/home/dnachun/.local/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/home/dnachun/micromamba";
-__mamba_setup="$('/home/dnachun/.local/bin/micromamba' shell hook --shell zsh --prefix '/home/dnachun/micromamba' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    if [ -f "/home/dnachun/micromamba/etc/profile.d/micromamba.sh" ]; then
-        . "/home/dnachun/micromamba/etc/profile.d/micromamba.sh"
-    else
-        export  PATH="/home/dnachun/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
-    fi
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/dnachun/micromamba/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/dnachun/micromamba/etc/profile.d/conda.sh" ]; then
-        . "/home/dnachun/micromamba/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/dnachun/micromamba/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/home/dnachun/micromamba/etc/profile.d/mamba.sh" ]; then
-    . "/home/dnachun/micromamba/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
-{{ end }}
-
 if [[ -f $HOME/.activate_cope.sh ]]; then
     source $HOME/.activate_cope.sh
 fi
+
