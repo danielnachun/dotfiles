@@ -2,8 +2,8 @@
 
 set -o xtrace -o pipefail -o errexit
 
-{{ if eq .chezmoi.os "linux" -}}
 if [[ -z ${USE_PIXI} ]]; then
+    {{ if eq .chezmoi.os "linux" -}}
     if [ ! -f $HOME/.local/bin/micromamba ]; then
         PATH=$HOME/.local/bin:$PATH
         mkdir -p $HOME/.local/bin
@@ -28,13 +28,39 @@ if [[ -z ${USE_PIXI} ]]; then
     conda init zsh
     . $HOME/micromamba/etc/profile.d/conda.sh
     conda config --set auto_stack 1
+    {{ end }}
+    {{ if eq .chezmoi.os "darwin" -}}
+    if [ ! command -v brew &> /dev/null ]; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    source $HOME/.bashrc
+    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
+    if [ ! -f $HOME/.local/bin/micromamba ]; then
+        PATH=$HOME/.local/bin:$PATH
+        mkdir -p $HOME/.local/bin
+        "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
+    fi
+    {{ end }}
 else
-    curl -fsSL https://pixi.sh/install.sh | bash
+    if [ ! -f $HOME/.pixi/bin/pixi ]; then
+        curl -fsSL https://pixi.sh/install.sh | bash
+        if [ ! -f $HOME/.bashrc ]; then
+            echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> .bashrc
+        fi
+    fi
     export PATH=$HOME/.pixi/bin:${PATH}
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/package_list
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/pixi_packages
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/intel_packages
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/linux_packages
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/pixi_packages)
+    {{ if eq .chezmoi.os "linux" -}}
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
+    {{ end }}
+    {{ if eq .chezmoi.os "darwin" -}}
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/macos_packages)
+    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
+    {{ end }}
+    {{ if eq .chezmoi.arch "amd64" -}}
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/intel_packages)
+    {{ end }}
 
     micromamba shell init --shell=bash $HOME/micromamba
     micromamba shell init --shell zsh
@@ -48,45 +74,11 @@ fi
 # citation-langserver 
 # languagetool-code-comments 
 # ltrs 
+# perlnavigator-server
 # pick
 # uutils-coreutils 
 # uutils-findutils 
 # skywalking-eyes 
-{{ end }}
-
-
-{{ if eq .chezmoi.os "darwin" -}}
-if [ ! command -v brew &> /dev/null ]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-source $HOME/.bashrc
-if [[ -z ${USE_PIXI} ]]; then
-    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
-    if [ ! -f $HOME/.local/bin/micromamba ]; then
-        PATH=$HOME/.local/bin:$PATH
-        mkdir -p $HOME/.local/bin
-        "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
-    fi
-else
-    curl -fsSL https://pixi.sh/install.sh | bash
-    PATH=${PATH}:$HOME/.pixi/bin
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/package_list
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/pixi_packages
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/macos_packages
-    {{ if eq .chezmoi.arch "amd64" -}}
-    xargs -I % pixi global install -c dnachun -c conda-forge % < $HOME/.local/share/chezmoi/intel_packages
-    {{ end }}
-
-    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
-fi
-
-micromamba shell init --shell=zsh $HOME/micromamba
-micromamba config prepend channels nodefaults
-micromamba config prepend channels bioconda
-micromamba config prepend channels conda-forge
-micromamba config prepend channels dnachun
-{{ end }}
 
 # Install 
 if [ ! -d $HOME/.local/share/zinit ]; then

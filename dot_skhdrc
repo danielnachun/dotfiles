@@ -71,7 +71,7 @@ alt - e : open /Applications/Microsoft\ Outlook.app
 
 alt - f : open ~
 
-alt - q : brew services restart yabai
+alt - q : yabai --restart-service
 
 shift + alt - f : open /Applications/ForkLift.app
 #ctrl + shift + alt - f : yabai -m window --focus $(paste -d ' ' <(yabai -m query --windows | jq '.[].app') <(yabai -m query --windows | jq '.[].id') | grep ForkLift | cut -d ' ' -f 2)

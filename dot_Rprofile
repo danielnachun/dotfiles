@@ -1,6 +1,8 @@
 options(repos = structure(c(CRAN = "http://cran.rstudio.com/")))
 options(languageserver.server_capabilities = list(completionProvider = FALSE, signatureHelpProvider = FALSE,
     completionItemResolve = FALSE))
+.libPaths("~/micromamba/envs/r/lib/R/library")
+
 if (interactive()) {
     options(colorout.verbose = 1L,
             nvimcom.verbose = 1L,

@@ -1,4 +1,5 @@
 ack
+actionlint
 alex
 ammonite-repl
 amp
@@ -58,7 +59,6 @@ colortail
 comby
 commitlint
 compose-language-service
-conda-tree
 coreutils
 cpio
 cppcheck
@@ -112,7 +112,9 @@ eradicate
 erg
 erubis
 eva
+eza
 f2
+fake
 fantomas
 fastmod
 fblog
@@ -305,6 +307,7 @@ perl
 perl-app-cope
 perl-app-perlimports
 perl-pls
+perl-perl-tidy
 pget
 pigz
 pipe-rename
@@ -374,7 +377,6 @@ selene
 semgrep
 send2trash
 serve-d
-sh
 shake
 sheldon
 shellcheck
@@ -464,5 +466,4 @@ zet
 zip
 zoxide
 zprint
-zsh
 zstd

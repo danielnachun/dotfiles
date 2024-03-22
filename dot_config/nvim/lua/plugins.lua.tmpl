@@ -33,12 +33,9 @@ return require('lazy').setup({
     -- 'vigoux/notifier.nvim',
 
     -- Search
-    {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'},
+    {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'},
     'nvim-telescope/telescope.nvim',
 
-    -- Search
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'}
-    use {'nvim-telescope/telescope.nvim'}
     -- Status information
     -- 'romgrk/barbar.nvim' -- status bar
     {'akinsho/bufferline.nvim', version = '*', dependencies = {'RRethy/nvim-base16', 'nvim-tree/nvim-web-devicons'}},
