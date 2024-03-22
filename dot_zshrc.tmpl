@@ -2,6 +2,12 @@
 # Manually configured section
 # Aliases
 alias vim="nvim"
+unset CONDA_PREFIX
+
+# Aliases to run some conda packages w/o activating environment
+if [[ -f "$HOME/.pixi_completions" ]]; then
+    export FPATH="$(tr '\n' ':' < $HOME/.pixi_completions | sed 's/:$//'):${FPATH}"
+fi
 {{ if eq .chezmoi.os "darwin" }}
 # Make aliases for SSH hosts when logging in from macOS
 alias scg1='ssh -Y dnachun@login01.scg.stanford.edu -t zsh'
@@ -249,5 +255,9 @@ eval "$(zoxide init zsh)"
 
 if [[ -f $HOME/.activate_cope.sh ]]; then
     source $HOME/.activate_cope.sh
+fi
+
+if [[ -f $HOME/.extra_pixi_paths.sh ]]; then
+    source $HOME/.extra_pixi_paths.sh
 fi
 

@@ -46,10 +46,8 @@ else
         package_list=$1
         if [ -d $HOME/.pixi/envs ]; then
             comm -13 <(ls $HOME/.pixi/envs | sort -u) <(sort -u < ${package_list}) > /tmp/package_list
-            export UPGRADE_ENVS=1
         else
             cp ${package_list} /tmp/package_list
-            export UPGRADE_ENVS=0
         fi
         xargs -I % pixi global install -c dnachun -c conda-forge % < /tmp/package_list
     }
@@ -71,9 +69,6 @@ else
     {{ if eq .chezmoi.arch "amd64" -}}
     pixi_install $HOME/.local/share/chezmoi/intel_packages
     {{ end }}
-    if [[ ${UPGRADE_ENVS} == 1 ]]; then
-        pixi global upgrade-all
-    fi
 
     micromamba shell init --shell=bash $HOME/micromamba
     micromamba shell init --shell zsh

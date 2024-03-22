@@ -87,16 +87,10 @@ set_var({
     --variable = "R_app",
     --value = "radian"
 --)
-set_var({
-    variable = "R_cmd",
-    value = "R"
-})
-{{ if eq .chezmoi.os "linux" }}
-set_var({
-    variable = "R_path",
-    value = '$HOME/micromamba/envs/r/bin'
-})
-{{ end }}
+--set_var({
+    --variable = "R_cmd",
+    --value = "R"
+--})
 
 --set_var(
     --variable = "R_args",
@@ -113,10 +107,10 @@ set_var({
     --value = 1
 --)
 
---set_var(
-    --variable = "R_wait",
-    --value = 60000
---)
+set_var(
+    variable = "R_wait",
+    value = 60000
+)
 
 -- Vimtex
 -- Use NeoVim remote to allow feedback about errors
