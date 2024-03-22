@@ -42,32 +42,21 @@ if [[ -z ${USE_PIXI} ]]; then
     fi
     {{ end }}
 else
-    pixi_install() {
-        package_list=$1
-        if [ -d $HOME/.pixi/envs ]; then
-            comm -13 <(ls $HOME/.pixi/envs | sort -u) <(sort -u < ${package_list}) > /tmp/package_list
-        else
-            cp ${package_list} /tmp/package_list
-        fi
-        xargs -I % pixi global install -c dnachun -c conda-forge % < /tmp/package_list
-    }
-    export -f pixi_install
-
     if [ ! -f $HOME/.pixi/bin/pixi ]; then
         curl -fsSL https://pixi.sh/install.sh | bash
     fi
     PATH=$HOME/.pixi/bin:${PATH}
-    pixi_install $HOME/.local/share/chezmoi/package_list
-    pixi_install $HOME/.local/share/chezmoi/pixi_packages
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/pixi_packages)
     {{ if eq .chezmoi.os "linux" -}}
-    pixi_install $HOME/.local/share/chezmoi/linux_packages
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
     {{ end }}
     {{ if eq .chezmoi.os "darwin" -}}
-    pixi_install $HOME/.local/share/chezmoi/macos_packages
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/macos_packages)
     brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
     {{ end }}
     {{ if eq .chezmoi.arch "amd64" -}}
-    pixi_install $HOME/.local/share/chezmoi/intel_packages
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/intel_packages)
     {{ end }}
 
     micromamba shell init --shell=bash $HOME/micromamba
