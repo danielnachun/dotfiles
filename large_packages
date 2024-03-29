@@ -10,6 +10,7 @@ google-java-format
 cake
 dotnet-script
 dotnet-diagnostics
+imagemagick
 marksman
 csharpier
 fantomas
@@ -18,8 +19,11 @@ ilspy
 ammonite-repl
 pmd
 scala
+semgrep
+subversion
 groovy
 clojure
 checkstyle
 groovy-language-server
 scalariform
+haskell-language-server

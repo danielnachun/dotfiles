@@ -180,7 +180,6 @@ gum
 gzip
 hadolint
 happy
-haskell-language-server
 heatseeker
 helix
 hello
@@ -192,7 +191,6 @@ htop
 hwatch
 hyperfine
 ijq
-imagemagick
 impl
 inetutils
 ipython
@@ -362,7 +360,6 @@ scalafmt
 sd
 sed
 selene
-semgrep
 send2trash
 serve-d
 shake
@@ -386,7 +383,6 @@ stgit
 sttr
 stylish-haskell
 stylua
-subversion
 svg2pdf
 syntax_tree
 tagref
