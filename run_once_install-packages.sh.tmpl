@@ -2,73 +2,32 @@
 
 set -o xtrace -o pipefail -o errexit
 
-if [[ -z ${USE_PIXI} ]]; then
-    {{ if eq .chezmoi.os "linux" -}}
-    if [ ! -f $HOME/.local/bin/micromamba ]; then
-        PATH=$HOME/.local/bin:$PATH
-        mkdir -p $HOME/.local/bin
-        "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
+if [ ! -f $HOME/.pixi/bin/pixi ]; then
+    curl -fsSL https://pixi.sh/install.sh | bash
+    if [ ! -f $HOME/.bashrc ]; then
+        echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> .bashrc
     fi
-    micromamba shell init --shell=bash $HOME/micromamba
-    micromamba shell init --shell zsh
-    micromamba config prepend channels nodefaults
-    micromamba config prepend channels bioconda
-    micromamba config prepend channels conda-forge
-    micromamba config prepend channels dnachun
-
-    export MAMBA_EXE="$HOME/.local/bin/micromamba"
-    export MAMBA_ROOT_PREFIX="$HOME/micromamba"
-    micromamba config set auto_activate_base true
-    . $HOME/micromamba/etc/profile.d/micromamba.sh
-    micromamba activate
-    micromamba install --yes $(tr '\n' ' ' < $HOME/.local/share/chezmoi/micromamba_packages) $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
-    # Do these after so they override conflicting files
-    micromamba install --yes parallel rename
-    conda init bash
-    conda init zsh
-    . $HOME/micromamba/etc/profile.d/conda.sh
-    conda config --set auto_stack 1
-    {{ end }}
-    {{ if eq .chezmoi.os "darwin" -}}
-    if [ ! command -v brew &> /dev/null ]; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-    source $HOME/.bashrc
-    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile
-    if [ ! -f $HOME/.local/bin/micromamba ]; then
-        PATH=$HOME/.local/bin:$PATH
-        mkdir -p $HOME/.local/bin
-        "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
-    fi
-    {{ end }}
-else
-    if [ ! -f $HOME/.pixi/bin/pixi ]; then
-        curl -fsSL https://pixi.sh/install.sh | bash
-        if [ ! -f $HOME/.bashrc ]; then
-            echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> .bashrc
-        fi
-    fi
-    export PATH=$HOME/.pixi/bin:${PATH}
-    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
-    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/pixi_packages)
-    {{ if eq .chezmoi.os "linux" -}}
-    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
-    {{ end }}
-    {{ if eq .chezmoi.os "darwin" -}}
-    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/macos_packages)
-    brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
-    {{ end }}
-    {{ if eq .chezmoi.arch "amd64" -}}
-    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/intel_packages)
-    {{ end }}
-
-    micromamba shell init --shell=bash $HOME/micromamba
-    micromamba shell init --shell zsh
-    micromamba config prepend channels nodefaults
-    micromamba config prepend channels bioconda
-    micromamba config prepend channels conda-forge
-    micromamba config prepend channels dnachun
 fi
+export PATH=$HOME/.pixi/bin:${PATH}
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/pixi_packages)
+{{ if eq .chezmoi.os "linux" -}}
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
+{{ end }}
+{{ if eq .chezmoi.os "darwin" -}}
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/macos_packages)
+brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
+{{ end }}
+{{ if eq .chezmoi.arch "amd64" -}}
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/intel_packages)
+{{ end }}
+
+micromamba shell init --shell=bash $HOME/micromamba
+micromamba shell init --shell zsh
+micromamba config prepend channels nodefaults
+micromamba config prepend channels bioconda
+micromamba config prepend channels conda-forge
+micromamba config prepend channels dnachun
 
 # To add
 # citation-langserver 

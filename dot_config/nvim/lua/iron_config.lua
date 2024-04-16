@@ -9,7 +9,7 @@ iron.setup {
                 command = {"zsh"},
                 format = bracketed_paste
             },
-            python = require("iron.fts.python").ptipython
+            python = require("iron.fts.python").ipython
         },
         --repl_open_cmd = require('iron.view').bottom(40),
         repl_open_cmd = view.split.belowright(50)
