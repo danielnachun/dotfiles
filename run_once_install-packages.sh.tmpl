@@ -10,12 +10,12 @@ if [ ! -f $HOME/.pixi/bin/pixi ]; then
 fi
 export PATH="$HOME/.pixi/bin:${PATH}"
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/pixi_packages)
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/macos_packages)
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/large_packages)
 brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
 {{ end }}
 {{ if eq .chezmoi.arch "amd64" -}}
@@ -28,6 +28,24 @@ micromamba config prepend channels nodefaults
 micromamba config prepend channels bioconda
 micromamba config prepend channels conda-forge
 micromamba config prepend channels dnachun
+
+micromamba create -n python_libs conda-tree ipython
+cp ${HOME}/.local/share/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
+
+tee ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py << EOF
+import sys
+sys.path[0:0] = [
+    "${HOME}/micromamba/envs/python_libs/lib/python3.12/site-packages"
+]
+EOF
+
+ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/nbconvert-core/lib/python3.12/site-packages/
+ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/notebook/lib/python3.12/site-packages/
+ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyter_client/lib/python3.12/site-packages/
+ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyter_core/lib/python3.12/site-packages/
+ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyter_server/lib/python3.12/site-packages/
+ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyterlab/lib/python3.12/site-packages/
+ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/snakemake-minimal/lib/python3.12/site-packages/
 
 # To add
 # citation-langserver 

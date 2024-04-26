@@ -7,12 +7,9 @@ macos_packages
 micromamba_packages
 package_list
 pixi_packages
+Rprofile
 
 {{ if ne .chezmoi.os "darwin" }}
 .yabairc    
 .skhdrc
-Library/*
-{{ end }}
-{{ if ne .chezmoi.os "linux" }}
-.config/pixi/*
 {{ end }}
