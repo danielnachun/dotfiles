@@ -7,7 +7,6 @@ macos_packages
 micromamba_packages
 package_list
 pixi_packages
-install-packages.sh
 
 {{ if ne .chezmoi.os "darwin" }}
 .yabairc    
