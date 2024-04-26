@@ -29,12 +29,12 @@ micromamba config prepend channels bioconda
 micromamba config prepend channels conda-forge
 micromamba config prepend channels dnachun
 
-if [ ! grep -q '^r$' < $(micromamba env list | grep micromamba | cut -f 3 -d ' ') ]; then
+if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^r$') ]; then
     micromamba create -n r
 fi
 micromamba install -n r r-languageserver r-colorout conda-tree
 
-if [ ! grep -q '^python_libs$' < $(micromamba env list | grep micromamba | cut -f 3 -d ' ') ]; then
+if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^python_libs$') ]; then
     micromamba create -n python_libs 
 fi
 micromamba install -n python_libs conda-tree ipython
