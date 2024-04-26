@@ -1,9 +1,0 @@
-clang
-clangxx
-clang-tools
-llvm-tools
-micromamba
-python
-r-base
-parallel
-rename

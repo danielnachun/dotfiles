@@ -122,6 +122,7 @@ fclones
 fcp
 fd-find
 felix
+fend
 fetch
 file
 findutils
@@ -224,6 +225,10 @@ jq-lsp
 jql
 jsonlint
 jsonpp
+jupyter_client
+jupyter_core
+jupyter_server
+jupyterlab
 kalker
 kickstart
 kondo
@@ -239,6 +244,7 @@ licensor
 llama
 lld
 lldb
+llvm-tools
 lsof
 lua
 lua-language-server
@@ -263,6 +269,7 @@ members
 mercurial
 meson
 micro
+micromamba
 miller
 moar
 moreutils
@@ -271,6 +278,7 @@ mx
 murex
 mypy
 navi
+nbconvert-core
 ncdu
 ncftp
 neocmakelsp
@@ -280,6 +288,7 @@ ninja
 nnn
 nodejs
 nomino
+notebook
 npm-groovy-lint
 nsh
 nuke
@@ -336,9 +345,11 @@ pyflyby
 pyink
 pylyzer
 pyright
+python
 python-lsp-server-base
 qpdf
 qsv
+r-base
 radon
 ranger-fm
 rargs
@@ -346,6 +357,7 @@ rbspy
 rclone
 remark-cli
 remark-language-server
+rename
 reposurgeon
 restic
 revive

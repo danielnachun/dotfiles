@@ -15,14 +15,6 @@ if (interactive()) {
             radian.prompt = " ",
             radian.color_scheme = "colorful")
 
-    #library(pacman)
-    # library(Cairo)
-
-    # CairoFonts( regular = 'NotoSans:style=Regular', bold =
-    # 'NotoSans:style=Bold', italic = 'NotoSans:style=Italic', bolditalic =
-    # 'NotoSans:style=Bold Italic,BoldItalic', symbol = 'Symbol' )
-
-
     # syntax highlighting
     library(colorout)
     if (!Sys.getenv("TERM") %in% c("", "linux")) {
