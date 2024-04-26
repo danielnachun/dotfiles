@@ -29,12 +29,12 @@ micromamba config prepend channels bioconda
 micromamba config prepend channels conda-forge
 micromamba config prepend channels dnachun
 
-if [[ ! $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep -q '^r$') ]]; then
+if [ ! grep -q '^r$' < $(micromamba env list | grep micromamba | cut -f 3 -d ' ') ]; then
     micromamba create -n r
 fi
 micromamba install -n r r-languageserver r-colorout conda-tree
 
-if [[ ! $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep -q '^python_libs$') ]]; then
+if [ ! grep -q '^python_libs$' < $(micromamba env list | grep micromamba | cut -f 3 -d ' ') ]; then
     micromamba create -n python_libs 
 fi
 micromamba install -n python_libs conda-tree ipython
@@ -48,13 +48,13 @@ sys.path[0:0] = [
 ]
 EOF
 
-ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/nbconvert-core/lib/python3.12/site-packages/
-ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/notebook/lib/python3.12/site-packages/
-ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyter_client/lib/python3.12/site-packages/
-ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyter_core/lib/python3.12/site-packages/
-ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyter_server/lib/python3.12/site-packages/
-ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/jupyterlab/lib/python3.12/site-packages/
-ln -f ${PIXI_HOME}/envs/python/lib/python3.12/site-packages/sitecustomize.py ${PIXI_HOME}/envs/ptpython/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/ptpython/lib/python3.12/site-packages/
 
 # To add
 # citation-langserver 
