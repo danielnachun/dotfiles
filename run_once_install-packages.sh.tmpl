@@ -10,12 +10,15 @@ if [ ! -f $HOME/.pixi/bin/pixi ]; then
 fi
 export PATH="$HOME/.pixi/bin:${PATH}"
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
+if [ -z ${MINIMAL_INSTALL} ]; then
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/large_packages)
+fi
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/macos_packages)
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/large_packages)
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/huge_packages)
 brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
 {{ end }}
 {{ if eq .chezmoi.arch "amd64" -}}
