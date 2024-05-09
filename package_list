@@ -1,7 +1,6 @@
 ack
 actionlint
 alex
-ammonite-repl
 amp
 angle-grinder
 aria2
@@ -36,20 +35,17 @@ btop
 bzip2
 cabal-fmt
 cabal-install
-cake
 cbfmt
 ccat
 cgrep
 chars
 checkmake
-checkstyle
 chezmoi
 choose-rust
 clang
 clang-tools
 clangxx
 cljstyle
-clojure
 clojure-lsp
 cmake
 cmake-language-server
@@ -64,7 +60,6 @@ cpio
 cppcheck
 cpplint
 croc
-csharpier
 cspell
 csview
 csvprintf
@@ -89,10 +84,6 @@ diskus
 docformatter
 dockerfile-language-server-nodejs
 dot-language-server
-dotnet-diagnostics
-dotnet-format
-dotnet-repl
-dotnet-script
 dprint
 dsq
 dtools
@@ -114,8 +105,6 @@ erubis
 eva
 eza
 f2
-fake
-fantomas
 fastmod
 fblog
 fclones
@@ -135,7 +124,6 @@ fortls
 fortran-language-server
 fprettify
 fq
-fsautocomplete
 fselect
 fswatch
 fx
@@ -179,7 +167,6 @@ golangci-lint
 golangci-lint-langserver
 golines
 gomodifytags
-google-java-format
 goosebib
 gopls
 gotop
@@ -187,8 +174,6 @@ gpg-tui
 grep
 grex
 gron
-groovy
-groovy-language-server
 gsutil
 guile
 gum
@@ -207,7 +192,6 @@ htop
 hwatch
 hyperfine
 ijq
-ilspy
 imagemagick
 impl
 inetutils
@@ -215,7 +199,6 @@ ipython
 isort
 jaq
 jd
-jdtls
 jedi-language-server
 jid
 jj
@@ -259,7 +242,6 @@ make
 man-db
 markdown-toc
 markdownlint-cli2
-marksman
 massren
 mcfly
 mdcat
@@ -291,7 +273,6 @@ nomino
 notebook
 npm-groovy-lint
 nsh
-nuke
 nushell
 nvim
 ocdc
@@ -302,7 +283,6 @@ orgalorg
 ouch
 p7zip
 page
-paket
 parallel
 patch
 pax
@@ -323,9 +303,7 @@ pipe-rename
 pixz
 pkg-config
 plzip
-pmd
 pomsky
-powershell
 prettierd
 prql-compiler
 procs
@@ -379,10 +357,8 @@ rush
 rusync
 sad
 safe-rm
-scala
 scala-cli
 scalafmt
-scalariform
 sd
 sed
 selene
