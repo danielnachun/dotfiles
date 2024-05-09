@@ -11,7 +11,7 @@ fi
 export PATH="$HOME/.pixi/bin:${PATH}"
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
 if [ -z ${MINIMAL_INSTALL} ]; then
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/large_packages)
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/large_packages)
 fi
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
@@ -51,12 +51,14 @@ sys.path[0:0] = [
 ]
 EOF
 
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
+if [ -z ${MINIMAL_INSTALL} ]; then
+    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
+    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
+    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
+    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
+    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
+    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
+fi
 ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/ptpython/lib/python3.12/site-packages/
 
 # To add
