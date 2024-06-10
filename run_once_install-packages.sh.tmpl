@@ -37,6 +37,10 @@ if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^r$') 
 fi
 micromamba install -n r r-languageserver r-colorout conda-tree
 
+ln -sf ${HOME}/.pixi/bin/r ${HOME}/.pixi/bin/R
+ln -sf ${HOME}/.pixi/bin/rscript ${HOME}/.pixi/bin/Rscript
+sed -i "s/samtools.pl/samtools/" ${HOME}/.pixi/bin/samtools
+
 if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^python_libs$') ]; then
     micromamba create -n python_libs 
 fi
@@ -58,6 +62,7 @@ if [ -z ${MINIMAL_INSTALL} ]; then
     ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
     ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
     ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
+    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/sos/lib/python3.12/site-packages/
 fi
 ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/ptpython/lib/python3.12/site-packages/
 
