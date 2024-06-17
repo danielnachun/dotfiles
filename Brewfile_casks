@@ -1,5 +1,4 @@
 tap "homebrew/cask"
-tap "homebrew/cask-fonts"
 cask "cisco-proximity"
 cask "connectmenow"
 cask "cyberduck"

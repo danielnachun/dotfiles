@@ -11,6 +11,7 @@ cake
 checkstyle
 clojure
 cmake-language-server
+cmake_format
 codespell
 commitlint
 compose-language-service
@@ -26,10 +27,10 @@ dotnet-format
 dotnet-repl
 dotnet-script
 dtrx
-emacs
 eradicate
 fake
 fantomas
+findent
 fixjson
 flake8
 fortls
@@ -50,6 +51,7 @@ haskell-language-server
 ilspy
 imagemagick
 isort
+ivy
 jdtls
 jedi-language-server
 jsonlint
@@ -62,6 +64,7 @@ markdown-toc
 markdownlint-cli2
 marksman
 mercurial
+mill
 mypy
 nbconvert-core
 notebook
@@ -94,6 +97,7 @@ scalafmt
 scalariform
 send2trash
 semgrep
+sos
 spectral-cli
 sql-language-server
 standardrb
