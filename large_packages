@@ -96,6 +96,7 @@ scalafmt
 scalariform
 send2trash
 semgrep
+sos
 spectral-cli
 sql-language-server
 standardrb
