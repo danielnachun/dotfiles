@@ -9,20 +9,25 @@ if [ ! -f $HOME/.pixi/bin/pixi ]; then
     fi
 fi
 export PATH="$HOME/.pixi/bin:${PATH}"
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/package_list)
+if [ -d ${HOME}/.pixi/envs ]; then
+    ls ${HOME}/.pixi/envs > /tmp/installed_packages
+else
+    touch /tmp/installed_packages
+fi
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed) <(sort -u $HOME/.local/share/chezmoi/package_list) | tr '\n' ' ')
 if [ -z ${MINIMAL_INSTALL} ]; then
-    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/large_packages)
+    pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed) <(sort -u $HOME/.local/share/chezmoi/large_packages) | tr '\n' ' ')
 fi
 {{ if eq .chezmoi.os "linux" -}}
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/linux_packages)
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed) <(sort -u $HOME/.local/share/chezmoi/linux_packages) | tr '\n' ' ')
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/macos_packages)
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/huge_packages)
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed) <(sort -u $HOME/.local/share/chezmoi/macos_packages) | tr '\n' ' ')
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed) <(sort -u $HOME/.local/share/chezmoi/huge_packages) | tr '\n' ' ')
 brew bundle install --file=$HOME/.local/share/chezmoi/Brewfile_casks
 {{ end }}
 {{ if eq .chezmoi.arch "amd64" -}}
-pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/intel_packages)
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed) <(sort -u $HOME/.local/share/chezmoi/intel_packages) | tr '\n' ' ')
 {{ end }}
 
 micromamba shell init --shell=bash $HOME/micromamba
@@ -39,7 +44,6 @@ micromamba install -n r r-languageserver r-colorout conda-tree
 
 ln -sf ${HOME}/.pixi/bin/r ${HOME}/.pixi/bin/R
 ln -sf ${HOME}/.pixi/bin/rscript ${HOME}/.pixi/bin/Rscript
-sed -i "s/samtools.pl/samtools/" ${HOME}/.pixi/bin/samtools
 
 if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^python_libs$') ]; then
     micromamba create -n python_libs 

@@ -4,5 +4,6 @@ gcsfuse
 gxx
 patchelf
 procps-ng
+psmisc
 sysstat
 valgrind

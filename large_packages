@@ -50,6 +50,7 @@ haskell-language-server
 ilspy
 imagemagick
 isort
+ivy
 jdtls
 jedi-language-server
 jsonlint
@@ -62,6 +63,7 @@ markdown-toc
 markdownlint-cli2
 marksman
 mercurial
+mill
 mypy
 nbconvert-core
 notebook
