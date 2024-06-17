@@ -26,7 +26,6 @@ dotnet-format
 dotnet-repl
 dotnet-script
 dtrx
-emacs
 eradicate
 fake
 fantomas
