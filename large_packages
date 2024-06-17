@@ -11,6 +11,7 @@ cake
 checkstyle
 clojure
 cmake-language-server
+cmake_format
 codespell
 commitlint
 compose-language-service
@@ -29,6 +30,7 @@ dtrx
 eradicate
 fake
 fantomas
+findent
 fixjson
 flake8
 fortls
