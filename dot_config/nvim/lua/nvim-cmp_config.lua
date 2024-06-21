@@ -24,7 +24,7 @@ cmp.setup({
                     vsnip = '',
                     path = '',
                     cmp_zotcite = 'z',
-                    cmp_nvim_r = 'R'
+                    cmp_r = 'R'
                 }
                 item.menu = menu_icon[entry.source.name]
                 return item
@@ -68,7 +68,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
-        { name = 'cmp_nvim_r'},
+        { name = 'cmp_r'},
         { name = 'buffer' },
         { name = 'path' },
         { name = 'tmux' }

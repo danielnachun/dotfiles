@@ -122,93 +122,93 @@ create_autocmd({
     end
 })
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        set_visual_keymap({
-            shortcut = "<Space>",
-            command = "<Plug>RDSendSelection"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --set_visual_keymap({
+            --shortcut = "<Space>",
+            --command = "<Plug>RDSendSelection"
+        --})
+    --end
+--})
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        set_normal_keymap({
-            shortcut = "<Space>",
-            command = "<Plug>RDSendLine"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --set_normal_keymap({
+            --shortcut = "<Space>",
+            --command = "<Plug>RDSendLine"
+        --})
+    --end
+--})
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        set_normal_keymap({
-            shortcut = "<LocalLeader>rk",
-            command = ":call RAction(\"levels\")<CR>"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --set_normal_keymap({
+            --shortcut = "<LocalLeader>rk",
+            --command = ":call RAction(\"levels\")<CR>"
+        --})
+    --end
+--})
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        set_normal_keymap({
-            shortcut = "<LocalLeader>t",
-            command = ":call RAction(\"tail\")<CR>"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --set_normal_keymap({
+            --shortcut = "<LocalLeader>t",
+            --command = ":call RAction(\"tail\")<CR>"
+        --})
+    --end
+--})
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        set_normal_keymap({
-            shortcut = "<LocalLeader>h",
-            command = ":call RAction(\"head\")<CR>"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --set_normal_keymap({
+            --shortcut = "<LocalLeader>h",
+            --command = ":call RAction(\"head\")<CR>"
+        --})
+    --end
+--})
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        set_normal_keymap({
-            shortcut = "<LocalLeader>p",
-            command = ":call RAction(\"print\")<CR>"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --set_normal_keymap({
+            --shortcut = "<LocalLeader>p",
+            --command = ":call RAction(\"print\")<CR>"
+        --})
+    --end
+--})
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        set_normal_keymap({
-            shortcut = "<LocalLeader>d",
-            command = ":call RAction(\"dim\")<CR>"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --set_normal_keymap({
+            --shortcut = "<LocalLeader>d",
+            --command = ":call RAction(\"dim\")<CR>"
+        --})
+    --end
+--})
 
-create_autocmd({
-    event = "FileType",
-    pattern = "r",
-    command = function() 
-        command = set_normal_keymap({
-            shortcut = "<LocalLeader>s",
-            command = ":call RAction(\"str\")<CR>"
-        })
-    end
-})
+--create_autocmd({
+    --event = "FileType",
+    --pattern = "r",
+    --command = function() 
+        --command = set_normal_keymap({
+            --shortcut = "<LocalLeader>s",
+            --command = ":call RAction(\"str\")<CR>"
+        --})
+    --end
+--})
 
 -- Color overrides
 create_autocmd({
