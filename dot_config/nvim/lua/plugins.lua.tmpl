@@ -16,8 +16,8 @@ return require('lazy').setup({
     'folke/lazy.nvim',
 
     -- Chezmoi must be run first
-    {'alker0/chezmoi.vim', 
-        lazy = false, 
+    {'alker0/chezmoi.vim',
+        lazy = false,
         init = function()
             -- This option is required.
             vim.g['chezmoi#use_tmp_buffer'] = true
@@ -30,33 +30,151 @@ return require('lazy').setup({
     'nvim-lua/plenary.nvim',
     'rcarriga/nvim-notify',
     'folke/noice.nvim',
-    -- 'vigoux/notifier.nvim',
+    -- 'folke/zen-mode.nvim',
+    -- 'vigoux/notifier.nvim', probably superseded by nvim-notify
+    'stevearc/aerial.nvim',
+    'hedyhli/outline.nvim',
 
     -- Search
     {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'},
     'nvim-telescope/telescope.nvim',
+    "ANGkeith/telescope-terraform-doc.nvim",
+    "cappyzawa/telescope-terraform.nvim",
 
     -- Status information
     -- 'romgrk/barbar.nvim' -- status bar
     {'akinsho/bufferline.nvim', version = '*', dependencies = {'RRethy/nvim-base16', 'nvim-tree/nvim-web-devicons'}},
     'tiagovla/scope.nvim',
     'nvim-lualine/lualine.nvim',
+    --rebelot/heirline.nvim even more mininimal than lualine
     -- 'wfxr/minimap.vim'
 
     'mbbill/undotree', -- undo history
     'christoomey/vim-tmux-navigator', -- tmux shortcuts
     'folke/which-key.nvim',
     -- 'nhooyr/neoman.vim', -- neovim to read man pages
+    -- 'mrjones2014/legendary.nvim',
 
     -- LSP
-    'folke/trouble.nvim',
+    {
+      "folke/trouble.nvim",
+      opts = {}, -- for default options, refer to the configuration section for custom setup.
+      cmd = "Trouble",
+      keys = {
+        {
+          "<leader>xx",
+          "<cmd>Trouble diagnostics toggle<cr>",
+          desc = "Diagnostics (Trouble)",
+        },
+        {
+          "<leader>xX",
+          "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+          desc = "Buffer Diagnostics (Trouble)",
+        },
+        {
+          "<leader>cs",
+          "<cmd>Trouble symbols toggle focus=false<cr>",
+          desc = "Symbols (Trouble)",
+        },
+        {
+          "<leader>cl",
+          "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+          desc = "LSP Definitions / references / ... (Trouble)",
+        },
+        {
+          "<leader>xL",
+          "<cmd>Trouble loclist toggle<cr>",
+          desc = "Location List (Trouble)",
+        },
+        {
+          "<leader>xQ",
+          "<cmd>Trouble qflist toggle<cr>",
+          desc = "Quickfix List (Trouble)",
+        },
+      },
+    },
     {'ray-x/guihua.lua', build = 'cd lua/fzy && make'},
     'ray-x/navigator.lua',
     -- 'glepnir/lspsaga.nvim', { 'branch': 'main' },
     'folke/lsp-colors.nvim',
-    'nvim-treesitter/nvim-treesitter',
+    {
+        'nvim-treesitter/nvim-treesitter',
+        opts = {
+            ensure_installed = {
+                "bash",
+                "c",
+                "cpp",
+                "clojure",
+                "cmake",
+                "commonlisp",
+                "c_sharp",
+                "d",
+                "dockerfile",
+                "fish",
+                "fortran",
+                "gitattributes",
+                "gitcommit",
+                "gitignore",
+                "go",
+                "gomod",
+                "gowork",
+                "haskell",
+                "html",
+                "java",
+                "jq",
+                "json",
+                "julia",
+                "latex",
+                "llvm",
+                "lua",
+                "make",
+                "markdown",
+                "markdown_inline",
+                "meson",
+                "mir",
+                "mlir",
+                "objc",
+                "perl",
+                "powershell",
+                "python",
+                "regex",
+                "r",
+                "rnoweb",
+                "ruby",
+                "rust",
+                "scala",
+                "scheme",
+                "tablegen",
+                "sql",
+                "ssh_config",
+                "swift",
+                "todotxt",
+                "toml",
+                "wdl",
+                "yaml",
+                "zig"
+            },
+        },
+    },
+    'PaterJason/nvim-treesitter-sexp',
+    'nushell/tree-sitter-nu',
     'nvimtools/none-ls.nvim',
+    --'mfussenegger/nvim-lint', migrate from none-ls?
+    --'stevearc/conform.nvim', migrate from none-ls?
+    'mfussenegger/nvim-jdtls',
+    'p00f/clangd_extensions.nvim',
+    'folke/lazydev.nvim',
+    'Civitasv/cmake-tools.nvim',
+    "mrcjkb/haskell-tools.nvim",
+    'nvim-neotest/nvim-nio',
+    "lukas-reineke/headlines.nvim",
+    --"Hoffs/omnisharp-extended-lsp.nvim", need to configure omnisharp right
+    "linux-cultist/venv-selector.nvim",
+    "suketa/nvim-dap-ruby",
+    "windwp/nvim-ts-autotag",
 
+    -- Clipboard
+    'gbprod/yanky.nvim',
     -- Colorschemes
     'RRethy/nvim-base16',
 
@@ -71,14 +189,46 @@ return require('lazy').setup({
     'petertriho/cmp-git',
     'R-nvim/cmp-r',
     'onsails/lspkind.nvim',
-    -- 'andersevenrud/cmp-tmux'
+    -- 'andersevenrud/cmp-tmux', check why this wasn't working
+    --'cmp-conjure', need to configure conjure
+    "suketa/nvim-dap-ruby",
+    "kristijanhusak/vim-dadbod-completion",
+    "kristijanhusak/vim-dadbod-ui",
+
+    -- Comments
+    'folke/ts-comments.nvim',
+    'folke/todo-comments.nvim',
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    --'numToStr/Comment.nvim',
+    --'echasnovski/mini.comment' compare to comment.nvim
+
+    -- Development
+    'Bilal2453/luvit-meta',
+
+    -- Debug
+    'mfussenegger/nvim-dap',
+    'mfussenegger/nvim-dap-python',
+    "suketa/nvim-dap-ruby",
+    'leoluz/nvim-dap-go',
+    'rcarriga/nvim-dap-ui',
+    'theHamsta/nvim-dap-virtual-text',
+    'jbyuki/one-small-step-for-vimkind',
 
     -- File Management
     'nvim-tree/nvim-tree.lua',
     -- 'nvim-neo-tree/neo-tree.nvim',
     -- {'ms-jpq/chadtree', branch = 'chad', 'do': 'python3 -m chadtree deps'},
+    -- tamago324/lir.nvim, alternate file manager
     'kevinhwang91/rnvimr',
     'goolord/alpha-nvim',
+    --"echasnovski/mini.starter",
+    --'nvimdev/dashboard-nvim', compare to alpha
+    --'folke/persistence.nvim', need to configure
+    --'stevearc/resession.nvim',
+    --'echasnovski/mini.files', compare to other file managers
+    
+    -- Folds
+    'kevinhwang91/nvim-ufo',
 
     -- Icons
     'nvim-tree/nvim-web-devicons', --  Recommended (for coloured icons)
@@ -88,33 +238,99 @@ return require('lazy').setup({
     -- 'nathanaelkane/vim-indent-guides'
     'Yggdroot/indentLine',
     'lukas-reineke/indent-blankline.nvim',
+    'echasnovski/mini.indentscope',
+    'NMAC427/guess-indent.nvim',
 
     -- Miscellaneous
     'windwp/nvim-autopairs',
+    --'echasnovski/mini.pairs' compare to autopairs
     'Iron-E/nvim-libmodal',
     'Iron-E/nvim-bufmode',
     'Iron-E/nvim-tabmode',
     'chrisbra/NrrwRgn',
-    -- 'folke/zen-mode.nvim'
+    --'echasnovski/mini.nvim',
+    --'echasnovski/mini.diff',
+    'danymat/neogen',
+    'monaqa/dial.nvim',
+    'ibhagwan/fzf-lua',
+    {'ThePrimeagen/harpoon', branch = 'harpoon2'},
+    --'ThePrimeagen/refactoring.nvim', need to configure
+    'stevearc/dressing.nvim',
+    'm00qek/baleia.nvim',
+    'folke/neoconf.nvim',
+    "nvim-treesitter/nvim-treesitter-context",
+    "dstein64/vim-startuptime",
+    'NvChad/nvim-colorizer.lua',
+    'kevinhwang91/promise-async',
+    --'max397574/better-escape.nvim', must configure
+
+    -- Modes
+    'nvimtools/hydra.nvim',
 
     -- Movement
     'phaazon/hop.nvim', -- letters to jump to words
+    'ggandor/leap.nvim',
+    'ggandor/flit.nvim',
+    --'SmiteshP/nvim-navbuddy',
+    'SmiteshP/nvim-navic',
+    'echasnovski/mini.move',
+
+    -- Project
+    'ahmedkhalf/project.nvim',
 
     -- REPL
     --{'jalvesaq/Nvim-R', branch = 'master'}, -- R plugin
     {'R-nvim/R.nvim', branch = 'main'}, -- R plugin
     'Vigemus/iron.nvim',
+    'Olical/conjure',
+    'akinsho/toggleterm.nvim',
+
+    -- Search
+    'folke/flash.nvim',
+    'nvim-pack/nvim-spectre',
+    'RRethy/vim-illuminate',
+    'smjonas/inc-rename.nvim',
+    "echasnovski/mini.hipatterns",
 
     -- Snippets
     'hrsh7th/cmp-vsnip',
     'hrsh7th/vim-vsnip',
     'rafamadriz/friendly-snippets',
+    'garymjr/nvim-snippets',
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
 
     -- Surround
     'kylechui/nvim-surround', -- to add quotes etc. around word
+    --'echasnovski/mini.surround' compare to nvim-surround
+    'windwp/nvim-ts-autotag',
 
     -- Tags - redundant?
     'simrat39/symbols-outline.nvim',
+
+    -- Text objects
+    'echasnovski/mini.ai',
+    'nvim-treesitter/nvim-treesitter-textobjects',
+
+    -- Testing
+    'nvim-neotest/neotest',
+    "nvim-neotest/neotest-go",
+    "nvim-neotest/neotest-python",
+    "olimorris/neotest-rspec",
+    "shunsambongi/neotest-testthat",
+    'nvim-neotest/nvim-nio',
+    "mrcjkb/neotest-haskell",
+    "Issafalcon/neotest-dotnet",
+
+    -- VCS
+    'lewis6991/gitsigns.nvim',
+    'pwntester/octo.nvim',
+
+    -- Window management
+    'folke/edgy.nvim',
+    --'mini.bufremove',
+    --'s1n7ax/nvim-window-picker'
+    --'mrjones2014/smart-splits.nvim'
 
     -- Vimscript plugins
     -- Try to find Lua ports of these
@@ -131,7 +347,7 @@ return require('lazy').setup({
     'tpope/vim-eunuch', -- POSIX file commands
 
     -- Icons
-    'ryanoasis/vim-devicons', -- unicode icons everywhere
+    --'ryanoasis/vim-devicons', -- unicode icons everywhere
 
     -- Indent
     'michaeljsmith/vim-indent-object',
@@ -151,6 +367,8 @@ return require('lazy').setup({
     {{ if eq .chezmoi.os "darwin"  }}
     {'euclio/vim-markdown-composer', build = 'cargo build --release --locked'},
     {{ end }}
+
+    "tpope/vim-dadbod",
 
     -- Movement
     'mg979/vim-visual-multi', -- sublime text multiple cursor

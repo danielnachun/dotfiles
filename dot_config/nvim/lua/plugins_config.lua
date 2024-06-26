@@ -20,5 +20,7 @@ require("which-key").setup({
 })
 require("nvim-autopairs").setup {}
 require("nvim-tree").setup()
+require("aerial").setup()
+require("colorizer").setup()
 
 vim.cmd("highlight LineNr guibg=#f0f0f1")
