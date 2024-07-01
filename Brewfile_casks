@@ -1,4 +1,3 @@
-tap "homebrew/cask"
 cask "cisco-proximity"
 cask "connectmenow"
 cask "cyberduck"
