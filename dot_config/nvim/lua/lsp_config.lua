@@ -172,6 +172,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.golines,
 		null_ls.builtins.formatting.google_java_format,
 		--null_ls.builtins.formatting.isortd,
+        --gospel not in nvim-lint
 		null_ls.builtins.formatting.joker,
 		null_ls.builtins.formatting.mdformat,
 		null_ls.builtins.formatting.npm_groovy_lint,
@@ -179,6 +180,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.ocdc, -- not in conform.nvim
 		null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.pyink,
+        --pylama not in nvim-lint
 		--null_ls.builtins.formatting.pylint,
 		--null_ls.builtins.formatting.remark, fails with error not in conform.nvim
 		null_ls.builtins.formatting.rstcheck, -- not in conform.nvim
