@@ -19,22 +19,6 @@ opt.relativenumber = false
 --opt.ffs = "unix,dos,mac"
 opt.mousemoveevent = true
 
-function set_keymap(args)
-  vim.api.nvim_set_keymap(args.mode, args.shortcut, args.command, { noremap = true, silent = true })
-end
-
-function set_normal_keymap(args)
-  set_keymap({ mode = "n", shortcut = args.shortcut, command = args.command })
-end
-
-function set_visual_keymap(args)
-  set_keymap({ mode = "v", shortcut = args.shortcut, command = args.command })
-end
-
-function set_terminal_keymap(args)
-  set_keymap({ mode = "t", shortcut = args.shortcut, command = args.command })
-end
-
 function set_var(args)
   vim.api.nvim_set_var(args.variable, args.value)
 end
@@ -47,4 +31,37 @@ set_var({
 set_var({
   variable = "maplocalleader",
   value = ",",
+})
+
+-- Vimtex
+-- Use NeoVim remote to allow feedback about errors
+set_var({
+    variable = "vimtex_compiler_progname",
+    value = "nvr"
+})
+
+-- Auto fold 
+set_var({
+    variable = "vimtex_fold_enabled",
+    value = 1
+})
+
+set_var({
+    variable = "vimtex_view_method",
+    value = "skim"
+})
+
+set_var({
+    variable = "vimtex_syntax_conceal_disable",
+    value = 1
+})
+
+-- fix me!
+--let g:vimtex_compiler_latexmk = {
+    --\ 'backend' : 'nvim',
+    --\}
+
+set_var({
+    variable = "tex_flavor",
+    value = "latex"
 })
