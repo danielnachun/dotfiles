@@ -49,5 +49,5 @@ return {
 		opts.linters_by_ft.vim = vim.tbl_extend("force", opts.linters_by_ft.vim, { "vint" })
 		opts.linters_by_ft.yaml = vim.tbl_extend("force", opts.linters_by_ft.yaml, { "spectral", "yamllint" })
 		opts.linters_by_ft.zsh = vim.tbl_extend("force", opts.linters_by_ft.zsh, { "zsh" })
-	end,
+	end
 }

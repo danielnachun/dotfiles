@@ -1,4 +1,5 @@
 return {
+    "Vigemus/iron.nvim",
 	config = function()
 		local iron = require("iron.core")
 		local view = require("iron.view")
