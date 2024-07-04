@@ -1,6 +1,7 @@
 return {
-    config = function()
-        require("r").setup({
+    "R-nvim/R.nvim",
+    opts = {
+        setup = {
             nvimpager = "split_v",
             rconsole_width = 0,
             Rout_more_colors = true,
@@ -18,6 +19,6 @@ return {
                     vim.api.nvim_buf_set_keymap(0, "n", "<LocalLeader>s", "<Cmd>lua require('r.run').action('str')<CR>", {})
                 end
             },
-        })
-    end
+        }
+    }
 }
