@@ -2,6 +2,10 @@ return {
   {
     "RRethy/nvim-base16",
     config = function()
+        require("base16-colorscheme").with_config({
+            cmp = false,
+            telescope = false
+        })
       vim.cmd("highlight LineNr guibg=#f0f0f1")
     end,
   },
