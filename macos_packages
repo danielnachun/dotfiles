@@ -4,7 +4,7 @@ docker
 docker-buildx
 docker-credential-helper
 ghostscript
-lima
+lima-vm
 mas
 pinentry
 pinentry-mac
