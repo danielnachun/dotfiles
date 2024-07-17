@@ -22,6 +22,7 @@
 -- typos - ?
 -- vulture - python
 -- ["*"]  = { "codespell" },
+-- spectral
 
 return {
 	"mfussenegger/nvim-lint",
@@ -36,17 +37,19 @@ return {
 		opts.linters_by_ft.go = vim.tbl_extend("force", opts.linters_by_ft.go or {}, { "revive" })
 		opts.linters_by_ft.groovy = vim.tbl_extend("force", opts.linters_by_ft.groovy or {}, { "npm-groovy-lint" })
 		opts.linters_by_ft.haskell = vim.tbl_extend("force", opts.linters_by_ft.haskell or {}, { "hlint" })
-		opts.linters_by_ft.java = vim.tbl_extend("force", opts.linters_by_ft.java or {}, { "checkstyle", "npm-groovy-lint" })
-		opts.linters_by_ft.json = vim.tbl_extend("force", opts.linters_by_ft.json or {}, { "jsonlint", "spectral" })
+		opts.linters_by_ft.java =
+			vim.tbl_extend("force", opts.linters_by_ft.java or {}, { "checkstyle", "npm-groovy-lint" })
+		opts.linters_by_ft.json = vim.tbl_extend("force", opts.linters_by_ft.json or {}, { "jsonlint" })
 		opts.linters_by_ft.lua = vim.tbl_extend("force", opts.linters_by_ft.lua or {}, { "luacheck" })
 		opts.linters_by_ft.make = vim.tbl_extend("force", opts.linters_by_ft.make or {}, { "checkmake" })
 		opts.linters_by_ft.markdown =
 			vim.tbl_extend("force", opts.linters_by_ft.markdown or {}, { "proselint", "write-good" })
-		opts.linters_by_ft.perl = vim.tbl_extend("force", opts.linters_by_ft.perl or {}, { "perlcritic", "perlimports" })
+		opts.linters_by_ft.perl =
+			vim.tbl_extend("force", opts.linters_by_ft.perl or {}, { "perlcritic", "perlimports" })
 		opts.linters_by_ft.ruby = vim.tbl_extend("force", opts.linters_by_ft.ruby or {}, { "ruby" })
 		opts.linters_by_ft.xml = vim.tbl_extend("force", opts.linters_by_ft.xml or {}, { "tidy" })
 		opts.linters_by_ft.vim = vim.tbl_extend("force", opts.linters_by_ft.vim or {}, { "vint" })
-		opts.linters_by_ft.yaml = vim.tbl_extend("force", opts.linters_by_ft.yaml or {}, { "spectral", "yamllint" })
+		opts.linters_by_ft.yaml = vim.tbl_extend("force", opts.linters_by_ft.yaml or {}, { "yamllint" })
 		opts.linters_by_ft.zsh = vim.tbl_extend("force", opts.linters_by_ft.zsh or {}, { "zsh" })
-	end
+	end,
 }

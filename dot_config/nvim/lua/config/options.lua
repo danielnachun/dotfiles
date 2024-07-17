@@ -23,6 +23,8 @@ opt.mousemoveevent = true
 function set_var(args)
 	vim.api.nvim_set_var(args.variable, args.value)
 end
+vim.g.autoformat = false
+vim.b.autoformat = false
 
 set_var({
 	variable = "mapleader",

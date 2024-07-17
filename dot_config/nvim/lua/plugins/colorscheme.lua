@@ -5,7 +5,7 @@ return {
 			require("base16-colorscheme").with_config({
 				telescope = false,
 			})
-			vim.cmd("highlight LineNr guibg=#f0f0f1")
+			-- vim.cmd("highlight LineNr guibg=#f0f0f1")
 		end,
 	},
 
