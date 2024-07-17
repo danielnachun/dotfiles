@@ -1,6 +1,7 @@
 return {
 	"neovim/nvim-lspconfig",
 	opts = {
+		autoformat = false,
 		servers = {
 			autotools_ls = {},
 			awk_ls = {},
@@ -33,7 +34,7 @@ return {
 			--rubocop = {}, probably handled by solargraph
 			--rust_analyzer = {}, handeld by rustacean?
 			serve_d = {},
-			spectral = {},
+			-- spectral = {},  missing package
 			sqlls = {},
 			--standardrb = {}, handled by solargraph?
 			steep = {},

@@ -40,9 +40,12 @@ return {
 	"stevearc/conform.nvim",
 	opts = function(_, opts)
 		setup = {
-			format_on_save = {
-				timeout_ms = 60000,
-			},
+			format_on_save = function(bufnr)
+				return
+			end,
+			format_after_save = function(bufnr)
+				return
+			end,
 		}
 		opts.formatters_by_ft.awk = vim.tbl_extend("force", opts.formatters_by_ft.awk or {}, { "awk" })
 		opts.formatters_by_ft.c =
