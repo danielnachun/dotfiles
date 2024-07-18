@@ -23,7 +23,6 @@ docformatter
 dockerfile-language-server-nodejs
 dot-language-server
 dotnet-diagnostics
-dotnet-format
 dotnet-repl
 dotnet-script
 dtrx
