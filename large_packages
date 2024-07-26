@@ -46,6 +46,7 @@ gitlint-core
 globus-cli
 google-java-format
 goosebib
+gradle-language-server
 groovy
 groovy-language-server
 gsutil
