@@ -101,7 +101,7 @@ rubocop
 ruby-lsp
 rubyfmt
 sbt
-scala
+scala3
 scalafmt
 scalariform
 send2trash
