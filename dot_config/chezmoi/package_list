@@ -205,6 +205,7 @@ llvm-tools
 lsof
 lua
 lua-language-server
+luacov
 luaformatter
 luau-lsp
 lychee
@@ -263,6 +264,8 @@ periscope
 perl
 perl-app-cope
 perl-app-perlimports
+perl-devel-cover
+perl-perl-critic
 perl-pls
 perl-perl-tidy
 pget
@@ -364,6 +367,7 @@ tuc
 tv
 typos-cli
 typos-lsp
+undercover
 ugrep
 unar
 uncrustify
