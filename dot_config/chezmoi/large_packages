@@ -18,6 +18,7 @@ cmake_format
 codespell
 commitlint
 compose-language-service
+coverlet
 cppcheck
 cpplint
 csharpier
@@ -26,6 +27,7 @@ docformatter
 dockerfile-language-server-nodejs
 dot-language-server
 dotnet-diagnostics
+dotnet-monitor
 dotnet-repl
 dotnet-script
 dtrx
@@ -55,9 +57,11 @@ ilspy
 imagemagick
 isort
 ivy
+jacoco
 jdtls
 jedi-language-server
 jsonlint
+junit5
 jupyter_client
 jupyter_core
 jupyter_server
@@ -70,6 +74,8 @@ marksman
 mercurial
 metals
 mill
+minicover
+msbuild
 msbuild-project-tools-server
 mypy
 nbconvert-core
@@ -98,6 +104,7 @@ radon
 readapt
 remark-cli
 remark-language-server
+reportgenerator
 rubocop
 ruby-lsp
 rubyfmt

@@ -1,15 +1,4 @@
 README.md
-Brewfile
-Brewfile_casks
-huge_packages
-intel_packages
-large_packages
-linux_packages
-macos_packages
-micromamba_packages
-package_list
-pixi_packages
-Rprofile
 
 {{ if ne .chezmoi.os "darwin" }}
 .yabairc    
