@@ -25,7 +25,6 @@ dmd
 dockerfile-language-server-nodejs
 dot-language-server
 dotnet-diagnostics
-dotnet-format
 dotnet-monitor
 dotnet-repl
 dotnet-script
