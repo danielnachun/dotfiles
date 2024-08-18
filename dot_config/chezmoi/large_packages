@@ -5,8 +5,10 @@ ant
 azure-pipelines-language-server
 bibclean
 bibtex-tidy
+bisect_ppx
 byebug
 byebug-dap
+c2hs
 cabal-fmt
 cabal-install
 cake
@@ -17,12 +19,15 @@ clojure
 clojure-lsp
 compose-language-service
 coverlet
+cpphs
 csharpier
 dcd
 dfmt
 digestif
 dmd
+docfx
 dockerfile-language-server-nodejs
+doctest
 dot-language-server
 dotnet-diagnostics
 dotnet-monitor
@@ -51,6 +56,8 @@ haskell-language-server
 hindent
 hlint
 hoogle
+hscolour
+hsc2hs
 ilspy
 imagemagick
 ivy
@@ -65,6 +72,7 @@ luaformatter
 luau-lsp
 marksman
 maven
+menhir
 metals
 mill
 minicover
@@ -73,6 +81,9 @@ msbuild-project-tools-server
 mx
 npm-groovy-lint
 nuke
+ocamlbuild
+ocamlformat
+odoc
 omnisharp-roslyn
 ocp-indent
 opendebugad7
