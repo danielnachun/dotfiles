@@ -13,6 +13,8 @@ automake
 autopep8
 autotools-language-server
 awk-language-server
+bacon
+bacon-ls
 bartib
 bandit
 bash
