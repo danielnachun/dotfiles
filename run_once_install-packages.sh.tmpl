@@ -14,23 +14,21 @@ if [ -d ${HOME}/.pixi/envs ]; then
 else
     touch /tmp/installed_packages
 fi
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | tr '\n' ' ')
-if [ -z ${MINIMAL_INSTALL} ]; then
-    pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/large_packages) | tr '\n' ' ')
-fi
+comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | xargs -I % pixi global install -c dnachun -c conda-forge %
 {{ if eq .chezmoi.os "linux" -}}
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
+comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | xargs -I % pixi global install -c dnachun -c conda-forge %
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages) | tr '\n' ' ')
+comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages) | xargs -I % pixi global install -c dnachun -c conda-forge %
 brew bundle install --file=$HOME/.local/share/chezmoi/dot_config/chezmoi/Brewfile_casks
 export FULL_INSTALL=1
 {{ end }}
-if [ -n ${FULL_INSTALL} ]; then
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/huge_packages) | tr '\n' ' ')
+if [ ! -z ${FULL_INSTALL} ]; then
+    comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/large_packages) | xargs -I % pixi global install -c dnachun -c conda-forge %
+    comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/huge_packages) | xargs -I % pixi global install -c dnachun -c conda-forge %
 fi
 {{ if eq .chezmoi.arch "amd64" -}}
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/intel_packages) | tr '\n' ' ')
+comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/intel_packages) | xargs -I % pixi global install -c dnachun -c conda-forge %
 {{ end }}
 
 micromamba shell init --shell=bash $HOME/micromamba
@@ -64,15 +62,13 @@ sys.path[0:0] = [
 ]
 EOF
 
-if [ -z ${MINIMAL_INSTALL} ]; then
-    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
-    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
-    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
-    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
-    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
-    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
-    ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/sos/lib/python3.12/site-packages/
-fi
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
+ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/sos/lib/python3.12/site-packages/
 ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/ptpython/lib/python3.12/site-packages/
 
 # To add
