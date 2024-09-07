@@ -10,6 +10,7 @@ atuin
 autoconf
 autogen
 automake
+auto-optional
 autopep8
 autotools-language-server
 awk-language-server
@@ -302,6 +303,7 @@ ptpython
 pueue
 pup
 py-spy
+pycln
 pycodestyle
 pycp
 pydocstyle
