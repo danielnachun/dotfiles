@@ -86,6 +86,8 @@ duckdb-cli
 duf
 dura
 dust
+dyff
+eclint
 efm-langserver
 elvish
 entr
@@ -187,6 +189,7 @@ jaq
 jd
 jedi-language-server
 jid
+jinja-lsp
 jj
 jless
 joshuto
