@@ -107,7 +107,7 @@ findutils
 fixjson
 flake8
 flex
-flint
+flint-checker
 fork-cleaner
 fortls
 fortran-language-server
@@ -143,6 +143,7 @@ glow-md
 gnupg
 go-archiver
 go-ghq
+go-gum
 go-jsonnet
 go-shfmt
 go-yq
@@ -164,7 +165,6 @@ grex
 gsutil
 gron
 guile
-gum
 gzip
 harper
 heatseeker
