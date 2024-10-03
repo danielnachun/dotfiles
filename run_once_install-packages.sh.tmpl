@@ -17,6 +17,12 @@ fi
 comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | xargs -I % pixi global install -c dnachun -c conda-forge %
 {{ if eq .chezmoi.os "linux" -}}
 comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | xargs -I % pixi global install -c dnachun -c conda-forge %
+if [ ! grep -q 'PATH="${HOME}/.pixi/bin:${PATH}"' ]; then
+    echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> ${HOME}/.bashrc
+fi
+if [ ! grep -q 'unset FPATH' ]; then
+    echo 'unset FPATH' >> ${HOME}/.bashrc
+fi
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
 comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages) | xargs -I % pixi global install -c dnachun -c conda-forge %
@@ -41,7 +47,7 @@ micromamba config prepend channels dnachun
 if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^r$') ]; then
     micromamba create -n r
 fi
-micromamba install -n r r-languageserver r-colorout conda-tree
+micromamba install -n r r-languageserver r-colorout conda-tree r-learnr
 
 {{ if eq .chezmoi.os "linux" -}}
 ln -sf ${HOME}/.pixi/bin/r ${HOME}/.pixi/bin/R
