@@ -382,6 +382,7 @@ the_silver_searcher
 tig
 time
 tmux
+tmux-language-server
 tmuxinator
 topgrade
 trash-cli
@@ -437,4 +438,5 @@ zet
 zip
 zoxide
 zprint
+zsh
 zstd
