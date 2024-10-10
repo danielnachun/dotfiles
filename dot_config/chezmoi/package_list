@@ -198,10 +198,7 @@ jql
 jsonlint
 jsonnet-language-server
 jsonpp
-jupyter_client
-jupyter_core
-jupyter_server
-jupyterlab
+jupyter_client jupyter_core jupyter_server jupyterlab ptpython nbconvert-core notebook sos python=3.12
 kalker
 kickstart
 kondo
@@ -248,7 +245,6 @@ mprocs
 murex
 mypy
 navi
-nbconvert-core
 ncdu
 ncftp
 neocmakelsp
@@ -258,7 +254,6 @@ ninja
 nnn
 nodejs
 nomino
-notebook
 nsh
 nushell
 nvim
@@ -302,7 +297,6 @@ proselint
 prosemd-lsp
 prr
 pspg
-ptpython
 pueue
 pup
 py-spy
@@ -314,7 +308,6 @@ pyflyby
 pyink
 pylyzer
 pyright
-python
 python-lsp-server-base
 qpdf
 qsv
@@ -354,7 +347,6 @@ shelltestrunner
 sift
 skim
 smem
-sos
 spectral-cli
 spr
 sqls
