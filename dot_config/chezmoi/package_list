@@ -71,6 +71,7 @@ delve
 diagnostic-languageserver
 diff-so-fancy
 diffr
+diffsitter
 difftastic
 diffutils
 diskonaut
@@ -98,7 +99,7 @@ f2
 fastmod
 fblog
 fclones
-fcp
+fcp-rust
 fd-find
 felix
 fend
@@ -137,6 +138,7 @@ git-extras
 git-imerge
 git-town
 gitlint-core
+gitoxide
 gitql
 gitui
 global
@@ -146,6 +148,7 @@ gnupg
 go-archiver
 go-ccat
 go-ghq
+go-git
 go-gum
 go-jsonnet
 go-shfmt
