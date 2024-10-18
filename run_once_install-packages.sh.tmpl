@@ -31,7 +31,7 @@ pixi global install coreutils \
     rename
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
-pixi global expose remove kill
+pixi global expose remove kill uptime
 pixi global install procps-ng
 pixi global install --environment python \
     ipython \
