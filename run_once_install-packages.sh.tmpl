@@ -29,10 +29,6 @@ pixi global expose remove kill
 pixi global install coreutils \
     parallel \
     rename
-{{ if eq .chezmoi.os "linux" -}}
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
-pixi global expose remove kill uptime
-pixi global install procps-ng
 pixi global install --environment python \
     ipython \
     jupyter_client \
@@ -44,6 +40,10 @@ pixi global install --environment python \
     notebook \
     sos \
     python=3.12
+{{ if eq .chezmoi.os "linux" -}}
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
+pixi global expose remove kill uptime
+pixi global install procps-ng
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
 pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages) | tr '\n' ' ')
