@@ -113,7 +113,6 @@ flex
 flint-checker
 fork-cleaner
 fortls
-fortran-language-server
 fprettify
 fq
 fselect
@@ -267,7 +266,6 @@ orgalorg
 ouch
 p7zip
 page
-parallel
 patch
 pax
 pbzip2
@@ -321,7 +319,6 @@ rargs
 rclone
 remark-cli
 remark-language-server
-rename
 reposurgeon
 restic
 revive
@@ -397,7 +394,6 @@ uncrustify
 unzip
 up
 usort
-util-linux
 vale
 vale-ls
 vim-language-server
