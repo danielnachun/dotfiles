@@ -52,7 +52,6 @@ codespell
 colortail
 comby
 commitlint
-coreutils
 cpio
 cppcheck
 cpplint
@@ -391,6 +390,7 @@ uncrustify
 unzip
 up
 usort
+util-linux
 vale
 vale-ls
 vim-language-server
