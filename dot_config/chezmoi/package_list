@@ -264,7 +264,6 @@ orgalorg
 ouch
 p7zip
 page
-parallel
 patch
 pax
 pbzip2
@@ -318,7 +317,6 @@ rargs
 rclone
 remark-cli
 remark-language-server
-rename
 reposurgeon
 restic
 revive

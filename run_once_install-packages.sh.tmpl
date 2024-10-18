@@ -15,6 +15,10 @@ else
     touch /tmp/installed_packages
 fi
 comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
+rm -rf ${HOME}/.pixi/bin/parallel
+rm -rf ${HOME}/.pixi/bin/rename
+pixi global install parallel
+pixi global install rename
 {{ if eq .chezmoi.os "linux" -}}
 comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
 if [ ! grep -q 'PATH="${HOME}/.pixi/bin:${PATH}"' ]; then
