@@ -5,7 +5,14 @@ set -o xtrace -o errexit
 if [ ! -f $HOME/.pixi/bin/pixi ]; then
     curl -fsSL https://pixi.sh/install.sh | bash
     if [ ! -f $HOME/.bashrc ]; then
-        echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> .bashrc
+        echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> ${HOME}/.bashrc
+    else
+        if [ ! grep -q 'PATH="${HOME}/.pixi/bin:${PATH}"' < ${HOME}/.bashrc ]; then
+            echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> ${HOME}/.bashrc
+        fi
+        if [ ! grep -q 'unset FPATH' < ${HOME}/.bashrc ]; then
+            echo 'unset FPATH' >> ${HOME}/.bashrc
+        fi
     fi
 fi
 export PATH="$HOME/.pixi/bin:${PATH}"
@@ -14,27 +21,41 @@ if [ -d ${HOME}/.pixi/envs ]; then
 else
     touch /tmp/installed_packages
 fi
-comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | tr '\n' ' ')
+pixi global expose remove parallel rename
 {{ if eq .chezmoi.os "linux" -}}
-comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
-if [ ! grep -q 'PATH="${HOME}/.pixi/bin:${PATH}"' ]; then
-    echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> ${HOME}/.bashrc
-fi
-if [ ! grep -q 'unset FPATH' ]; then
-    echo 'unset FPATH' >> ${HOME}/.bashrc
-fi
+pixi global expose remove kill
+{{ end }}
+pixi global install coreutils \
+    parallel \
+    rename
+pixi global install --environment python \
+    ipython \
+    jupyter_client \
+    jupyter_core \
+    jupyter_server \
+    jupyterlab \
+    ptpython \
+    nbconvert-core \
+    notebook \
+    sos \
+    python=3.12
+{{ if eq .chezmoi.os "linux" -}}
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
+pixi global expose remove kill uptime
+pixi global install procps-ng
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
-comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages) | tr '\n' ' ')
 brew bundle install --file=$HOME/.local/share/chezmoi/dot_config/chezmoi/Brewfile_casks
 export FULL_INSTALL=1
 {{ end }}
 if [ ! -z ${FULL_INSTALL} ]; then
-    comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/large_packages) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
-    comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/huge_packages) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
+    pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/large_packages) | tr '\n' ' ')
+    pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/huge_packages) | tr '\n' ' ')
 fi
 {{ if eq .chezmoi.arch "amd64" -}}
-comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/intel_packages) | xargs -I % bash -c "pixi global install -c dnachun -c conda-forge %"
+pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/intel_packages) | tr '\n' ' ')
 {{ end }}
 
 micromamba shell init --shell=bash $HOME/micromamba
@@ -47,7 +68,7 @@ micromamba config prepend channels dnachun
 if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^r$') ]; then
     micromamba create -n r
 fi
-micromamba install -n r r-languageserver r-colorout conda-tree r-learnr
+micromamba install -n r r-languageserver r-colorout r-learnr
 
 {{ if eq .chezmoi.os "linux" -}}
 ln -sf ${HOME}/.pixi/bin/r ${HOME}/.pixi/bin/R
@@ -55,9 +76,8 @@ ln -sf ${HOME}/.pixi/bin/rscript ${HOME}/.pixi/bin/Rscript
 {{ end }}
 
 if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^python_libs$') ]; then
-    micromamba create -n python_libs 
+    micromamba create -n python_libs
 fi
-micromamba install -n python_libs conda-tree ipython
 
 cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
 
@@ -68,23 +88,23 @@ sys.path[0:0] = [
 ]
 EOF
 
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/sos/lib/python3.12/site-packages/
-ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/ptpython/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/sos/lib/python3.12/site-packages/
+#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/ptpython/lib/python3.12/site-packages/
 
 # To add
-# citation-langserver 
-# languagetool-code-comments 
-# ltrs 
+# citation-langserver
+# languagetool-code-comments
+# ltrs
 # pick
-# uutils-coreutils 
-# uutils-findutils 
-# skywalking-eyes 
+# uutils-coreutils
+# uutils-findutils
+# skywalking-eyes
 
 # Install 
 if [ ! -d $HOME/.local/share/zinit ]; then

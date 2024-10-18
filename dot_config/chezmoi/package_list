@@ -52,7 +52,6 @@ codespell
 colortail
 comby
 commitlint
-coreutils
 cpio
 cppcheck
 cpplint
@@ -113,7 +112,6 @@ flex
 flint-checker
 fork-cleaner
 fortls
-fortran-language-server
 fprettify
 fq
 fselect
@@ -186,7 +184,6 @@ ijq
 impl
 indent
 inetutils
-ipython
 isort
 jaq
 jd
@@ -201,7 +198,6 @@ jql
 jsonlint
 jsonnet-language-server
 jsonpp
-jupyter_client jupyter_core jupyter_server jupyterlab ptpython nbconvert-core notebook sos python=3.12
 kalker
 kickstart
 kondo
@@ -267,7 +263,6 @@ orgalorg
 ouch
 p7zip
 page
-parallel
 patch
 pax
 pbzip2
@@ -314,14 +309,13 @@ pyright
 python-lsp-server-base
 qpdf
 qsv
-r-base
+r-base=4.3
 radon
 ranger-fm
 rargs
 rclone
 remark-cli
 remark-language-server
-rename
 reposurgeon
 restic
 revive
