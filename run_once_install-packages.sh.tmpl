@@ -42,7 +42,7 @@ pixi global install --environment python \
     notebook \
     sos \
     python=3.12
-pixi global install r-base=4.3 --expose R=r --expose Rscript=Rscript
+pixi global install r-base=4.3 --expose R=r --expose Rscript=rscript
 pixi global install --environment r-base r-languageserver r-colorout r-learn r-httpgd r-tidyverse radian
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
