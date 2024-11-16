@@ -15,12 +15,14 @@ if [ ! -f $HOME/.pixi/bin/pixi ]; then
         fi
     fi
 fi
+
 export PATH="$HOME/.pixi/bin:${PATH}"
 if [ -d ${HOME}/.pixi/envs ]; then
     ls ${HOME}/.pixi/envs > /tmp/installed_packages
 else
     touch /tmp/installed_packages
 fi
+
 pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | tr '\n' ' ')
 pixi global expose remove parallel rename
 {{ if eq .chezmoi.os "linux" -}}
@@ -40,6 +42,8 @@ pixi global install --environment python \
     notebook \
     sos \
     python=3.12
+pixi global install r-base=4.3 --expose R=r --expose Rscript=rscript
+pixi global install --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
 pixi global expose remove kill uptime
@@ -65,37 +69,27 @@ micromamba config prepend channels bioconda
 micromamba config prepend channels conda-forge
 micromamba config prepend channels dnachun
 
-if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^r$') ]; then
-    micromamba create -n r
-fi
-micromamba install -n r r-languageserver r-colorout r-learnr
+cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
+
+# Create config files for rstudio
+mkdir -p ${HOME}/.config/rstudio
+tee ${HOME}/.config/rstudio/database.conf << EOF
+directory=${HOME}/.local/var/lib/rstudio-server
+EOF
+
+tee ${HOME}/.config/rstudio/rserver.conf << EOF
+rsession-which-r=${HOME}/.pixi/envs/r-base/bin/R
+auth-none=1
+database-config-file=${HOME}/.config/rstudio/database.conf
+server-daemonize=0
+server-data-dir=${HOME}/.local/var/run/rstudio-server
+server-user=${USER}
+EOF
 
 {{ if eq .chezmoi.os "linux" -}}
 ln -sf ${HOME}/.pixi/bin/r ${HOME}/.pixi/bin/R
 ln -sf ${HOME}/.pixi/bin/rscript ${HOME}/.pixi/bin/Rscript
 {{ end }}
-
-if [ -z $(micromamba env list | grep micromamba | cut -f 3 -d ' ' | grep '^python_libs$') ]; then
-    micromamba create -n python_libs
-fi
-
-cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
-
-tee ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py << EOF
-import sys
-sys.path[0:0] = [
-    "${HOME}/micromamba/envs/python_libs/lib/python3.12/site-packages"
-]
-EOF
-
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/nbconvert-core/lib/python3.12/site-packages/
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/notebook/lib/python3.12/site-packages/
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_client/lib/python3.12/site-packages/
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_core/lib/python3.12/site-packages/
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyter_server/lib/python3.12/site-packages/
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/jupyterlab/lib/python3.12/site-packages/
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/sos/lib/python3.12/site-packages/
-#ln -f ${HOME}/.pixi/envs/python/lib/python3.12/site-packages/sitecustomize.py ${HOME}/.pixi/envs/ptpython/lib/python3.12/site-packages/
 
 # To add
 # citation-langserver
@@ -106,7 +100,7 @@ EOF
 # uutils-findutils
 # skywalking-eyes
 
-# Install 
+# Install
 if [ ! -d $HOME/.local/share/zinit ]; then
     export NO_INPUT=1
     export NO_ANNEXES=1

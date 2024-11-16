@@ -306,10 +306,10 @@ pyflyby
 pyink
 pylyzer
 pyright
+python=3.12
 python-lsp-server-base
 qpdf
 qsv
-r-base=4.3
 radon
 ranger-fm
 rargs
