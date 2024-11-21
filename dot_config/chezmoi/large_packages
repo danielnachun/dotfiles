@@ -6,8 +6,6 @@ azure-pipelines-language-server
 bibclean
 bibtex-tidy
 bisect_ppx
-byebug
-byebug-dap
 c2hs
 cabal-fmt
 cabal-install
@@ -36,7 +34,6 @@ dtools
 dub
 dune
 earlybird
-erubis
 fake
 fantomas
 fast-tags
@@ -89,15 +86,8 @@ paket
 pmd
 powershell
 prettierd
-pry
 rbspy
-readapt
-reek
 reportgenerator
-rubocop
-ruby-lsp
-rubyfmt
-rufo
 sbt
 scala-cli
 scala3
@@ -106,12 +96,7 @@ scalariform
 semgrep
 serve-d
 shake
-solargraph
 sql-formatter
 sql-language-server
-standardrb
-steep
 stylish-haskell
-syntax_tree
 tidy-html5
-undercover
