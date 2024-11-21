@@ -17,13 +17,8 @@ if [ ! -f $HOME/.pixi/bin/pixi ]; then
 fi
 
 export PATH="$HOME/.pixi/bin:${PATH}"
-if [ -d ${HOME}/.pixi/envs ]; then
-    ls ${HOME}/.pixi/envs > /tmp/installed_packages
-else
-    touch /tmp/installed_packages
-fi
 
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list) | tr '\n' ' ')
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list)
 pixi global expose remove parallel rename
 {{ if eq .chezmoi.os "linux" -}}
 pixi global expose remove kill
@@ -31,35 +26,33 @@ pixi global expose remove kill
 pixi global install coreutils \
     parallel \
     rename
-pixi global install --environment python \
-    ipython \
-    jupyter_client \
-    jupyter_core \
-    jupyter_server \
-    jupyterlab \
-    ptpython \
-    nbconvert-core \
-    notebook \
-    sos \
-    python=3.12
-pixi global install r-base=4.3 --expose R=r --expose Rscript=rscript
-pixi global install --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
+if [ ! -z ${SKIP_PYTHON} ]; then
+    pixi global install python=3.12
+    pixi global install --environment python $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/python_packages)
+fi
+if [ ! -z ${SKIP_R} ]; then
+    pixi global install r-base=4.3 --expose R=r --expose Rscript=rscript
+    pixi global install --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
+fi
 {{ if eq .chezmoi.os "linux" -}}
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages) | tr '\n' ' ')
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages)
 pixi global expose remove kill uptime
 pixi global install procps-ng
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages) | tr '\n' ' ')
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages)
+brew update
 brew bundle install --file=$HOME/.local/share/chezmoi/dot_config/chezmoi/Brewfile_casks
 export FULL_INSTALL=1
 {{ end }}
 if [ ! -z ${FULL_INSTALL} ]; then
-    pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/large_packages) | tr '\n' ' ')
-    pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/huge_packages) | tr '\n' ' ')
+    pixi global install ruby
+    pixi global install --environment ruby $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/ruby_packages)
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/large_packages)
+    pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/huge_packages)
 fi
 {{ if eq .chezmoi.arch "amd64" -}}
-pixi global install -c dnachun -c conda-forge $(comm -13 <(sort -u /tmp/installed_packages) <(sort -u $HOME/.local/share/chezmoi/dot_config/chezmoi/intel_packages) | tr '\n' ' ')
+pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/intel_packages)
 {{ end }}
 
 micromamba shell init --shell=bash $HOME/micromamba
