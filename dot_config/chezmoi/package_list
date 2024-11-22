@@ -10,14 +10,11 @@ atuin
 autoconf
 autogen
 automake
-auto-optional
-autopep8
 autotools-language-server
 awk-language-server
 bacon
 bacon-ls
 bartib
-bandit
 bash
 bash-language-server
 bat
@@ -27,7 +24,6 @@ bingrep
 biome
 bison
 bit-git
-black
 bottom
 breezy
 broot
@@ -75,7 +71,6 @@ difftastic
 diffutils
 diskonaut
 diskus
-docformatter
 dprint
 dsq
 dtrx
@@ -90,7 +85,6 @@ eclint
 efm-langserver
 elvish
 entr
-eradicate
 erg
 eva
 eza
@@ -107,7 +101,6 @@ file
 findent
 findutils
 fixjson
-flake8
 flex
 flint-checker
 fork-cleaner
@@ -184,10 +177,8 @@ ijq
 impl
 indent
 inetutils
-isort
 jaq
 jd
-jedi-language-server
 jid
 jinja-lsp
 jj
@@ -242,7 +233,6 @@ moar
 moreutils
 mprocs
 murex
-mypy
 navi
 ncdu
 ncftp
@@ -298,19 +288,9 @@ pspg
 pueue
 pup
 py-spy
-pycln
-pycodestyle
 pycp
-pydocstyle
-pyflyby
-pyink
-pylyzer
-pyright
-python=3.12
-python-lsp-server-base
 qpdf
 qsv
-radon
 ranger-fm
 rargs
 rclone
@@ -327,8 +307,6 @@ rospo
 rsc-2fa
 rsync
 ruby
-ruff
-ruff-lsp
 rush
 rusync
 sad
@@ -390,7 +368,6 @@ unar
 uncrustify
 unzip
 up
-usort
 util-linux
 vale
 vale-ls
@@ -398,9 +375,8 @@ vim-language-server
 vim-vint
 viu
 vscode-go-debug-adapter
-vscode-json-languageserver
+vscode-langservers-extracted
 vscode-spectral-language-server
-vulture
 watchexec
 wget
 which
@@ -419,7 +395,6 @@ yaml-language-server
 yamlfix
 yamlfmt
 yamllint
-yapf
 yj
 zellij
 zenith
