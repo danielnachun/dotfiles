@@ -26,11 +26,11 @@ pixi global expose remove kill
 pixi global install coreutils \
     parallel \
     rename
-if [ ! -z ${SKIP_PYTHON} ]; then
+if [ -z ${SKIP_PYTHON} ]; then
     pixi global install python=3.12
     pixi global install --environment python $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/python_packages)
 fi
-if [ ! -z ${SKIP_R} ]; then
+if [ -z ${SKIP_R} ]; then
     pixi global install r-base=4.3 --expose R=r --expose Rscript=rscript
     pixi global install --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
 fi
