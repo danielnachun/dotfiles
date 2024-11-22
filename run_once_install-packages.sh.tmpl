@@ -33,6 +33,7 @@ fi
 if [ -z ${SKIP_R} ]; then
     pixi global install r-base=4.3 --expose R=r --expose Rscript=rscript
     pixi global install --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
+    cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
 fi
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages)
@@ -61,8 +62,6 @@ micromamba config prepend channels nodefaults
 micromamba config prepend channels bioconda
 micromamba config prepend channels conda-forge
 micromamba config prepend channels dnachun
-
-cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
 
 # Create config files for rstudio
 mkdir -p ${HOME}/.config/rstudio
