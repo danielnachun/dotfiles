@@ -375,7 +375,7 @@ vim-language-server
 vim-vint
 viu
 vscode-go-debug-adapter
-vscode-langservers-extended
+vscode-langservers-extracted
 vscode-spectral-language-server
 watchexec
 wget
