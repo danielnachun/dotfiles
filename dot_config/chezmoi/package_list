@@ -346,6 +346,7 @@ texlab
 textlint
 the-way
 the_silver_searcher
+tidy-viewer
 tig
 time
 tmux
@@ -360,7 +361,6 @@ treefmt
 tsv-utils
 ttags
 tuc
-tv
 typos-cli
 typos-lsp
 ugrep
