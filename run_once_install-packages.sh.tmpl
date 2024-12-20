@@ -31,7 +31,7 @@ if [ -z ${SKIP_PYTHON} ]; then
     pixi global install --environment python $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/python_packages)
 fi
 if [ -z ${SKIP_R} ]; then
-    pixi global install r-base=4.3 --expose R=r --expose Rscript=rscript
+    pixi global install r-base=4.3
     pixi global install --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
     cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
 fi
@@ -77,11 +77,6 @@ server-daemonize=0
 server-data-dir=${HOME}/.local/var/run/rstudio-server
 server-user=${USER}
 EOF
-
-{{ if eq .chezmoi.os "linux" -}}
-ln -sf ${HOME}/.pixi/bin/r ${HOME}/.pixi/bin/R
-ln -sf ${HOME}/.pixi/bin/rscript ${HOME}/.pixi/bin/Rscript
-{{ end }}
 
 # To add
 # citation-langserver
