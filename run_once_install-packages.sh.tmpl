@@ -28,17 +28,17 @@ pixi global install -c dnachun -c conda-forge coreutils \
     rename
 if [ -z ${SKIP_PYTHON} ]; then
     pixi global install python=3.12
-    pixi global install --environment python $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/python_packages)
+    pixi global install -c dnachun -c conda-forge --environment python $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/python_packages)
 fi
 if [ -z ${SKIP_R} ]; then
     pixi global install r-base=4.3
-    pixi global install --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
+    pixi global install -c dnachun -c conda-forge --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
     cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
 fi
 {{ if eq .chezmoi.os "linux" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages)
 pixi global expose remove kill uptime
-pixi global install procps-ng
+pixi global install -c dnachun -c conda-forge procps-ng
 {{ end }}
 {{ if eq .chezmoi.os "darwin" -}}
 pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/macos_packages)
