@@ -23,7 +23,7 @@ pixi global expose remove parallel rename
 {{ if eq .chezmoi.os "linux" -}}
 pixi global expose remove kill
 {{ end }}
-pixi global install coreutils \
+pixi global install -d dnachun -c conda-forge coreutils \
     parallel \
     rename
 if [ -z ${SKIP_PYTHON} ]; then
