@@ -33,8 +33,6 @@ jobs:
           export FULL_INSTALL=1
           export PATH="${HOME}/bin:${PATH}"
           chezmoi apply
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   osx-64:
     runs-on: macos-latest
@@ -65,8 +63,6 @@ jobs:
         run: |
           export PATH="${HOME}/bin:${PATH}"
           chezmoi apply
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   osx-arm64:
     runs-on: macos-14
@@ -97,5 +93,3 @@ jobs:
         run: |
           export PATH="${HOME}/bin:${PATH}"
           chezmoi apply
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
