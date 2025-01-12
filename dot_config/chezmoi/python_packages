@@ -67,7 +67,6 @@ sos
 sos-bash
 sos-notebook
 sos-python
-sos-r
 sympy
 usort
 yapf
