@@ -3,7 +3,7 @@ colima
 djvulibre
 docker-cli
 docker-buildx
-docker-credential-helper
+docker-credential-helpers
 ghostscript
 lima-vm
 mas
