@@ -27,11 +27,11 @@ pixi global install -c dnachun -c conda-forge coreutils \
     parallel \
     rename
 if [ -z ${SKIP_PYTHON} ]; then
-    pixi global install python=3.12
+    pixi global install -c dnachun -c conda-forge python=3.12
     pixi global install -c dnachun -c conda-forge --environment python $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/python_packages)
 fi
 if [ -z ${SKIP_R} ]; then
-    pixi global install r-base=4.3
+    pixi global install -c dnachun -c conda-forge r-base=4.3
     pixi global install -c dnachun -c conda-forge --environment r-base r-languageserver r-colorout r-learnr r-tidyverse radian
     cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
 fi
@@ -47,8 +47,8 @@ brew bundle install --file=$HOME/.local/share/chezmoi/dot_config/chezmoi/Brewfil
 export FULL_INSTALL=1
 {{ end }}
 if [ ! -z ${FULL_INSTALL} ]; then
-    pixi global install ruby
-    pixi global install --environment ruby $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/ruby_packages)
+    pixi global install -c dnachun -c conda-forge ruby
+    pixi global install -c dnachun -c conda-forge --environment ruby $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/ruby_packages)
     pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/large_packages)
     pixi global install -c dnachun -c conda-forge $(tr '\n' ' ' < $HOME/.local/share/chezmoi/dot_config/chezmoi/huge_packages)
 fi

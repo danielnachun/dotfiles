@@ -1,0 +1,1 @@
+default-channels = ["dnachun", "conda-forge", "bioconda"]
