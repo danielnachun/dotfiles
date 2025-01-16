@@ -35,7 +35,7 @@ jobs:
           chezmoi apply
 
   osx-64:
-    runs-on: macos-latest
+    runs-on: macos-13
     strategy:
       fail-fast: false
 
