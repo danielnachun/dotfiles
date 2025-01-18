@@ -91,6 +91,7 @@ EOF
 if [ ! -d $HOME/.local/share/zinit ]; then
     export NO_INPUT=1
     export NO_ANNEXES=1
+    export ZSH_DISABLE_COMPFIX="true"
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
     zsh -c "source $HOME/.zshrc"
 fi
