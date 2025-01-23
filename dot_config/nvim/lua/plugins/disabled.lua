@@ -4,5 +4,5 @@ return {
 	{ "jay-babu/mason-nvim-dap.nvim", enabled = false },
 	{ "mfusenegger/nvim-dap-python", enabled = false },
 	{ "catppuccin/nvim", enabled = false },
-	{ "folke/tokyonight.nvim", enable = false },
+	{ "folke/tokyonight.nvim", enabled = false },
 }

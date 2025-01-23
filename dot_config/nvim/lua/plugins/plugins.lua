@@ -36,4 +36,5 @@ return {
 	--'s1n7ax/nvim-window-picker',
 	--'mrjones2014/smart-splits.nvim'
 	{ "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim" },
+	{ "saghen/blink.compat" },
 }

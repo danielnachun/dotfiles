@@ -1,7 +1,7 @@
 return {
     "R-nvim/R.nvim",
     opts = {
-        nvimpager = "split_v",
+        nvimpager = "split_h",
         rconsole_width = 0,
         Rout_more_colors = true,
         esc_term = false,
@@ -18,5 +18,5 @@ return {
                 vim.api.nvim_buf_set_keymap(0, "n", "<LocalLeader>s", "<Cmd>lua require('r.run').action('str')<CR>", {})
             end
         },
-    }
+    },
 }

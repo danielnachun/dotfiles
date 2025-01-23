@@ -8,7 +8,6 @@ return {
 			-- vim.cmd("highlight LineNr guibg=#f0f0f1")
 		end,
 	},
-
 	{
 		"LazyVim/LazyVim",
 		opts = {

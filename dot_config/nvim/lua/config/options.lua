@@ -19,12 +19,16 @@ opt.ttimeoutlen = 0
 opt.relativenumber = false
 --opt.ffs = "unix,dos,mac"
 opt.mousemoveevent = true
+opt.wrap = true
 
 function set_var(args)
 	vim.api.nvim_set_var(args.variable, args.value)
 end
 vim.g.autoformat = false
+vim.g.snacks_animate = false
 vim.b.autoformat = false
+vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_ruby_lsp = "solargraph"
 
 set_var({
 	variable = "mapleader",
@@ -68,3 +72,7 @@ set_var({
 	variable = "tex_flavor",
 	value = "latex",
 })
+
+-- require ('lspconfig').util.default_config.on_init = function(client, _)
+--   client.server_capabilities.semanticTokensProvider = nil
+-- end

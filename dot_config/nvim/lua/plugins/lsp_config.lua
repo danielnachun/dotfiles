@@ -16,7 +16,7 @@ return {
 			fortls = {},
 			fsautocomplete = {},
 			golangci_lint_ls = {},
-			harper_ls = {},
+			-- harper_ls = {},
 			--jedi_language_server = {},
 			jqls = {},
 			jsonnet_ls = {},
@@ -29,12 +29,11 @@ return {
 			--perlls = {}, compare to perlpls
 			perlpls = {},
 			-- prosemd = {},
-			pylyzer = {},
-			remark_ls = {},
+			-- remark_ls = {},
 			--rubocop = {}, probably handled by solargraph
 			--rust_analyzer = {}, handeld by rustacean?
 			serve_d = {},
-			-- spectral = {},  missing package
+			spectral = {},
 			sqlls = {},
 			--standardrb = {}, handled by solargraph?
 			steep = {},
@@ -43,5 +42,10 @@ return {
 			typeprof = {},
 			vale_ls = {},
 		},
+        capabilities = {
+            workspace = {
+                semanticTokensProvider = nil
+            }
+        }
 	},
 }

@@ -54,7 +54,12 @@ set_normal_keymap({
 })
 
 -- Telescope
-set_normal_keymap({
-    shortcut = "<C-P>",
-    command = ":Telescope oldfiles<CR>"
-})
+-- set_normal_keymap({
+--     shortcut = "<C-P>",
+--     command = ":Telescope oldfiles<CR>"
+-- })
+
+-- set_normal_keymap({
+--     shortcut = "<localleader>ll",
+--     command = "<plug>(vimtex-compile)"
+-- })
