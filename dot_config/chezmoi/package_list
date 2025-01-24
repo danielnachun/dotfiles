@@ -118,6 +118,7 @@ gccdiag
 gdown
 gdu
 gersemi
+gettext-tools
 gfortran
 gh
 ghorg
@@ -156,10 +157,10 @@ golines
 gomodifytags
 gopls
 gotop
+gperf
 gpg-tui
 grep
 grex
-gsutil
 gron
 guile
 gzip
@@ -390,7 +391,7 @@ xmlto
 xonsh
 xplr
 xq
-xz
+xz-tools
 yaml-language-server
 yamlfix
 yamlfmt
