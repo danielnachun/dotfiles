@@ -2,6 +2,7 @@ return {
     "folke/snacks.nvim",
     opts = {
         dashboard = {
+            width = 100,
             sections = {
                 -- { section = "terminal", cmd = "fortune -s | cowsay", hl = "header", padding = 1, indent = 8 },
                 { section = "header"},

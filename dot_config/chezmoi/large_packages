@@ -59,6 +59,11 @@ ivy
 jacoco
 jdtls
 junit5
+kotlin
+kotlin-debug-adapter
+kotlin-language-server
+ktfmt
+ktlint
 ldc
 local-lua-debugger-vscode
 lua-language-server
@@ -85,6 +90,7 @@ opendebugad7
 paket
 pmd
 powershell
+prettier
 prettierd
 rbspy
 reportgenerator

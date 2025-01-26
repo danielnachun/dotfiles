@@ -24,14 +24,19 @@ bingrep
 biome
 bison
 bit-git
+bool
 bottom
+botsay
 breezy
 broot
 btop
 bzip2
 bzip3
 cbfmt
+cflow
 cgrep
+chafa
+charasay
 chars
 checkmake
 chezmoi
@@ -46,10 +51,14 @@ code-minimap
 codelldb
 codespell
 colortail
+combine
 comby
 commitlint
+complexity
+cowsay
 cpio
 cppcheck
+cppi
 cpplint
 croc
 cspell
@@ -69,6 +78,7 @@ diffr
 diffsitter
 difftastic
 diffutils
+direvent
 diskonaut
 diskus
 dprint
@@ -82,6 +92,7 @@ dura
 dust
 dyff
 eclint
+ed
 efm-langserver
 elvish
 entr
@@ -105,6 +116,7 @@ flex
 flint-checker
 fork-cleaner
 fortls
+fortune-mod
 fprettify
 fq
 fselect
@@ -114,6 +126,7 @@ fzf
 fzy
 gawk
 gaze
+gcal
 gccdiag
 gdown
 gdu
@@ -199,12 +212,14 @@ lemminx
 less
 lf
 lftp
+libextractor
 libtool
 licensor
 llama
 lld
 lldb
 llvm-tools
+lolcat
 lsof
 lua
 lychee
@@ -217,6 +232,7 @@ man-db
 markdown-toc
 markdownlint-cli2
 massren
+mc
 mcfly
 mdcat
 mdformat
@@ -230,6 +246,7 @@ mesonlsp
 micro
 micromamba
 miller
+misfortune
 moar
 moreutils
 mprocs
@@ -251,6 +268,7 @@ ocdc
 octosql
 oh-my-posh
 orgalorg
+osc
 ouch
 p7zip
 page
@@ -271,6 +289,7 @@ perl-perl-critic
 perl-pls
 perl-perl-tidy
 perlnavigator-server
+pexec
 pget
 pgformatter
 pigz
@@ -316,7 +335,9 @@ sd
 sed
 selene
 send2trash
+sharutils
 sheldon
+shell-color-scripts
 shellcheck
 shellharden
 shelltestrunner
@@ -341,6 +362,7 @@ tealdeer
 tectonic
 teip
 tere
+terraform
 terraform-ls
 texinfo
 texlab
@@ -364,9 +386,11 @@ ttags
 tuc
 typos-cli
 typos-lsp
+ueberzugpp
 ugrep
 unar
 uncrustify
+units
 unzip
 up
 util-linux
@@ -396,6 +420,7 @@ yaml-language-server
 yamlfix
 yamlfmt
 yamllint
+yazi
 yj
 zellij
 zenith
