@@ -7,7 +7,8 @@ safe_expose_remove() {
     executable=$2
     if [ -d ${HOME}/.pixi/envs/${environment} ]; then
         exposed_exes=$(pixi global list --environment ${environment} | tail -n 3 | head -n 1 | tr ',' '\n')
-        if [ ! $(echo ${exposed_exes} | tr ' ' '\n' | grep -q ${executable}) ]; then
+        echo ${exposed_exes} | tr ' ' '\n' | grep -q ${executable}
+        if [[ $? == 0 ]]; then
             pixi global expose remove ${executable}
         fi
     fi
