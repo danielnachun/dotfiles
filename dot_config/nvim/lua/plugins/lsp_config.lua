@@ -41,6 +41,22 @@ return {
 			ttags = {},
 			typeprof = {},
 			vale_ls = {},
+            yamlls = {
+                settings = {
+                    yaml = {
+                        schemas = require('schemastore').yaml.schemas {
+                            extra = {
+                                {
+                                    description = "Rattler build schema",
+                                    fileMatch = "recipe.yaml",
+                                    name = "recipe.yaml",
+                                    url = "https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 		},
         capabilities = {
             workspace = {

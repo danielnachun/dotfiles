@@ -80,7 +80,7 @@ if [ -z ${SKIP_PYTHON} ]; then
 fi
 if [ -z ${SKIP_R} ]; then
     clean_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/r_packages
-    pixi global install r-base=4.3
+    pixi global install r-base=4.4
     inject_packages r-base $HOME/.local/share/chezmoi/dot_config/chezmoi/r_packages
     cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
 fi

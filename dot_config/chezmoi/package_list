@@ -2,6 +2,7 @@ ack
 amp
 angle-grinder
 aria2
+ark
 as-tree
 asciiquarium
 astyle
@@ -111,6 +112,7 @@ file
 findent
 findutils
 fixjson
+fish
 flex
 flint-checker
 fork-cleaner
@@ -173,6 +175,7 @@ gperf
 gpg-tui
 grep
 grex
+groff
 gron
 guile
 gzip
@@ -180,6 +183,7 @@ harper
 heatseeker
 helix
 hello
+help2man
 hexyl
 hstr
 htmlq
@@ -197,6 +201,7 @@ jinja-lsp
 jj
 jless
 joshuto
+jq
 jq-lsp
 jql
 jsonlint
@@ -221,6 +226,7 @@ llvm-tools
 lolcat
 lsof
 lua
+luacheck
 lychee
 lzip
 lzop
@@ -256,6 +262,7 @@ ncftp
 neocmakelsp
 neofetch
 neovim-remote
+netpbm
 ninja
 nnn
 nodejs
@@ -297,6 +304,7 @@ pixz
 pkg-config
 pkgconf
 plzip
+pnpm
 pomsky
 prql-compiler
 procs

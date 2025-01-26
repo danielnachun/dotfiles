@@ -10,6 +10,7 @@ mas
 pinentry
 pinentry-mac
 podman-remote
+qemu
 skhd
 t-rec
 terminal-notifier
