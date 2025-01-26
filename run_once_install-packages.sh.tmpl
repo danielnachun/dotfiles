@@ -63,6 +63,7 @@ fi
 export PATH="$HOME/.pixi/bin:${PATH}"
 
 install_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list
+safe_expose_remove moreutils combine
 safe_expose_remove moreutils parallel
 safe_expose_remove moreutils rename
 {{ if eq .chezmoi.os "linux" -}}
