@@ -86,6 +86,7 @@ if [ -z ${SKIP_R} ]; then
 fi
 {{ if eq .chezmoi.os "linux" -}}
 install_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages
+safe_expose_remove coreutils kill
 safe_expose_remove coreutils uptime
 install_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/conflict_packages_linux
 {{ end }}
