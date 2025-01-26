@@ -29,6 +29,7 @@ vim.g.snacks_animate = false
 vim.b.autoformat = false
 vim.g.lazyvim_python_lsp = "pyright"
 vim.g.lazyvim_ruby_lsp = "solargraph"
+vim.g.system_copy_enable_osc52 = 1
 
 set_var({
 	variable = "mapleader",
