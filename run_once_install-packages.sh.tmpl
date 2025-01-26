@@ -7,8 +7,7 @@ safe_expose_remove() {
     executable=$2
     if [ -d ${HOME}/.pixi/envs/${environment} ]; then
         exposed_exes=$(pixi global list --environment ${environment} | tail -n 3 | head -n 1 | tr ',' '\n')
-        echo ${exposed_exes} | tr ' ' '\n' | grep -q ${executable}
-        if [[ $? == 0 ]]; then
+        if [[ " ${exposed_exes[*]} " =~ [[:space:]]${executable}[[:space:]] ]]; then
             pixi global expose remove ${executable}
         fi
     fi
@@ -66,7 +65,7 @@ export PATH="$HOME/.pixi/bin:${PATH}"
 install_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list
 safe_expose_remove moreutils combine
 safe_expose_remove moreutils parallel
-safe_expose_remove moreutils rename
+safe_expose_remove util-linux rename
 {{ if eq .chezmoi.os "linux" -}}
 safe_expose_remove util-linux kill
 {{ end }}
