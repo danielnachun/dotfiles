@@ -26,7 +26,7 @@ return {
 	{ "chrisbra/NrrwRgn" },
 	{ "kevinhwang91/promise-async" },
 	--'max397574/better-escape.nvim',
-	{ "phaazon/hop.nvim" },
+	-- { "phaazon/hop.nvim" },
 	--'SmiteshP/nvim-navbuddy'
 	{ "Vigemus/iron.nvim" },
 	{ "akinsho/toggleterm.nvim" },

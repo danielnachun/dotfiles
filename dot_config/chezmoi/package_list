@@ -227,6 +227,7 @@ lolcat
 lsof
 lua
 luacheck
+luarocks
 lychee
 lzip
 lzop
