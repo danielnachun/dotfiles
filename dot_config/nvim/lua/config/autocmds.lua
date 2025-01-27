@@ -6,47 +6,23 @@ function create_autocmd(args)
 	vim.api.nvim_create_autocmd(args.event, { pattern = args.pattern, callback = args.command })
 end
 
--- Switch to insert mode when entering terminal buffer.
+-- Switch to insert mode, hide cursor line and line numbers when entering terminal buffer.
 create_autocmd({
 	event = { "BufWinEnter", "WinEnter" },
 	pattern = "term://*",
 	command = function()
 		vim.api.nvim_command("startinsert")
-	end,
-})
-
--- Turn on cursorline when entering terminal buffer.
-create_autocmd({
-	event = { "BufWinEnter", "WinEnter" },
-	pattern = "term://*",
-	command = function()
 		vim.opt.cursorline = true
-	end,
-})
-
--- Turn off line numbers when entering terminal buffer.
-create_autocmd({
-	event = { "BufWinEnter", "WinEnter" },
-	pattern = "term://*",
-	command = function()
 		vim.opt.number = false
 	end,
 })
 
--- Switch back to previous mode when exiting terminal buffer.
+-- Switch back to previous mode and re-enable cursorline when exiting terminal buffer.
 create_autocmd({
 	event = "BufLeave",
 	pattern = "term://*",
 	command = function()
 		vim.api.nvim_command("stopinsert")
-	end,
-})
-
--- Turn on cursorline when entering terminal buffer.
-create_autocmd({
-	event = "BufLeave",
-	pattern = "term://*",
-	command = function()
 		vim.opt.cursorline = false
 	end,
 })
@@ -60,20 +36,42 @@ create_autocmd({
 	end,
 })
 
+-- Actualy disable tree-sitter for R
+create_autocmd({
+	event = { "BufEnter", "WinEnter" },
+	pattern = "*.R",
+	command = function()
+		vim.api.nvim_command("TSToggle highlight")
+		vim.api.nvim_command("TSToggle highlight")
+	end,
+})
+
+-- Actualy disable tree-sitter for Python
+create_autocmd({
+	event = { "BufEnter", "WinEnter" },
+	pattern = "*.py",
+	command = function()
+		vim.api.nvim_command("TSToggle highlight")
+		vim.api.nvim_command("TSToggle highlight")
+	end,
+})
+
+-- Actualy disable tree-sitter for Python
+create_autocmd({
+	event = { "BufEnter", "WinEnter" },
+	pattern = "*.rb",
+	command = function()
+		vim.api.nvim_command("TSToggle highlight")
+		vim.api.nvim_command("TSToggle highlight")
+	end,
+})
+
 -- Resize the terminal buffer to 18 lines when it is opened.
 create_autocmd({
 	event = "TermOpen",
 	pattern = "*",
 	command = function()
 		vim.api.nvim_command("resize 18")
-	end,
-})
-
--- Turn off line numbers in terminal buffer when it is opened.
-create_autocmd({
-	event = "TermOpen",
-	pattern = "*",
-	command = function()
 		vim.opt.number = false
 	end,
 })
