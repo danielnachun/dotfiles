@@ -290,6 +290,7 @@ periscope
 perl
 perl-app-cope
 perl-app-perlimports
+perl-app-rainbarf
 perl-debug-adapter
 perl-devel-cover
 perl-perl-critic
