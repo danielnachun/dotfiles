@@ -20,6 +20,7 @@ opt.relativenumber = false
 --opt.ffs = "unix,dos,mac"
 opt.mousemoveevent = true
 opt.wrap = true
+opt.clipboard = ""
 
 function set_var(args)
 	vim.api.nvim_set_var(args.variable, args.value)
@@ -30,6 +31,17 @@ vim.b.autoformat = false
 vim.g.lazyvim_python_lsp = "pyright"
 vim.g.lazyvim_ruby_lsp = "solargraph"
 vim.g.system_copy_enable_osc52 = 1
+vim.g.clipboard = {
+  name = "void",
+  copy = {
+    ["+"] = true,
+    ["*"] = true
+  },
+  paste = {
+    ["+"] = {},
+    ["*"] = {}
+  }
+}
 
 set_var({
 	variable = "mapleader",
