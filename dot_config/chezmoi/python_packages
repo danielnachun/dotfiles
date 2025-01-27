@@ -52,6 +52,7 @@ pydocstyle
 pyflyby
 pyink
 pylyzer
+pynvim
 ptpython
 pyright
 pytables

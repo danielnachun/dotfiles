@@ -1,7 +1,9 @@
 actionlint
 alex
 ammonite-repl
+angular-language-server
 ant
+astro-ls
 azure-pipelines-language-server
 bibclean
 bibtex-tidy
@@ -59,6 +61,11 @@ ivy
 jacoco
 jdtls
 junit5
+kotlin
+kotlin-debug-adapter
+kotlin-language-server
+ktfmt
+ktlint
 ldc
 local-lua-debugger-vscode
 lua-language-server
@@ -81,10 +88,12 @@ ocamlformat
 odoc
 omnisharp-roslyn
 ocp-indent
+opam
 opendebugad7
 paket
 pmd
 powershell
+prettier
 prettierd
 rbspy
 reportgenerator
@@ -99,4 +108,6 @@ shake
 sql-formatter
 sql-language-server
 stylish-haskell
+svelte-language-server
 tidy-html5
+vue-language-server
