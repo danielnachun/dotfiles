@@ -91,7 +91,6 @@ duf
 dura
 dust
 dyff
-eclint
 ed
 efm-langserver
 elvish
@@ -153,6 +152,7 @@ glow-md
 gnupg
 go-archiver
 go-ccat
+go-eclint
 go-ghq
 go-git
 go-gum
