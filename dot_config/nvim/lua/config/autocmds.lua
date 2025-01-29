@@ -12,8 +12,6 @@ create_autocmd({
 	pattern = "term://*",
 	command = function()
 		vim.api.nvim_command("startinsert")
-		vim.opt.cursorline = true
-		vim.opt.number = false
 	end,
 })
 
@@ -23,7 +21,6 @@ create_autocmd({
 	pattern = "term://*",
 	command = function()
 		vim.api.nvim_command("stopinsert")
-		vim.opt.cursorline = false
 	end,
 })
 
@@ -41,8 +38,7 @@ create_autocmd({
 	event = { "BufEnter", "WinEnter" },
 	pattern = "*.R",
 	command = function()
-		vim.api.nvim_command("TSToggle highlight")
-		vim.api.nvim_command("TSToggle highlight")
+		vim.api.nvim_command("TSDisable highlight")
 	end,
 })
 
@@ -51,8 +47,7 @@ create_autocmd({
 	event = { "BufEnter", "WinEnter" },
 	pattern = "*.py",
 	command = function()
-		vim.api.nvim_command("TSToggle highlight")
-		vim.api.nvim_command("TSToggle highlight")
+		vim.api.nvim_command("TSDisable highlight")
 	end,
 })
 
@@ -61,8 +56,16 @@ create_autocmd({
 	event = { "BufEnter", "WinEnter" },
 	pattern = "*.rb",
 	command = function()
-		vim.api.nvim_command("TSToggle highlight")
-		vim.api.nvim_command("TSToggle highlight")
+		vim.api.nvim_command("TSDisable highlight")
+	end,
+})
+
+-- Switch back to previous mode and re-enable cursorline when exiting terminal buffer.
+create_autocmd({
+	event = { "BufEnter", "WinEnter"},
+	pattern = "*(help)",
+	command = function()
+		vim.api.nvim_command("vertical resize 80")
 	end,
 })
 
@@ -73,6 +76,8 @@ create_autocmd({
 	command = function()
 		vim.api.nvim_command("resize 18")
 		vim.opt.number = false
+		vim.opt.cursorline = false
+		vim.opt.signcolumn = "no"
 	end,
 })
 
