@@ -1,7 +1,7 @@
 return {
     "R-nvim/R.nvim",
     opts = {
-        nvimpager = "split_h",
+        nvimpager = "split_v",
         rconsole_width = 0,
         Rout_more_colors = true,
         esc_term = false,
