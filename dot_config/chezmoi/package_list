@@ -5,6 +5,7 @@ aria2
 ark
 as-tree
 asciiquarium
+ast-grep
 astyle
 atool
 atuin
@@ -224,6 +225,7 @@ lld
 lldb
 llvm-tools
 lolcat
+lsdeluxe
 lsof
 lua
 luacheck
