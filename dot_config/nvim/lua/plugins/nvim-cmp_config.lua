@@ -1,8 +1,28 @@
 return {
 	"hrsh7th/nvim-cmp",
     dependencies = {
-        "hrsh7th/cmp-cmdline"
+        "amarz45/nvim-cmp-buffer-lines",
+        "chrisgrieser/cmp_yanky",
+        "delphinus/cmp-ctags",
+        "Dosx001/cmp-commit",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-calc",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "hrsh7th/cmp-nvim-lsp-document-symbol",
+        "hrsh7th/cmp-cmdline",
+        "KadoBOT/cmp-plugins",
+        "lukas-reineke/cmp-rg",
+        "micangl/cmp-vimtex",
+        "petertriho/cmp-git",
+        "rasulomaroff/cmp-bufname",
+        "ray-x/cmp-treesitter",
+        "rcarriga/cmp-dap",
+        "tamago324/cmp-zsh"
     },
+    enabled = function()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+            or require("cmp_dap").is_dap_buffer()
+    end,
 	opts = function(_, opts)
 		local cmp = require("cmp")
 
@@ -17,25 +37,25 @@ return {
 
 		local lspkind = require("lspkind")
 
-		opts.formatting = vim.tbl_extend("force", opts.formatting, {
-			fields = { "abbr", "kind", "menu" },
-			format = lspkind.cmp_format({
-				mode = "symbol_text", -- show only symbol annotations
-				maxwidth = 50, -- prevent the popup from showing more than provided characters
-				ellipsis_char = "...", -- the truncated part when popup menu exceed maxwidth
-				before = function(entry, item)
-					local menu_icon = {
-						nvim_lsp = "",
-						vsnip = "",
-						path = "",
-						cmp_zotcite = "z",
-						cmp_r = "R",
-					}
-					item.menu = menu_icon[entry.source.name]
-					return item
-				end,
-			}),
-		})
+		-- opts.formatting = vim.tbl_extend("force", opts.formatting, {
+		-- 	fields = { "abbr", "kind", "menu" },
+			-- format = lspkind.cmp_format({
+			-- 	mode = "symbol_text", -- show only symbol annotations
+			-- 	maxwidth = 50, -- prevent the popup from showing more than provided characters
+			-- 	ellipsis_char = "...", -- the truncated part when popup menu exceed maxwidth
+			-- 	before = function(entry, item)
+			-- 		local menu_icon = {
+			-- 			nvim_lsp = "",
+			-- 			vsnip = "",
+			-- 			path = "",
+			-- 			cmp_zotcite = "z",
+			-- 			cmp_r = "R",
+			-- 		}
+			-- 		item.menu = menu_icon[entry.source.name]
+			-- 		return item
+			-- 	end,
+			-- }),
+		-- })
 
 		--opts.snippet = vim.tbl_extend("force", opts.snippet, {
 		--    expand = function(args)
@@ -84,6 +104,24 @@ return {
                 c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
             }),
 		})
+
+        opts.sources = opts.sources or {}
+        table.insert(
+            opts.sources,
+            {
+                -- { name = "buffer-lines" },
+                { name = "bufname" },
+                { name = "calc" },
+                { name = "cmp_yanky" },
+                { name = "ctags" },
+                { name = "nvim_lsp_signature_help"},
+                { name = "nvim_lsp_signature_help"},
+                { name = "nvim_lua" },
+                { name = "rg" },
+                { name = "vimtex" },
+                { name = "zsh" }
+            }
+        )
 		-- opts.sources = cmp.config.sources({
 		--   { name = "nvim_lsp" },
 		--   { name = "vsnip" },
@@ -97,10 +135,17 @@ return {
 		cmp.setup.filetype("gitcommit", {
 			sources = cmp.config.sources({
 				{ name = "cmp_git" },
+                { name = "commit" },
 				{ name = "buffer" },
 			}),
 		})
 
+        cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+            sources = {
+                { name = "dap" },
+            },
+        })
+        --
 		-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 		-- cmp.setup.cmdline({ "/", "?" }, {
 		-- 	mapping = cmp.mapping.preset.cmdline(),
