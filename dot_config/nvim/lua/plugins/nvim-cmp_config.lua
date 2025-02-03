@@ -37,36 +37,6 @@ return {
 
 		local lspkind = require("lspkind")
 
-		-- opts.formatting = vim.tbl_extend("force", opts.formatting, {
-		-- 	fields = { "abbr", "kind", "menu" },
-			-- format = lspkind.cmp_format({
-			-- 	mode = "symbol_text", -- show only symbol annotations
-			-- 	maxwidth = 50, -- prevent the popup from showing more than provided characters
-			-- 	ellipsis_char = "...", -- the truncated part when popup menu exceed maxwidth
-			-- 	before = function(entry, item)
-			-- 		local menu_icon = {
-			-- 			nvim_lsp = "",
-			-- 			vsnip = "",
-			-- 			path = "",
-			-- 			cmp_zotcite = "z",
-			-- 			cmp_r = "R",
-			-- 		}
-			-- 		item.menu = menu_icon[entry.source.name]
-			-- 		return item
-			-- 	end,
-			-- }),
-		-- })
-
-		--opts.snippet = vim.tbl_extend("force", opts.snippet, {
-		--    expand = function(args)
-		--        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-		--    end,
-		--})
-
-		-- opts.window = vim.tbl_extend("force", opts.window, {
-		--   completion = cmp.config.window.bordered(),
-		--   documentation = cmp.config.window.bordered(),
-		-- })
 
 		opts.mapping = vim.tbl_extend("force", opts.mapping, {
 			["<C-e>"] = cmp.mapping.abort(),
@@ -122,14 +92,6 @@ return {
                 { name = "zsh" }
             }
         )
-		-- opts.sources = cmp.config.sources({
-		--   { name = "nvim_lsp" },
-		--   { name = "vsnip" },
-		--   { name = "cmp_r" },
-		--   { name = "buffer" },
-		--   { name = "path" },
-		--   { name = "tmux" },
-		-- })
 
 		-- Set configuration for git.
 		cmp.setup.filetype("gitcommit", {
