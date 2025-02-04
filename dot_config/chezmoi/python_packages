@@ -9,6 +9,7 @@ cachetools
 cloudpickle
 cython
 dask
+debugpy
 dill
 docformatter
 eradicate
