@@ -311,6 +311,7 @@ pkgconf
 plzip
 pnpm
 pomsky
+prettier
 prql-compiler
 procs
 proselint
