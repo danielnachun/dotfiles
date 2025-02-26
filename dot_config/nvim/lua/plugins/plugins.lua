@@ -39,4 +39,7 @@ return {
     { "christoomey/vim-system-copy" },
     { "ojroques/vim-oscyank" },
     { "smoka7/multicursors.nvim" },
+    { "GCBallesteros/NotebookNavigator.nvim" },
+    { "GCBallesteros/jupytext.nvim" },
+    { "benlubas/molten-nvim" }
 }

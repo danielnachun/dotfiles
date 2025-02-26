@@ -4,9 +4,13 @@ This repository contains my set of personal dotfiles managed by [chezmoi](https:
 - On Linux, `glibc` >= 2.17 and kernel >= 3.2 (required by Rust and some other `conda` packages)
 - On macOS, any version officially supported by Apple (for Homebrew)
 
-To install use:
+To install on Linux use:
 ```
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply danielnachun 
+sh -c "$(curl -fsLS get.chezmoi.io | sed -e 's/${GOOS_EXTRA}_${arch}/-musl_${arch}/')" -- init --apply danielnachun
+```
+To install on macOS use:
+```
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply danielnachun
 ```
 which will automatically download a pre-built `chezmoi` binary for your platform and clone the dotfiles in this repo into the correct locations.
 
