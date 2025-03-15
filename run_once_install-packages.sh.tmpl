@@ -2,10 +2,12 @@
 
 set -o xtrace -o errexit
 
+export PIXI_HOME=${PIXI_HOME:-${HOME}/.pixi}
+
 safe_expose_remove() {
     environment=$1
     executable=$2
-    if [ -d ${HOME}/.pixi/envs/${environment} ]; then
+    if [ -d ${PIXI_HOME}/envs/${environment} ]; then
         exposed_exes=$(pixi global list --environment ${environment} | tail -n 3 | head -n 1 | tr ',' '\n')
         if [[ " ${exposed_exes[*]} " =~ [[:space:]]${executable}[[:space:]] ]]; then
             pixi global expose remove ${executable}
@@ -17,7 +19,7 @@ export -f safe_expose_remove
 
 install_global_packages() {
     package_list=$1
-    missing_pkgs=$(comm -13 <(ls ${HOME}/.pixi/envs | sort -u) <(sort -u ${package_list}))
+    missing_pkgs=$(comm -13 <(ls ${PIXI_HOME}/envs | sort -u) <(sort -u ${package_list}))
     if (($(echo ${missing_pkgs} | wc -w) > 0 )); then
         pixi global install $(echo ${missing_pkgs} | tr '\n' ' ')
     fi
@@ -27,7 +29,7 @@ export install_global_packages
 
 clean_global_packages() {
     package_list=$1
-    uneeded_pkgs=$(comm -12 <(ls ${HOME}/.pixi/envs | sort -u) <(sort -u ${package_list}))
+    uneeded_pkgs=$(comm -12 <(ls ${PIXI_HOME}/envs | sort -u) <(sort -u ${package_list}))
     if (($(echo ${unneeded_pkgs} | wc -w) > 0 )); then
         pixi global uninstall $(echo ${missing_pkgs} | tr '\n' ' ')
     fi
@@ -46,13 +48,13 @@ inject_packages() {
 
 export inject_packages
 
-if [ ! -f $HOME/.pixi/bin/pixi ]; then
+if [ ! -f ${PIXI_HOME}/bin/pixi ]; then
     curl -fsSL https://pixi.sh/install.sh | bash
     if [ ! -f $HOME/.bashrc ]; then
-        echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> ${HOME}/.bashrc
+        echo "PATH=\"${PIXI_HOME}/bin:\${PATH}\"" >> ${HOME}/.bashrc
     else
-        if [ ! grep -q 'PATH="${HOME}/.pixi/bin:${PATH}"' < ${HOME}/.bashrc ]; then
-            echo 'PATH="${HOME}/.pixi/bin:${PATH}"' >> ${HOME}/.bashrc
+        if [ ! grep -q 'PATH="${PIXI_HOME}/bin:${PATH}"' < ${HOME}/.bashrc ]; then
+            echo "PATH=\"${PIXI_HOME}/bin:\${PATH}\"" >> ${HOME}/.bashrc
         fi
         if [ ! grep -q 'unset FPATH' < ${HOME}/.bashrc ]; then
             echo 'unset FPATH' >> ${HOME}/.bashrc
@@ -60,7 +62,7 @@ if [ ! -f $HOME/.pixi/bin/pixi ]; then
     fi
 fi
 
-export PATH="$HOME/.pixi/bin:${PATH}"
+export PATH="${PIXI_HOME}/bin:${PATH}"
 
 install_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/package_list
 safe_expose_remove moreutils combine
@@ -82,7 +84,7 @@ if [ -z ${SKIP_R} ]; then
     clean_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/r_packages
     pixi global install r-base=4.4
     inject_packages r-base $HOME/.local/share/chezmoi/dot_config/chezmoi/r_packages
-    cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${HOME}/.pixi/envs/r-base/lib/R/etc/Rprofile.site
+    cp ${HOME}/.local/share/chezmoi/dot_config/chezmoi/Rprofile ${PIXI_HOME}/envs/r-base/lib/R/etc/Rprofile.site
 fi
 {{ if eq .chezmoi.os "linux" -}}
 install_global_packages $HOME/.local/share/chezmoi/dot_config/chezmoi/linux_packages
@@ -121,7 +123,7 @@ directory=${HOME}/.local/var/lib/rstudio-server
 EOF
 
 tee ${HOME}/.config/rstudio/rserver.conf << EOF
-rsession-which-r=${HOME}/.pixi/envs/r-base/bin/R
+rsession-which-r=${PIXI_HOME}/envs/r-base/bin/R
 auth-none=1
 database-config-file=${HOME}/.config/rstudio/database.conf
 server-daemonize=0
