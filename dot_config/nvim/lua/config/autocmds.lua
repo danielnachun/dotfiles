@@ -38,7 +38,7 @@ create_autocmd({
 	event = { "BufEnter", "WinEnter" },
 	pattern = "*.R",
 	command = function()
-		vim.api.nvim_command("TSDisable highlight")
+		pcall(vim.treesitter.stop)
 	end,
 })
 
@@ -47,7 +47,7 @@ create_autocmd({
 	event = { "BufEnter", "WinEnter" },
 	pattern = "*.py",
 	command = function()
-		vim.api.nvim_command("TSDisable highlight")
+		pcall(vim.treesitter.stop)
 	end,
 })
 
@@ -56,7 +56,7 @@ create_autocmd({
 	event = { "BufEnter", "WinEnter" },
 	pattern = "*.rb",
 	command = function()
-		vim.api.nvim_command("TSDisable highlight")
+		pcall(vim.treesitter.stop)
 	end,
 })
 
