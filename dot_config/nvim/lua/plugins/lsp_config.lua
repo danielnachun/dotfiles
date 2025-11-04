@@ -3,6 +3,11 @@ return {
 	opts = {
 		autoformat = false,
 		servers = {
+            capabilities = {
+                workspace = {
+                    semanticTokensProvider = nil
+                }
+            },
 			autotools_ls = {},
 			awk_ls = {},
 			azure_pipelines_ls = {},
@@ -57,11 +62,6 @@ return {
                     }
                 }
             }
-		},
-        capabilities = {
-            workspace = {
-                semanticTokensProvider = nil
-            }
-        }
-	},
+		}
+	}
 }
