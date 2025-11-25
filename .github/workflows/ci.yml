@@ -34,36 +34,6 @@ jobs:
           export PATH="${HOME}/bin:${PATH}"
           chezmoi apply
 
-  osx-64:
-    runs-on: macos-13
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Checkout pull request branch
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Free Disk Space (macOS)
-        run: |
-          rm -rf ${HOME}/Library/Developer/CoreSimulator
-
-      - name: Set up working directories
-        run: |
-          mkdir -p ${HOME}/.local/share/chezmoi
-          cp -r * ${HOME}/.local/share/chezmoi
-
-      - name: Set up chezmoi
-        run: |
-          cd ${HOME}
-          sh -c "$(curl -fsLS get.chezmoi.io)"
-
-      - name: Test chezmoi
-        run: |
-          export PATH="${HOME}/bin:${PATH}"
-          chezmoi apply
-
   osx-arm64:
     runs-on: macos-14
     strategy:
