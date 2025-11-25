@@ -23,19 +23,25 @@ return {
                 "buffer",
                 "snippets",
                 "path",
-                "ripgrep",
+                -- "ripgrep",
                 "git",
+                "spell",
                 "tmux",
                 "env",
                 "conventional_commits",
                 "latex",
-                "npm"
+                "npm",
+                "yanky"
             },
             providers = {
                 ripgrep = {
                     module = "blink-ripgrep",
                     name = "Ripgrep",
-                    opts = {},
+                    opts = {
+                        backend = {
+                            use = "gitgrep-or-ripgrep"
+                        },
+                    },
                 },
                 git = {
                     module = "blink-cmp-git",
@@ -80,7 +86,7 @@ return {
                     async = true,
                     opts = {}
                 },
-                yank = {
+                yanky = {
                     name = "Yank",
                     module = "blink-yanky",
                     opts = {},
