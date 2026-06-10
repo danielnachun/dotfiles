@@ -1,1 +1,2 @@
 default-channels = ["dnachun", "conda-forge", "bioconda"]
+run-post-link-scripts = "insecure"
